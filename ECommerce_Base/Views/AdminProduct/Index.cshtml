@@ -1,0 +1,121 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="mx-auto" style="width:75%">
+    <br />
+    <h2>Products Table</h2>
+    <br />
+    <div class="d-flex justify-content-end">
+        @*<a class="btn btn-success" href="/AdminProduct/AddProduct">Add New Product</a>
+            <br />*@
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Add New Product
+        </button>
+    </div>
+
+    <br />
+    <table class="table table-striped">
+        <tr>
+            <th>#</th>
+            <th>Product Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Status</th>
+            <th>Delete</th>
+            <th>Update</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th data->@item.ProductID</th>
+                <td>@item.ProductName</td>
+                <td>@item.Category.CategoryName</td>
+                <td>@item.ProductPrice</td>
+                <td>@item.ProductStock</td>
+                <td>@item.ProductStatus</td>
+                <td><a href="/AdminProduct/DeleteProduct/@item.ProductID" class="btn btn-danger">Delete</a></td>
+                <td><a href="/AdminProduct/EditProduct/@item.ProductID" class="btn btn-warning">Update</a></td>
+
+            </tr>
+        }
+    </table>
+</div>
+
+<!-- Add Product Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add New Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <br />
+            @using (Html.BeginForm("AddProduct", "AdminProduct", FormMethod.Post))
+            {
+                <div class="mx-auto">
+                    <div class="form-group d-flex justify-content-center">
+                        <div class="row">
+                            <br /> <br />
+                            <div class="col-6">
+                                <label for="ProductName" class="form-label">Product Name</label>
+                                <input type="text" class="form-control" id="ProductName" name="ProductName">
+                            </div>
+                            <br /> <br />
+                            <div class="col-6">
+                                <div class="col-6 mx-auto">
+                                    <label class="form-label">Product Status</label>
+                                    <br />
+                                    <div class="d-flex justify-content-between">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="CategoryStatus" id="CategoryStatus" value="True">
+                                            <label class="form-check-label" for="CategoryStatus">
+                                                True
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="CategoryStatus" id="CategoryStatus" value="False">
+                                            <label class="form-check-label" for="CategoryStatus">
+                                                False
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label for="ProductPrice" class="form-label">Product Price</label>
+                                <input type="text" class="form-control" id="ProductPrice" name="ProductPrice">
+                            </div>
+                            <div class="col-6">
+                                <label for="ProductStock" class="form-label">Product Stock</label>
+                                <input type="text" class="form-control" id="ProductStock" name="ProductStock">
+                            </div>
+                            <div class="col-6">
+                                <label for="CategoryId" class="form-label">Category Name</label>
+                                <input type="text" class="form-control" id="CategoryId" name="CategoryId">
+                                <select name="CategoryId" class="form-control">
+                                    @foreach (var item in Model)
+                                    {
+                                        <option value="@item.Category.CategoryID">@item.Category.CategoryName</option>
+                                    }
+                                    </select>
+                            </div>
+                            <br /> <br />
+                            <label for="ProductDescription" class="form-label">Product Description</label>
+                            <input type="text" class="form-control" id="ProductDescription" name="ProductDescription">
+                        </div>
+                    </div>
+                    <br /> <br />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-success">Save changes</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Add Category Modal -->
+
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add New Category</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <br />
+            @using (Html.BeginForm("AddCategory", "AdminCategory", FormMethod.Post))
+            {
+                <div class="mx-auto">
+                    <div class="form-group d-flex justify-content-center">
+                        <div class="row">
+                            <br /> <br />
+                            <div class="col-6">
+                                <label for="CategoryName" class="form-label">CategoryName</label>
+                                <input type="text" class="form-control" id="CategoryName" name="CategoryName">
+                            </div>
+                            <br /> <br />
+                            <div class="col-6">
+                                <div class="col-6 mx-auto">
+                                    <label class="form-label">Category Status</label>
+                                    <br />
+                                    <div class="d-flex justify-content-between">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="CategoryStatus" id="CategoryStatus" value="True">
+                                            <label class="form-check-label" for="CategoryStatus">
+                                                True
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="CategoryStatus" id="CategoryStatus" value="False">
+                                            <label class="form-check-label" for="CategoryStatus">
+                                                False
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br /> <br />
+                            <label for="CategoryDescription" class="form-label">Category Description</label>
+                            <input type="text" class="form-control" id="CategoryDescription" name="CategoryDescription">
+                        </div>
+                    </div>
+                    <br /> <br />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-success">Save changes</button>
+                </div>
+            }
+        </div>
+    </div>
+
+
+

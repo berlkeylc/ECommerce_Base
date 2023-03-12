@@ -1,0 +1,76 @@
+﻿@*@using EntityLayer.Concrete
+@model List<Product>*@
+@{
+    ViewBag.Title = "EditProduct";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("EditProduct", "AdminProduct", FormMethod.Post))
+{
+    <div class="mx-auto">
+        <div class="form-group d-flex justify-content-center">
+            <div class="row">
+                <br /> <br />
+                <div class="col-6">
+                    <label for="ProductName" class="form-label">Product Name</label>
+                    <input type="text" class="form-control" id="ProductName" name="ProductName">
+                </div>
+                <br /> <br />
+                <div class="col-6">
+                    <div class="col-6 mx-auto">
+                        <label class="form-label">Product Status</label>
+                        <br />
+                        <div class="d-flex justify-content-between">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="CategoryStatus" id="CategoryStatus" value="True">
+                                <label class="form-check-label" for="CategoryStatus">
+                                    True
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="CategoryStatus" id="CategoryStatus" value="False">
+                                <label class="form-check-label" for="CategoryStatus">
+                                    False
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <label for="ProductPrice" class="form-label">Product Price</label>
+                    <input type="text" class="form-control" id="ProductPrice" name="ProductPrice">
+                </div>
+                <div class="col-6">
+                    <label for="ProductStock" class="form-label">Product Stock</label>
+                    <input type="text" class="form-control" id="ProductStock" name="ProductStock">
+                </div>
+                <div class="col-6">
+                    <label for="CategoryId" class="form-label">Category Name</label>
+                    <input type="text" class="form-control" id="CategoryID" name="CategoryID">
+                    <select name="CategoryID" class="form-control">
+                        @foreach (var item in Model.products)
+                        {
+                            if (item.Category.CategoryID == Model.productvalue.Category.CategoryID)
+                            {
+                                <option value="@item.Category.CategoryID" selected>@item.Category.CategoryName</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Category.CategoryID">@item.Category.CategoryName</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <br /> <br />
+                <label for="ProductDescription" class="form-label">Product Description</label>
+                <input type="text" class="form-control" id="ProductDescription" name="ProductDescription">
+            </div>
+        </div>
+        <br /> <br />
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button class="btn btn-success">Save changes</button>
+    </div>
+}
+

@@ -1,0 +1,52 @@
+﻿@model EntityLayer.Concrete.Category
+@{
+    ViewBag.Title = "AddCategory";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="mx-auto col-4">
+    <br /> <br />
+    <h3>Add New Category</h3>
+    @using (Html.BeginForm("AddCategory", "AdminCategory", FormMethod.Post))
+    {
+        <div class="form-group d-flex justify-content-center">
+            <div class="row">
+                <br /> <br />
+                <div class="col-6">
+                    <label for="CategoryName" class="form-label">CategoryName</label>
+                    <input type="text" class="form-control" id="CategoryName" name="CategoryName">
+                </div>
+                <br /> <br />
+                <div class="col-6">
+                    <div class="col-6 mx-auto">
+                        <label class="form-label">Category Status</label>
+                        <br />
+                        <div class="d-flex justify-content-between">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="CategoryStatus" id="CategoryStatus" value="True">
+                                <label class="form-check-label" for="CategoryStatus">
+                                    True
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="CategoryStatus" id="CategoryStatus" value="False">
+                                <label class="form-check-label" for="CategoryStatus">
+                                    False
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br /> <br />
+                <label for="CategoryDescription" class="form-label">Category Description</label>
+                <input type="text" class="form-control" id="CategoryDescription" name="CategoryDescription">
+
+            </div>
+
+        </div>
+        <br /> <br />
+        <button class="btn btn-success">Save</button>
+    }
+
+</div>
+    
