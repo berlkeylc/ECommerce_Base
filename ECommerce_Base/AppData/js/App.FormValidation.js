@@ -1,6 +1,6 @@
 /*/*/// <reference path="./typings/globals/jquery/index.d.ts" />*/*/
 
-"use strict";
+//"use strict";
 
 var AppForm = {
     FormKeys: {
@@ -58,39 +58,42 @@ var AppParsley = {
     Init: function () {
         var formKeys = Object.keys(this.Forms); // ['LoginForm', 'RegisterForm'] vs
 
-        function commonHelper(formkey) {
-            var $form = $(formkey);
+        //function commonHelper(formkey) {
+        //    var $form = $(formkey);
+        //    console.log($form.length)
+        //    if ($form.length == 0) return;
 
-            if ($form.length == 0) return;
+        //    $form.removeAttr('novalidate').attr('data-parsley-validate', '')
 
-            $form.removeAttr('novalidate').attr('data-parsley-validate', '')
+        //    AppParsley.Forms[Object.keys(AppForm.FormKeys).find((key) => AppForm.FormKeys[key] === formkey)].Fields.forEach(field => {
+        //        // field.Name = 'UserName'
+        //        //$(`[name="${field.Name}"]`);
+        //        var $elm = $form.find(`[name="${field.Name}"]`);
+        //        console.log($elm)
+        //        //$(`${formkey} [name="${field.Name}"]`);
+        //        //$('[name="' + field.Name + '"]');
 
-            AppParsley.Forms[Object.keys(AppForm.FormKeys).find((key) => AppForm.FormKeys[key] === formkey)].Fields.forEach(field => {
-                // field.Name = 'UserName'
-                //$(`[name="${field.Name}"]`);
-                var $elm = $form.find(`[name="${field.Name}"]`);
-                //$(`${formkey} [name="${field.Name}"]`);
-                //$('[name="' + field.Name + '"]');
+        //        if (typeof field.Required != 'undefined' && field.Required == true) {
+        //            // Required ile ilgili parsley entegrasyonlarımızı içericek
+        //            $elm.attr('data-parsley-required', 'true');
+        //            console.log($elm)
+        //        }
 
-                if (typeof field.Required != 'undefined' && field.Required == true) {
-                    // Required ile ilgili parsley entegrasyonlarımızı içericek
-                    $elm.attr('data-parsley-required', 'true');
-                }
+        //        if (typeof field.StringLength != 'undefined') {
+        //            var min = field.StringLength.min;
+        //            var max = field.StringLength.max;
 
-                if (typeof field.StringLength != 'undefined') {
-                    var min = field.StringLength.min;
-                    var max = field.StringLength.max;
-
-                    if (typeof min == 'undefined' || min < 0) min = 0;
-                    if (typeof max != 'undefined' && max > 0) {
-                        // StringLenght ile ilgili parsley entegrasyonlarımızı içericek
-                        $elm.attr('data-parsley-minlength', min).attr('data-parsley-maxlength', max);
-                        //$elm.attr('minlength', min);
-                        //$elm.attr('maxlength', max);
-                    }
-                }
-            });
-        }
+        //            if (typeof min == 'undefined' || min < 0) min = 0;
+        //            if (typeof max != 'undefined' && max > 0) {
+        //                // StringLenght ile ilgili parsley entegrasyonlarımızı içericek
+        //                $elm.attr('data-parsley-minlength', min).attr('data-parsley-maxlength', max);
+        //                //$elm.attr('minlength', min);
+        //                //$elm.attr('maxlength', max);
+        //                console.log($elm)
+        //            }
+        //        }
+        //    });
+        //}
 
         //formKeys.forEach(key => {
         //    // key = LoginForm
@@ -137,17 +140,18 @@ var AppParsley = {
         //        return false;
         //    });*/
         //});
-        /*if ($(AppForm.FormKeys.CategoryModalSaveForm).length < 1)
-        {
-            $(AppForm.FormKeys.CategoryModalSaveForm).parsley().on('form:submit', function () {
-                commonHelper(AppForm.FormKeys.CategoryModalSaveForm)
-                var model = AppForm.ObjectifyForm($(AppForm.FormKeys.CategoryModalSaveForm));
-
-                SaveModals.GetCategories(model);
-                return false;
-            });
-        }*/
-        SaveModals.GetCategories();
+        //if ($(AppForm.FormKeys.CategoryModalSaveForm).length >= 1)
+        //{
+        //    $(AppForm.FormKeys.CategoryModalSaveForm).parsley().on('form:submit', function () {
+        //        //commonHelper(AppForm.FormKeys.CategoryModalSaveForm)
+        //        var model = AppForm.ObjectifyForm($(AppForm.FormKeys.CategoryModalSaveForm));
+        //        console.log(model)
+                
+        //        return false;
+        //    });
+        //}
+        //SaveModals.GetCategories();
+        console.log(this.Forms.CategoryModalSaveForm)
 
     }
 }

@@ -140,6 +140,7 @@
   <ItemGroup>
     <Content Include="AppData\css\style.css" />
     <Content Include="AppData\js\App.AjaxResults.js" />
+    <Content Include="AppData\js\App.Data.js" />
     <Content Include="AppData\js\App.FormValidation.js" />
     <Content Include="AppData\js\app.js" />
     <Content Include="AppData\js\App.Main.js" />

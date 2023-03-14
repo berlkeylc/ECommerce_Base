@@ -46,24 +46,31 @@ namespace ECommerce_Base.Controllers
             return View();
         }
 
+        //[HttpPost]
+        //public ActionResult AddCategory(Category p)
+        //{
+        //    //CategoryValidator categoryvalidator = new CategoryValidator();
+        //    //ValidationResult results = categoryvalidator.Validate(p);
+        //    //if (results.IsValid)
+        //    //{
+        //        cm.CategoryAddBL(p);
+        //        return RedirectToAction("Index");
+        //    //}
+        //    /*else
+        //    {
+        //        foreach (var item in results.Errors)
+        //        {
+        //            ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+        //        }
+        //    }*/
+        //    //return View();
+        //}
+
         [HttpPost]
-        public ActionResult AddCategory(Category p)
+        public JsonResult AddCategory(Category p)
         {
-            //CategoryValidator categoryvalidator = new CategoryValidator();
-            //ValidationResult results = categoryvalidator.Validate(p);
-            //if (results.IsValid)
-            //{
-                cm.CategoryAddBL(p);
-                return RedirectToAction("Index");
-            //}
-            /*else
-            {
-                foreach (var item in results.Errors)
-                {
-                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-                }
-            }*/
-            //return View();
+            cm.CategoryAddBL(p);
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
         public ActionResult DeleteCategory(int id)
         {
@@ -80,10 +87,10 @@ namespace ECommerce_Base.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditCategory(Category p)
+        public JsonResult EditCategory(Category p)
         {
             cm.CategoryUpdate(p);
-            return RedirectToAction("Index");
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
 
     }

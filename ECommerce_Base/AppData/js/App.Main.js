@@ -16,6 +16,12 @@ var Enums = {
 var SaveModals = {
     GetCategories: function (model = {}) {
         AjaxPost("/AdminCategory/GetCategories", model, AjaxResults.GetCategoriesSucc);
+    },
+    AddCategories: function (model = {}) {
+        AjaxPost("/AdminCategory/AddCategory", model, AjaxResults.AddCategorySucc);
+    },
+    EditCategories: function (model = {}) {
+        AjaxPost("/AdminCategory/EditCategory", model, AjaxResults.EditCategorySucc);
     }
 }
 
@@ -48,7 +54,12 @@ window.onload = function () {
         AppParsley.Init();
     }
 
-    
+    if (typeof AppData == 'undefined') {
+        console.log("AppData cannot start!");
+    }
+    else {
+        AppData.Init();
+    }
 
     /*if (typeof AppSecurity == 'undefined') {
         console.log("AppSecurity cannot start!");

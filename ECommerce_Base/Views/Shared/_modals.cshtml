@@ -3,7 +3,7 @@
 }
 
 <!-- Add Category Modal -->
-
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-url='@Url.Action("adminCategorySaveModal","AdminCategory")'>
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,11 +11,16 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <br />
-            @using (Html.BeginForm("AddCategory", "AdminCategory", FormMethod.Post))
-            {
+            @*@using (Html.BeginForm("AddCategory", "AdminCategory", FormMethod.Post))
+                {*@
+            <form method="post" id="CategoryModalSaveForm">
                 <div class="mx-auto">
                     <div class="form-group d-flex justify-content-center">
                         <div class="row">
+                            <div class="col-6" style="display:none">
+                                <label for="CategoryID" class="form-label">Categor ID</label>
+                                <input class="form-control" id="CategoryID" name="CategoryID">
+                            </div>
                             <br /> <br />
                             <div class="col-6">
                                 <label for="CategoryName" class="form-label">CategoryName</label>
@@ -50,12 +55,13 @@
                     <br /> <br />
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary CategorySaveModal" data-bs-dismiss="modal" name="CloseModal">Close</button>
                     <button class="btn btn-success">Save changes</button>
                 </div>
-            }
+            </form>
+            @*}*@
         </div>
     </div>
-
+</div>
 
 

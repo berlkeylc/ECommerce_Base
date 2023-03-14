@@ -12,21 +12,23 @@
         @*<a class="btn btn-success" href="/AdminCategory/AddCategory">Add New Category</a>
         <br />*@
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-success CategorySaveModal" @*data-bs-toggle="modal" data-bs-target="#exampleModal"*@ id="CategorySaveModal" name="AddCategory">
+        <button type="button" class="btn btn-success CategorySaveModal" data-bs-toggle="modal" data-bs-target="#exampleModal" id="CategorySaveModal" name="AddCategory">
             Add New Category
         </button>
     </div>
 
     <br />
-    <table class="table table-striped">
-        <tr>
-            <th>#</th>
-            <th>Category Name</th>
-            <th>Status</th>
-            <th>Description</th>
-            <th>Delete</th>
-            <th>Update</th>
-        </tr>
+    <table class="table table-striped" id="CategoryTable">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Category Name</th>
+                <th>Status</th>
+                <th>Description</th>
+                <th>Delete</th>
+                <th>Update</th>
+            </tr>
+        </thead>
         <tbody>
 
         </tbody>
