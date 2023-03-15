@@ -8,10 +8,8 @@
     <br />
     <h2>Categories Table</h2>
     <br />
+
     <div class="d-flex justify-content-end">
-        @*<a class="btn btn-success" href="/AdminCategory/AddCategory">Add New Category</a>
-        <br />*@
-        <!-- Button trigger modal -->
         <button type="button" class="btn btn-success CategorySaveModal" data-bs-toggle="modal" data-bs-target="#exampleModal" id="CategorySaveModal" name="AddCategory">
             Add New Category
         </button>
@@ -29,23 +27,7 @@
                 <th>Update</th>
             </tr>
         </thead>
-        <tbody>
-
-        </tbody>
-        @*@foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.CategoryID</td>
-                <td>@item.CategoryName</td>
-                <td>@item.CategoryStatus</td>
-                <td>
-                    <a href="/AdminCategory/DeleteCategory/@item.CategoryID" class="btn btn-danger">Delete</a>
-                </td>
-                <td>
-                    <button type="button" class="btn btn-warning CategorySaveModal" name="EditCategory">Update</button>
-                </td>
-            </tr>
-        }*@
+        <tbody></tbody>
     </table>
 </div>
 

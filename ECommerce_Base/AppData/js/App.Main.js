@@ -22,6 +22,9 @@ var SaveModals = {
     },
     EditCategories: function (model = {}) {
         AjaxPost("/AdminCategory/EditCategory", model, AjaxResults.EditCategorySucc);
+    },
+    CrudCategories: function (model = {}) {
+        AjaxPost("/AdminCategory/CrudCategory", model, AjaxResults.CrudCategorySucc);
     }
 }
 
@@ -45,8 +48,6 @@ function AjaxPost(url, data, fnSuccess, fnError = AjaxResults.Error) {
 
 window.onload = function () {
 
-    
-    // Good
     if (typeof AppParsley == 'undefined') {
         console.log("AppParsley cannot start!");
     }
@@ -60,20 +61,5 @@ window.onload = function () {
     else {
         AppData.Init();
     }
-
-    /*if (typeof AppSecurity == 'undefined') {
-        console.log("AppSecurity cannot start!");
-    }
-    else {
-        AppSecurity.Init();
-    }*/
-
-
-    // Bad
-    /*try {
-        AppValidation.Init();
-    } catch (error) {
-
-    }*/
 
 }

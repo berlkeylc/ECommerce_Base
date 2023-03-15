@@ -1,6 +1,7 @@
 ﻿using BusinessLayer.Concrete;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.EntityFramework;
+using ECommerce_Base.Models;
 using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -90,6 +91,31 @@ namespace ECommerce_Base.Controllers
         public JsonResult EditCategory(Category p)
         {
             cm.CategoryUpdate(p);
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult CrudCategory(CategoryDTO p)
+        {
+            Category c = new Category();
+            c.CategoryID = p.CategoryID;
+            c.CategoryName = p.CategoryName;
+            c.CategoryDescription = p.CategoryDescription;
+            c.CategoryStatus = p.CategoryStatus;
+
+            if(p.processCode == "Delete")
+            {
+                var categoryvalue = cm.GetById(p.CategoryID);
+                cm.CategoryDelete(categoryvalue);
+            }
+            else if(p.CategoryID > 1 && p.processCode == "Update")
+            {
+                cm.CategoryUpdate(c);
+            }
+            else
+            {
+                cm.CategoryAddBL(c);
+            }
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 

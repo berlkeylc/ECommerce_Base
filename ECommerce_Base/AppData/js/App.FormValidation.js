@@ -5,6 +5,7 @@
 var AppForm = {
     FormKeys: {
         CategoryModalSaveForm: "#CategoryModalSaveForm",
+        deleteModal: "#deleteModal"
     },
 
     ObjectifyForm: function (form) {
@@ -58,101 +59,70 @@ var AppParsley = {
     Init: function () {
         var formKeys = Object.keys(this.Forms); // ['LoginForm', 'RegisterForm'] vs
 
-        //function commonHelper(formkey) {
-        //    var $form = $(formkey);
-        //    console.log($form.length)
-        //    if ($form.length == 0) return;
+        function commonHelper(formkey) {
 
-        //    $form.removeAttr('novalidate').attr('data-parsley-validate', '')
+            var $form = $(formkey);
+            
+            if ($form.length == 0) return;
 
-        //    AppParsley.Forms[Object.keys(AppForm.FormKeys).find((key) => AppForm.FormKeys[key] === formkey)].Fields.forEach(field => {
-        //        // field.Name = 'UserName'
-        //        //$(`[name="${field.Name}"]`);
-        //        var $elm = $form.find(`[name="${field.Name}"]`);
-        //        console.log($elm)
-        //        //$(`${formkey} [name="${field.Name}"]`);
-        //        //$('[name="' + field.Name + '"]');
+            $form.removeAttr('novalidate').attr('data-parsley-validate', '')
 
-        //        if (typeof field.Required != 'undefined' && field.Required == true) {
-        //            // Required ile ilgili parsley entegrasyonlarımızı içericek
-        //            $elm.attr('data-parsley-required', 'true');
-        //            console.log($elm)
-        //        }
+            AppParsley.Forms[Object.keys(AppForm.FormKeys).find((key) => AppForm.FormKeys[key] === formkey)].Fields.forEach(field => {
 
-        //        if (typeof field.StringLength != 'undefined') {
-        //            var min = field.StringLength.min;
-        //            var max = field.StringLength.max;
+                var $elm = $form.find(`[name="${field.Name}"]`);
 
-        //            if (typeof min == 'undefined' || min < 0) min = 0;
-        //            if (typeof max != 'undefined' && max > 0) {
-        //                // StringLenght ile ilgili parsley entegrasyonlarımızı içericek
-        //                $elm.attr('data-parsley-minlength', min).attr('data-parsley-maxlength', max);
-        //                //$elm.attr('minlength', min);
-        //                //$elm.attr('maxlength', max);
-        //                console.log($elm)
-        //            }
-        //        }
-        //    });
-        //}
+                if (typeof field.Required != 'undefined' && field.Required == true) {
+                    $elm.attr('data-parsley-required', 'true');
+                }
 
-        //formKeys.forEach(key => {
-        //    // key = LoginForm
-        //    var formkey = AppForm.FormKeys[key];
-        //    var $form = $(formkey);
+                if (typeof field.StringLength != 'undefined') {
+                    var min = field.StringLength.min;
+                    var max = field.StringLength.max;
 
-        //    if ($form.length == 0) return;
+                    if (typeof min == 'undefined' || min < 0) min = 0;
 
-        //    $form.removeAttr('novalidate').attr('data-parsley-validate', '')
-
-        //    this.Forms[key].Fields.forEach(field => {
-        //        // field.Name = 'UserName'
-        //        //$(`[name="${field.Name}"]`);
-        //        var $elm = $form.find(`[name="${field.Name}"]`);
-        //        //$(`${formkey} [name="${field.Name}"]`);
-        //        //$('[name="' + field.Name + '"]');
-
-        //        if (typeof field.Required != 'undefined' && field.Required == true) {
-        //            // Required ile ilgili parsley entegrasyonlarımızı içericek
-        //            $elm.attr('data-parsley-required', 'true');
-        //        }
-
-        //        if (typeof field.StringLength != 'undefined') {
-        //            var min = field.StringLength.min;
-        //            var max = field.StringLength.max;
-
-        //            if (typeof min == 'undefined' || min < 0) min = 0;
-        //            if (typeof max != 'undefined' && max > 0) {
-        //                // StringLenght ile ilgili parsley entegrasyonlarımızı içericek
-        //                $elm.attr('data-parsley-minlength', min).attr('data-parsley-maxlength', max);
-        //                //$elm.attr('minlength', min);
-        //                //$elm.attr('maxlength', max);
-        //            }
-        //        }
-        //    });
-
-        //    /*$form.parsley().on('form:submit', function () {
-        //        // model
-        //        var model = AppForm.ObjectifyForm($form);
-
-        //        // yönlendirme işleminin geçeceği method
-        //        Account.Login(model);
-
-        //        return false;
-        //    });*/
-        //});
-        //if ($(AppForm.FormKeys.CategoryModalSaveForm).length >= 1)
-        //{
-        //    $(AppForm.FormKeys.CategoryModalSaveForm).parsley().on('form:submit', function () {
-        //        //commonHelper(AppForm.FormKeys.CategoryModalSaveForm)
-        //        var model = AppForm.ObjectifyForm($(AppForm.FormKeys.CategoryModalSaveForm));
-        //        console.log(model)
+                    if (typeof max != 'undefined' && max > 0) {
+                        $elm.attr('data-parsley-minlength', min).attr('data-parsley-maxlength', max);
+                    }
+                }
+            });
+        }
+        
+        if ($(AppForm.FormKeys.CategoryModalSaveForm).length >= 1)
+        {
+            commonHelper(AppForm.FormKeys.CategoryModalSaveForm)
+            $(AppForm.FormKeys.CategoryModalSaveForm).parsley().on('form:submit', function () {
+                console.log($(AppForm.FormKeys.CategoryModalSaveForm).length)
                 
-        //        return false;
-        //    });
-        //}
-        //SaveModals.GetCategories();
-        console.log(this.Forms.CategoryModalSaveForm)
+                var model = AppForm.ObjectifyForm($(AppForm.FormKeys.CategoryModalSaveForm));
 
+                if (model.CategoryID != "" && model.CategoryID != null && model.CategoryID > 0) {
+                    $(AppForm.FormKeys.CategoryModalSaveForm).attr("data-processCode", "Update")
+                    model.processCode = "Update"
+                }
+                else {
+                    model.processCode = "Create"
+                }
+                SaveModals.CrudCategories(model)
+                return true;
+            });
+        }
+
+        if ($("#deletemodal").length >= 1) {
+            $("#DeleteModalSaveForm").find("#deletemodal").on('click', function () {
+               
+                var model = {}
+                model.processCode = $("#DeleteModalSaveForm").attr("data-processCode")
+                model[`${$("#DeleteModalSaveForm").attr("data-id-name")}`] = $("#DeleteModalSaveForm").attr("data-id")
+
+                switch ($("#DeleteModalSaveForm").attr("data-table-id")) {
+                    case "CategoryTable":
+                        SaveModals.CrudCategories(model)
+                }
+
+                return true;
+            });
+        }
     }
 }
 
@@ -161,7 +131,56 @@ var AppParsleySubmit = {
 }
 
 
+//$('.CategorySaveModal').click(function () {
 
+            //    if (this.name == "AddCategory") {
+
+            //        $('#SaveChangesButton').click(function () {
+            //            CategoryName = $("#exampleModal").find("input[name='CategoryName']")[0].value
+            //            CategoryDescription = $("#exampleModal").find("input[name='CategoryDescription']")[0].value
+            //            CategoryStatus = $("#exampleModal").find("input[name='CategoryStatus']")[0].checked == true ? "True" : "False"
+            //            var model = {};
+            //            model.CategoryName = CategoryName;
+            //            model.CategoryDescription = CategoryDescription;
+            //            model.CategoryStatus = CategoryStatus;
+            //            console.log(model)
+            //            SaveModals.AddCategories(model)
+            //        });
+            //    }
+            //    console.log(this.name)
+            //    if (this.name == "EditCategory") {
+            //        $categoryRow = $(this).closest('tr[name="CategoryRow"]')
+
+            //        CategoryID = $categoryRow.find('td[name="CategoryID"]').html()
+            //        CategoryName = $categoryRow.find('td[name="CategoryName"]').html()
+            //        CategoryDescription = $categoryRow.find('td[name="CategoryDescription"]').html()
+            //        CategoryStatus = $categoryRow.find('td[name="CategoryStatus"]').html()
+
+            //        $("#exampleModal").find("input[name='CategoryID']").attr("value", CategoryID)
+            //        $("#exampleModal").find("input[name='CategoryName']").attr("value", CategoryName)
+            //        $("#exampleModal").find("input[name='CategoryDescription']").attr("value", CategoryDescription)
+            //        console.log(CategoryName)
+            //        $($("#exampleModal").find("input[name='CategoryStatus']")[0]).attr("checked", CategoryStatus == "true" ? true : false)
+            //        $($("#exampleModal").find("input[name='CategoryStatus']")[1]).attr("checked", CategoryStatus == "false" ? true : false)
+
+            //        $('#SaveChangesButton').click(function () {
+            //            CategoryID = $("#exampleModal").find("input[name='CategoryID']")[0].value
+            //            CategoryName = $("#exampleModal").find("input[name='CategoryName']")[0].value
+            //            CategoryDescription = $("#exampleModal").find("input[name='CategoryDescription']")[0].value
+            //            CategoryStatus = $("#exampleModal").find("input[name='CategoryStatus']")[0].checked == true ? "True" : "False"
+            //            var model = {};
+
+            //            model.CategoryID = CategoryID;
+            //            model.CategoryName = CategoryName;
+            //            model.CategoryDescription = CategoryDescription;
+            //            model.CategoryStatus = CategoryStatus;
+            //            console.log(model)
+            //            SaveModals.EditCategories(model)
+            //        });
+            //        $('#exampleModal').modal('show');
+            //    }
+
+            //})
 
 
 
