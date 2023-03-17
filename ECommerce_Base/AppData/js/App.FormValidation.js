@@ -5,6 +5,7 @@
 var AppForm = {
     FormKeys: {
         CategoryModalSaveForm: "#CategoryModalSaveForm",
+        ProductModalSaveForm: "#ProductModalSaveForm",
         deleteModal: "#deleteModal"
     },
 
@@ -54,7 +55,52 @@ var AppParsley = {
                     }
                 }
             ]
+        },
+        ProductModalSaveForm: {
+            Fields: [
+                {
+                    Name: "ProductName",
+                    Required: true,
+                    StringLength: {
+                        min: 0,
+                        max: 10
+                    }
+                },
+                {
+                    Name: "CategoryID",
+                    Required: true
+                },
+                {
+                    Name: "ProductPrice",
+                    Required: true,
+                    StringLength: {
+                        min: 0,
+                        max: 5
+                    }
+                },
+                {
+                    Name: "ProductStock",
+                    Required: true,
+                    StringLength: {
+                        min: 0,
+                        max: 5
+                    }
+                },
+                {
+                    Name: "ProductStatus",
+                    Required: true
+                },
+                {
+                    Name: "ProductDescription",
+                    Required: true,
+                    StringLength: {
+                        min: 0,
+                        max: 50
+                    }
+                }
+            ]
         }
+
     },
     Init: function () {
         var formKeys = Object.keys(this.Forms); // ['LoginForm', 'RegisterForm'] vs
@@ -108,6 +154,25 @@ var AppParsley = {
             });
         }
 
+        if ($(AppForm.FormKeys.ProductModalSaveForm).length >= 1) {
+            commonHelper(AppForm.FormKeys.ProductModalSaveForm)
+            $(AppForm.FormKeys.ProductModalSaveForm).parsley().on('form:submit', function () {
+                console.log($(AppForm.FormKeys.ProductModalSaveForm).length)
+
+                var model = AppForm.ObjectifyForm($(AppForm.FormKeys.ProductModalSaveForm));
+
+                if (model.ProductID != "" && model.ProductID != null && model.ProductID > 0) {
+                    $(AppForm.FormKeys.ProductModalSaveForm).attr("data-processCode", "Update")
+                    model.processCode = "Update"
+                }
+                else {
+                    model.processCode = "Create"
+                }
+                SaveModals.CrudProducts(model)
+                return true;
+            });
+        }
+
         if ($("#deletemodal").length >= 1) {
             $("#DeleteModalSaveForm").find("#deletemodal").on('click', function () {
                
@@ -116,8 +181,10 @@ var AppParsley = {
                 model[`${$("#DeleteModalSaveForm").attr("data-id-name")}`] = $("#DeleteModalSaveForm").attr("data-id")
 
                 switch ($("#DeleteModalSaveForm").attr("data-table-id")) {
-                    case "CategoryTable":
+                    case "CategoriesTable":
                         SaveModals.CrudCategories(model)
+                    case "ProductsTable":
+                        SaveModals.CrudProducts(model)
                 }
 
                 return true;

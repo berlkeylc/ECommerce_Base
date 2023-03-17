@@ -136,6 +136,7 @@
     </Compile>
     <Compile Include="Models\CategoryDTO.cs" />
     <Compile Include="Models\EditProductViewModel.cs" />
+    <Compile Include="Models\ProductDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

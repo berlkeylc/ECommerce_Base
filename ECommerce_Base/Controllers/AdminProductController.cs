@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Concrete;
+using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using ECommerce_Base.Models;
 using EntityLayer.Concrete;
@@ -14,62 +15,84 @@ namespace ECommerce_Base.Controllers
     {
         // GET: AdminProduct
         ProductManager cm = new ProductManager(new EFProductDal());
+        Context c = new Context();
         public ActionResult Index()
         {
             var productvalues = cm.GetList();
             return View(productvalues);
         }
-        [HttpGet]
-        public ActionResult AddProduct()
+
+        [HttpPost]
+        public JsonResult GetProducts()
         {
-            return View();
+            var productvalues = cm.GetList();
+            List<ProductDTO> productList = new List<ProductDTO>();
+            foreach (Product p in productvalues)
+            {
+                ProductDTO temp = new ProductDTO();
+                temp.ProductID = p.ProductID;
+                temp.ProductStatus = p.ProductStatus;
+                temp.ProductStock = p.ProductStock;
+                temp.ProductPrice = p.ProductPrice;
+                temp.ProductName = p.ProductName;
+                temp.CategoryID = p.CategoryID;
+                temp.ProductDescription = p.ProductDescription;
+                productList.Add(temp);
+            }
+
+            var result =
+               (from pl in productList
+                join cl in c.Categories on pl.CategoryID equals cl.CategoryID into t
+               from nt in t.DefaultIfEmpty() select new 
+               { pl.ProductName,
+               pl.CategoryID,
+               pl.ProductDescription,
+               pl.ProductStock,
+               pl.ProductPrice,
+               pl.ProductID,
+               pl.ProductStatus,
+                 nt.CategoryName,
+               } ).ToList();
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public ActionResult AddProduct(Product p)
+        public JsonResult CrudProduct(ProductDTO p)
         {
-            //ProductValidator productvalidator = new ProductValidator();
-            //ValidationResult results = productvalidator.Validate(p);
-            //if (results.IsValid)
-            //{
-            cm.ProductAddBL(p);
-            return RedirectToAction("Index");
-            //}
-            /*else
-            {
-                foreach (var item in results.Errors)
-                {
-                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-                }
-            }*/
-            //return View();
-        }
-        public ActionResult DeleteProduct(int id)
-        {
-            var productvalue = cm.GetById(id);
-            cm.ProductDelete(productvalue);
-            return RedirectToAction("Index");
-        }
+            Product c = new Product();
+            c.ProductID = p.ProductID;
+            c.ProductName = p.ProductName;
+            c.ProductDescription = p.ProductDescription;
+            c.ProductPrice = p.ProductPrice;
+            c.ProductStock = p.ProductStock;
+            c.ProductStatus = p.ProductStatus;
+            c.CategoryID = p.CategoryID;
 
-        [HttpGet]
-        public ActionResult EditProduct(int id)
-        {
-            var products = cm.GetList();
-            var productvalue = cm.GetById(id);
-            EditProductViewModel model = new EditProductViewModel()
+            if (p.processCode == "Delete")
             {
-                products= products,
-                productvalue= productvalue
-            };
-            
-            return View(model);
-        }
+                var productvalue = cm.GetById(p.ProductID);
+                //Product prdct = new Product();
+                //prdct.ProductID = productvalue.ProductID;
+                //prdct.CategoryID = productvalue.CategoryID;
+                //prdct.ProductName = productvalue.ProductName;
+                //prdct.ProductDescription = productvalue.ProductDescription;
+                //prdct.ProductPrice = productvalue.ProductPrice;
+                //prdct.ProductStock = productvalue.ProductStock;
+                //prdct.ProductStatus = productvalue.ProductStatus;
 
-        [HttpPost]
-        public ActionResult EditProduct(Product p)
-        {
-            cm.ProductUpdate(p);
-            return RedirectToAction("Index");
+
+                cm.ProductDelete(productvalue);
+            }
+            else if (p.ProductID > 1 && p.processCode == "Update")
+            {
+                cm.ProductUpdate(c);
+            }
+            else
+            {
+                cm.ProductAddBL(c);
+            }
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
     }
 }

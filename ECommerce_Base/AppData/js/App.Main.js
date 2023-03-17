@@ -25,6 +25,13 @@ var SaveModals = {
     },
     CrudCategories: function (model = {}) {
         AjaxPost("/AdminCategory/CrudCategory", model, AjaxResults.CrudCategorySucc);
+    },
+
+    GetProducts: function (model = {}) {
+        AjaxPost("/AdminProduct/GetProducts", model, AjaxResults.GetProductsSucc);
+    },
+    CrudProducts: function (model = {}) {
+        AjaxPost("/AdminProduct/CrudProduct", model, AjaxResults.CrudProductSucc);
     }
 }
 

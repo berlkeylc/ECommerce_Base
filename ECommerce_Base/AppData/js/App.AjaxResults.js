@@ -64,5 +64,39 @@
             </tr>`
             categoryTable.append(tr);
         });
+    },
+
+    CrudProductSucc: function (result) {
+        if (result == "true") {
+            SaveModals.GetProducts();
+        }
+        else {
+            console.log("İşlem Başarısız")
+        }
+
+    },
+
+    GetProductsSucc: function (result) {
+
+        const productTable = $("#ProductsTable").find("tbody")
+        $.each(result, function (index, row) {
+            const tr = `
+            <tr name="ProductRow" >
+                <td name="ProductID">${row.ProductID}</td>
+                <td name="ProductName">${row.ProductName}</td>
+                <td name="CategoryID">${row.CategoryName}</td>
+                <td name="ProductPrice">${row.ProductPrice}</td>
+                <td name="ProductStock">${row.ProductStock}</td>
+                <td name="ProductStatus">${row.ProductStatus}</td>
+                <td name="ProductDescription">${row.ProductDescription}</td>
+                <td>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="deleteModalHelper(this)">Delete</button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal2" onclick="fillInputs(this)">Update</button>
+                </td>
+            </tr>`
+            productTable.append(tr);
+        });
     }
 }

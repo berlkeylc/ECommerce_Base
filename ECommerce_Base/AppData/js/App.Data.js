@@ -7,8 +7,11 @@
                 dataTableId = $this.attr('id')
                 if (typeof dataTableId != 'undefined') {
                     switch (dataTableId) {
-                        case "CategoryTable":
+                        case "CategoriesTable":
                             SaveModals.GetCategories();
+                            break;
+                        case "ProductsTable":
+                            SaveModals.GetProducts();
                             break;
                     }
                 }
