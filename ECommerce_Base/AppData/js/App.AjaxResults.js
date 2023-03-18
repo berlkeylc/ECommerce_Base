@@ -98,5 +98,44 @@
             </tr>`
             productTable.append(tr);
         });
-    }
+    },
+
+    CrudUserSucc: function (result) {
+        if (result == "true") {
+            SaveModals.GetUsers();
+        }
+        else {
+            console.log("İşlem Başarısız")
+        }
+
+    },
+
+    GetUsersSucc: function (result) {
+
+        const userTable = $("#UsersTable").find("tbody")
+        $.each(result, function (index, row) {
+            const tr = `
+            <tr>
+                <td name="UserID">${row.UserID}</td>
+                <td name="UserName">${row.UserName}</td>
+                <td name="UserEmail">${row.UserEmail}</td>
+                <td name="UserFirstName">${row.UserFirstName}</td>
+                <td name="UserLastName">${row.UserLastName}</td>
+                <td name="UserPassword">${row.UserPassword}</td>
+                <td name="UserAdress">${row.UserAdress}</td>
+                <td name="UserPostalCode">${row.UserPostalCode}</td>
+                <td name="UserCity">${row.UserCity}</td>
+                <td name="UserCountry">${row.UserCountry}</td>
+                <td name="UserGender">${row.UserGender}</td>
+                <td name="UserPhone">${row.UserPhone}</td>
+                <td>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="deleteModalHelper(this)">Delete</button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal3" onclick="fillInputs(this)">Update</button>
+                </td>
+            </tr>`
+            userTable.append(tr);
+        });
+    },
 }

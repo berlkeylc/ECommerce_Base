@@ -13,6 +13,9 @@
                         case "ProductsTable":
                             SaveModals.GetProducts();
                             break;
+                        case "UsersTable":
+                            SaveModals.GetUsers();
+                            break;
                     }
                 }
 

@@ -6,6 +6,7 @@ var AppForm = {
     FormKeys: {
         CategoryModalSaveForm: "#CategoryModalSaveForm",
         ProductModalSaveForm: "#ProductModalSaveForm",
+        UserModalSaveForm: "#UserModalSaveForm",
         deleteModal: "#deleteModal"
     },
 
@@ -99,6 +100,92 @@ var AppParsley = {
                     }
                 }
             ]
+        },
+        UserModalSaveForm: {
+            Fields: [
+                {
+                    Name: "UserName",
+                    Required: true,
+                    StringLength: {
+                        min: 0,
+                        max: 15
+                    }
+                },
+                {
+                    Name: "UserEmail",
+                    Required: true,
+                    StringLength: {
+                        min: 0,
+                        max: 50
+                    }
+                },
+                {
+                    Name: "UserFirstName",
+                    Required: true,
+                    StringLength: {
+                        min: 0,
+                        max: 15
+                    }
+                },
+                {
+                    Name: "UserLastName",
+                    Required: true,
+                    StringLength: {
+                        min: 0,
+                        max: 15
+                    }
+                },
+                {
+                    Name: "UserPassword",
+                    Required: true,
+                    StringLength: {
+                        min: 0,
+                        max: 15
+                    }
+                },
+                {
+                    Name: "UserAdress",
+                    StringLength: {
+                        min: 0,
+                        max: 50
+                    }
+                },
+                {
+                    Name: "UserPostalCode",
+                    StringLength: {
+                        min: 0,
+                        max: 5
+                    }
+                },
+                {
+                    Name: "UserCity",
+                    StringLength: {
+                        min: 0,
+                        max: 25
+                    }
+                },
+                {
+                    Name: "UserCountry",
+                    StringLength: {
+                        min: 0,
+                        max: 25
+                    }
+                },
+                {
+                    Name: "UserGender",
+                    StringLength: {
+                        min: 0,
+                        max: 10
+                    }
+                },
+                {
+                    Name: "UserPhone",
+                    StringLength: {
+                        min: 0,
+                        max: 11
+                    }
+                },
+            ]
         }
 
     },
@@ -173,6 +260,25 @@ var AppParsley = {
             });
         }
 
+        if ($(AppForm.FormKeys.UserModalSaveForm).length >= 1) {
+            commonHelper(AppForm.FormKeys.UserModalSaveForm)
+            $(AppForm.FormKeys.UserModalSaveForm).parsley().on('form:submit', function () {
+                console.log($(AppForm.FormKeys.UserModalSaveForm).length)
+
+                var model = AppForm.ObjectifyForm($(AppForm.FormKeys.UserModalSaveForm));
+
+                if (model.UserID != "" && model.UserID != null && model.UserID > 0) {
+                    $(AppForm.FormKeys.UserModalSaveForm).attr("data-processCode", "Update")
+                    model.processCode = "Update"
+                }
+                else {
+                    model.processCode = "Create"
+                }
+                SaveModals.CrudUsers(model)
+                return true;
+            });
+        }
+
         if ($("#deletemodal").length >= 1) {
             $("#DeleteModalSaveForm").find("#deletemodal").on('click', function () {
                
@@ -185,6 +291,8 @@ var AppParsley = {
                         SaveModals.CrudCategories(model)
                     case "ProductsTable":
                         SaveModals.CrudProducts(model)
+                    case "UsersTable":
+                        SaveModals.CrudUsers(model)
                 }
 
                 return true;

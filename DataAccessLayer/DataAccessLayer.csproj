@@ -54,13 +54,19 @@
     <Compile Include="Abstract\ICategoryDal.cs" />
     <Compile Include="Abstract\IProductDal.cs" />
     <Compile Include="Abstract\IRepository.cs" />
+    <Compile Include="Abstract\IUserDal.cs" />
     <Compile Include="Concrete\Context.cs" />
     <Compile Include="Concrete\Repositories\GenericRepository.cs" />
     <Compile Include="EntityFramework\EFCategoryDal.cs" />
     <Compile Include="EntityFramework\EFProductDal.cs" />
+    <Compile Include="EntityFramework\EFUserDal.cs" />
     <Compile Include="Migrations\202303121941010_mig1.cs" />
     <Compile Include="Migrations\202303121941010_mig1.designer.cs">
       <DependentUpon>202303121941010_mig1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202303171859405_mig2.cs" />
+    <Compile Include="Migrations\202303171859405_mig2.designer.cs">
+      <DependentUpon>202303171859405_mig2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -78,6 +84,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202303121941010_mig1.resx">
       <DependentUpon>202303121941010_mig1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303171859405_mig2.resx">
+      <DependentUpon>202303171859405_mig2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
