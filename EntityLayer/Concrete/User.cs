@@ -45,6 +45,8 @@ namespace EntityLayer.Concrete
         [StringLength(11)]
         public string UserPhone { get; set; }
 
+        public ICollection<User> Users { get; set; }
+
 
     }
 }

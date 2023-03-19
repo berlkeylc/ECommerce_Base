@@ -129,6 +129,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminCategoryController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AdminOrderController.cs" />
+    <Compile Include="Controllers\AdminOrderDetailController.cs" />
     <Compile Include="Controllers\AdminProductController.cs" />
     <Compile Include="Controllers\AdminUserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -137,6 +139,8 @@
     </Compile>
     <Compile Include="Models\CategoryDTO.cs" />
     <Compile Include="Models\EditProductViewModel.cs" />
+    <Compile Include="Models\OrderDetailDTO.cs" />
+    <Compile Include="Models\OrderDTO.cs" />
     <Compile Include="Models\ProductDTO.cs" />
     <Compile Include="Models\UserDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -197,6 +201,8 @@
     <Content Include="Views\AdminCategory\adminCategorySaveModal.cshtml" />
     <Content Include="Scripts\parsley.min.js.map" />
     <Content Include="Views\AdminUser\Index.cshtml" />
+    <Content Include="Views\AdminOrder\Index.cshtml" />
+    <Content Include="Views\AdminOrderDetail\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -39,7 +39,21 @@ var SaveModals = {
     },
     CrudUsers: function (model = {}) {
         AjaxPost("/AdminUser/CrudUser", model, AjaxResults.CrudUserSucc);
-    }
+    },
+
+    GetOrders: function (model = {}) {
+        AjaxPost("/AdminOrder/GetOrders", model, AjaxResults.GetOrdersSucc);
+    },
+    CrudOrders: function (model = {}) {
+        AjaxPost("/AdminOrder/CrudOrder", model, AjaxResults.CrudOrderSucc);
+    },
+
+    GetOrderDetails: function (model = {}) {
+        AjaxPost("/AdminOrderDetail/GetOrderDetails", model, AjaxResults.GetOrderDetailsSucc);
+    },
+    CrudOrderDetails: function (model = {}) {
+        AjaxPost("/AdminOrderDetail/CrudOrderDetail", model, AjaxResults.CrudOrderDetailSucc);
+    },
 }
 
 

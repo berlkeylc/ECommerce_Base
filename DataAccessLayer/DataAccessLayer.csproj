@@ -52,12 +52,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\ICategoryDal.cs" />
+    <Compile Include="Abstract\IOrderDal.cs" />
+    <Compile Include="Abstract\IOrderDetailDal.cs" />
     <Compile Include="Abstract\IProductDal.cs" />
     <Compile Include="Abstract\IRepository.cs" />
     <Compile Include="Abstract\IUserDal.cs" />
     <Compile Include="Concrete\Context.cs" />
     <Compile Include="Concrete\Repositories\GenericRepository.cs" />
     <Compile Include="EntityFramework\EFCategoryDal.cs" />
+    <Compile Include="EntityFramework\EFOrderDal.cs" />
+    <Compile Include="EntityFramework\EFOrderDetailDal.cs" />
     <Compile Include="EntityFramework\EFProductDal.cs" />
     <Compile Include="EntityFramework\EFUserDal.cs" />
     <Compile Include="Migrations\202303121941010_mig1.cs" />
@@ -67,6 +71,18 @@
     <Compile Include="Migrations\202303171859405_mig2.cs" />
     <Compile Include="Migrations\202303171859405_mig2.designer.cs">
       <DependentUpon>202303171859405_mig2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202303181251167_Add_Order_Mig.cs" />
+    <Compile Include="Migrations\202303181251167_Add_Order_Mig.designer.cs">
+      <DependentUpon>202303181251167_Add_Order_Mig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202303181501212_degisiklikYapmisim.cs" />
+    <Compile Include="Migrations\202303181501212_degisiklikYapmisim.designer.cs">
+      <DependentUpon>202303181501212_degisiklikYapmisim.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202303181613476_OrderDetailAdd.cs" />
+    <Compile Include="Migrations\202303181613476_OrderDetailAdd.designer.cs">
+      <DependentUpon>202303181613476_OrderDetailAdd.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -87,6 +103,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202303171859405_mig2.resx">
       <DependentUpon>202303171859405_mig2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303181251167_Add_Order_Mig.resx">
+      <DependentUpon>202303181251167_Add_Order_Mig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303181501212_degisiklikYapmisim.resx">
+      <DependentUpon>202303181501212_degisiklikYapmisim.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303181613476_OrderDetailAdd.resx">
+      <DependentUpon>202303181613476_OrderDetailAdd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

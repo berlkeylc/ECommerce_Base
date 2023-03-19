@@ -7,6 +7,8 @@ var AppForm = {
         CategoryModalSaveForm: "#CategoryModalSaveForm",
         ProductModalSaveForm: "#ProductModalSaveForm",
         UserModalSaveForm: "#UserModalSaveForm",
+        OrderModalSaveForm: "#OrderModalSaveForm",
+        OrderDetailModalSaveForm: "#OrderDetailModalSaveForm",
         deleteModal: "#deleteModal"
     },
 
@@ -186,7 +188,99 @@ var AppParsley = {
                     }
                 },
             ]
-        }
+        },
+        OrderModalSaveForm: {
+            Fields: [
+                {
+                    Name: "UserID",
+                    Required: true,
+                    StringLength: {
+                        min: 0,
+                        max: 10
+                    }
+                },
+                {
+                    Name: "OrderDate",
+                    Required: true,
+                    StringLength: {
+                        min: 0,
+                        max: 15
+                    }
+                },
+                {
+                    Name: "OrderRequiredDate",
+                    Required: true,
+                    StringLength: {
+                        min: 0,
+                        max: 15
+                    }
+                },
+                {
+                    Name: "OrderShippedDate",
+                    Required: true,
+                    StringLength: {
+                        min: 0,
+                        max: 15
+                    }
+                },
+                {
+                    Name: "OrderFreight",
+                    Required: true,
+                    StringLength: {
+                        min: 0,
+                        max: 5
+                    }
+                },
+                {
+                    Name: "OrderIsDelivered",
+                    Required: true,
+                },
+            ]
+        },
+        OrderDetailModalSaveForm: {
+            Fields: [
+                {
+                    Name: "OrderID",
+                    Required: true,
+                    StringLength: {
+                        min: 0,
+                        max: 10
+                    }
+                },
+                {
+                    Name: "ProductID",
+                    Required: true,
+                    StringLength: {
+                        min: 0,
+                        max: 10
+                    }
+                },
+                {
+                    Name: "OrderDetailUnitPrice",
+                    Required: true,
+                    StringLength: {
+                        min: 0,
+                        max: 5
+                    }
+                },
+                {
+                    Name: "OrderDetailQuantity",
+                    Required: true,
+                    StringLength: {
+                        min: 0,
+                        max: 5
+                    }
+                },
+                {
+                    Name: "OrderDetailDiscount",
+                    Required: true,
+                    StringLength: {
+                        min: 0,
+                        max: 5
+                    }
+                },
+            ]
+        },
 
     },
     Init: function () {
@@ -279,6 +373,45 @@ var AppParsley = {
             });
         }
 
+        if ($(AppForm.FormKeys.OrderModalSaveForm).length >= 1) {
+            commonHelper(AppForm.FormKeys.OrderModalSaveForm)
+            $(AppForm.FormKeys.OrderModalSaveForm).parsley().on('form:submit', function () {
+                console.log($(AppForm.FormKeys.OrderModalSaveForm).length)
+
+                var model = AppForm.ObjectifyForm($(AppForm.FormKeys.OrderModalSaveForm));
+
+                if (model.OrderID != "" && model.OrderID != null && model.OrderID > 0) {
+                    $(AppForm.FormKeys.OrderModalSaveForm).attr("data-processCode", "Update")
+                    model.processCode = "Update"
+                }
+                else {
+                    model.processCode = "Create"
+                }
+                SaveModals.CrudOrders(model)
+                return true;
+            });
+        }
+
+        if ($(AppForm.FormKeys.OrderDetailModalSaveForm).length >= 1) {
+            commonHelper(AppForm.FormKeys.OrderDetailModalSaveForm)
+            $(AppForm.FormKeys.OrderDetailModalSaveForm).parsley().on('form:submit', function () {
+                console.log($(AppForm.FormKeys.OrderDetailModalSaveForm).length)
+
+                var model = AppForm.ObjectifyForm($(AppForm.FormKeys.OrderDetailModalSaveForm));
+
+                if (model.OrderID != "" && model.OrderID != null && model.OrderID > 0 &&
+                    model.ProductID != "" && model.ProductID != null && model.ProductID > 0) {
+                    $(AppForm.FormKeys.OrderDetailModalSaveForm).attr("data-processCode", "Update")
+                    model.processCode = "Update"
+                }
+                else {
+                    model.processCode = "Create"
+                }
+                SaveModals.CrudOrderDetails(model)
+                return true;
+            });
+        }
+
         if ($("#deletemodal").length >= 1) {
             $("#DeleteModalSaveForm").find("#deletemodal").on('click', function () {
                
@@ -293,6 +426,10 @@ var AppParsley = {
                         SaveModals.CrudProducts(model)
                     case "UsersTable":
                         SaveModals.CrudUsers(model)
+                    case "OrdersTable":
+                        SaveModals.CrudOrders(model)
+                    case "OrderDetailsTable":
+                        SaveModals.CrudOrderDetails(model)
                 }
 
                 return true;

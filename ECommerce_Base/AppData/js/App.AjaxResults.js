@@ -138,4 +138,83 @@
             userTable.append(tr);
         });
     },
+
+    CrudOrderSucc: function (result) {
+        if (result == "true") {
+            SaveModals.GetOrders();
+        }
+        else {
+            console.log("İşlem Başarısız")
+        }
+
+    },
+
+    GetOrdersSucc: function (result) {
+
+        const orderTable = $("#OrdersTable").find("tbody")
+        $.each(result, function (index, row) {
+            const tr = `
+            <tr name="OrderRow" >
+                <td name="OrderID">${row.OrderID}</td>
+                <td name="UserID">${row.UserID}</td>
+                <td name="UserFirstName">${row.UserFirstName}</td>
+                <td name="UserLastName">${row.UserLastName}</td>
+                <td name="OrderDate">${row.OrderDate}</td>
+                <td name="OrderRequiredDate">${row.OrderRequiredDate}</td>
+                <td name="OrderShippedDate">${row.OrderShippedDate}</td>
+                <td name="OrderFreight">${row.OrderFreight}</td>
+                <td name="OrderIsDelivered">${row.OrderIsDelivered}</td>
+                <td>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="deleteModalHelper(this)">Delete</button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal4" onclick="fillInputs(this)">Update</button>
+                </td>
+            </tr>`
+            orderTable.append(tr);
+        });
+    },
+
+    CrudOrderDetailSucc: function (result) {
+        if (result == "true") {
+            SaveModals.GetOrderDetails();
+        }
+        else {
+            console.log("İşlem Başarısız")
+        }
+
+    },
+
+    GetOrderDetailsSucc: function (result) {
+
+        const orderDetailTable = $("#OrderDetailsTable").find("tbody")
+        $.each(result, function (index, row) {
+            const tr = `
+            <tr>
+                <td name="OrderID">${row.OrderID}</td>
+                <td name="UserFirstName">${row.UserFirstName}</td>
+                <td name="UserLastName">${row.UserLastName}</td>
+                <td name="UserName">${row.UserName}</td>
+                <td name="UserPhone">${row.UserPhone}</td>
+                <td name="UserAdress">${row.UserAdress}</td>
+                <td name="UserCity">${row.UserCity}</td>
+                <td name="UserPostalCode">${row.UserPostalCode}</td>
+                <td name="OrderDate">${row.OrderDate}</td>
+                <td name="OrderRequiredDate">${row.OrderRequiredDate}</td>
+                <td name="ProductID">${row.ProductID}</td>
+                <td name="ProductName">${row.ProductName}</td>
+                <td name="OrderDetailQuantity">${row.OrderDetailQuantity}</td>
+                <td name="OrderDetailUnitPrice">${row.OrderDetailUnitPrice}</td>
+                <td name="OrderDetailDiscount">${row.OrderDetailDiscount}</td>
+                <td name="OrderIsDelivered">${row.OrderIsDelivered}</td>
+                <td>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="deleteModalHelper(this)">Delete</button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal5" onclick="fillInputs(this)">Update</button>
+                </td>
+            </tr>`
+            orderDetailTable.append(tr);
+        });
+    },
 }

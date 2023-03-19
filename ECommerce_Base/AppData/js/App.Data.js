@@ -16,6 +16,12 @@
                         case "UsersTable":
                             SaveModals.GetUsers();
                             break;
+                        case "OrdersTable":
+                            SaveModals.GetOrders();
+                            break;
+                        case "OrderDetailsTable":
+                            SaveModals.GetOrderDetails();
+                            break;
                     }
                 }
 
