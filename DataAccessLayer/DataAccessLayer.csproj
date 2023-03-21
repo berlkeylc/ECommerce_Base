@@ -84,6 +84,26 @@
     <Compile Include="Migrations\202303181613476_OrderDetailAdd.designer.cs">
       <DependentUpon>202303181613476_OrderDetailAdd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202303191638329_User_Address.cs" />
+    <Compile Include="Migrations\202303191638329_User_Address.designer.cs">
+      <DependentUpon>202303191638329_User_Address.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202303192032208_StatusColumnsAdd.cs" />
+    <Compile Include="Migrations\202303192032208_StatusColumnsAdd.designer.cs">
+      <DependentUpon>202303192032208_StatusColumnsAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202303201518168_UserCollectionUpdate.cs" />
+    <Compile Include="Migrations\202303201518168_UserCollectionUpdate.designer.cs">
+      <DependentUpon>202303201518168_UserCollectionUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202303201539190_OrderDetailEditPK.cs" />
+    <Compile Include="Migrations\202303201539190_OrderDetailEditPK.designer.cs">
+      <DependentUpon>202303201539190_OrderDetailEditPK.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202303202041569_ProductAddImage.cs" />
+    <Compile Include="Migrations\202303202041569_ProductAddImage.designer.cs">
+      <DependentUpon>202303202041569_ProductAddImage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -112,6 +132,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202303181613476_OrderDetailAdd.resx">
       <DependentUpon>202303181613476_OrderDetailAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303191638329_User_Address.resx">
+      <DependentUpon>202303191638329_User_Address.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303192032208_StatusColumnsAdd.resx">
+      <DependentUpon>202303192032208_StatusColumnsAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303201518168_UserCollectionUpdate.resx">
+      <DependentUpon>202303201518168_UserCollectionUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303201539190_OrderDetailEditPK.resx">
+      <DependentUpon>202303201539190_OrderDetailEditPK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303202041569_ProductAddImage.resx">
+      <DependentUpon>202303202041569_ProductAddImage.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

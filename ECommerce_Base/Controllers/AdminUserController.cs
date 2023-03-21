@@ -30,7 +30,7 @@ namespace ECommerce_Base.Controllers
         
 
         [HttpPost]
-        public JsonResult CrudUser(UserDTO p)
+        public JsonResult CrudUser(CRUDUserModel p)
         {
             User c = new User();
             c.UserID = p.UserID;
@@ -39,19 +39,20 @@ namespace ECommerce_Base.Controllers
             c.UserLastName = p.UserLastName;
             c.UserFirstName = p.UserFirstName;
             c.UserPassword = p.UserPassword;
-            c.UserAdress = p.UserAdress;
+            c.UserAddress = p.UserAddress;
             c.UserPostalCode= p.UserPostalCode;
             c.UserCity = p.UserCity;
             c.UserCountry = p.UserCountry;
             c.UserGender= p.UserGender;
             c.UserPhone = p.UserPhone;
+            c.UserStatus= p.UserStatus;
             
             if (p.processCode == "Delete")
             {
                 var uservalue = cm.GetById(p.UserID);
                 cm.UserDelete(uservalue);
             }
-            else if (p.UserID > 1 && p.processCode == "Update")
+            else if (p.UserID > 0 && p.processCode == "Update")
             {
                 cm.UserUpdate(c);
             }

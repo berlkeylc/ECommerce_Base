@@ -28,23 +28,25 @@ namespace ECommerce_Base.Controllers
         public JsonResult GetOrderDetails()
         {
             var orderDetailvalues = cm.GetList();
-            List<OrderDetailDTO> orderDetailList = new List<OrderDetailDTO>();
+            List<CRUDOrderDetailModel> orderDetailList = new List<CRUDOrderDetailModel>();
             foreach (OrderDetail p in orderDetailvalues)
             {
-                OrderDetailDTO temp = new OrderDetailDTO();
+                CRUDOrderDetailModel temp = new CRUDOrderDetailModel();
+                temp.OrderDetailID = p.OrderDetailID;
                 temp.OrderDetailDiscount = p.OrderDetailDiscount;
                 temp.OrderDetailQuantity = p.OrderDetailQuantity;
                 temp.OrderDetailUnitPrice = p.OrderDetailUnitPrice;
+                temp.OrderDetailStatus = p.OrderDetailStatus;
                 temp.OrderID = p.OrderID;
                 temp.ProductID = p.ProductID;
                 orderDetailList.Add(temp);
             }
 
             var productvalues = cmp.GetList();
-            List<ProductDTO> productList = new List<ProductDTO>();
+            List<CRUDProductModel> productList = new List<CRUDProductModel>();
             foreach (Product p in productvalues)
             {
-                ProductDTO temp = new ProductDTO();
+                CRUDProductModel temp = new CRUDProductModel();
                 temp.ProductID = p.ProductID;
                 temp.ProductStatus = p.ProductStatus;
                 temp.ProductStock = p.ProductStock;
@@ -68,12 +70,12 @@ namespace ECommerce_Base.Controllers
                     nt.User.UserEmail,
                     nt.User.UserName,
                     nt.User.UserPhone,
-                    nt.User.UserAdress,
+                    nt.User.UserAddress,
                     nt.User.UserCity,
                     nt.User.UserPostalCode,
-                    nt.OrderDate,
+                    OrderDate = nt.OrderDate.ToString("yyyy-MM-dd"),
                     nt.OrderID,
-                    nt.OrderRequiredDate,
+                    OrderRequiredDate = nt.OrderRequiredDate.ToString("yyyy-MM-dd"),
                     nt.OrderFreight,
                     nt.OrderIsDelivered,
                     m.ProductID,
@@ -82,6 +84,8 @@ namespace ECommerce_Base.Controllers
                     od.OrderDetailQuantity,
                     od.OrderDetailDiscount,
                     od.OrderDetailUnitPrice,
+                    od.OrderDetailStatus,
+                    od.OrderDetailID,
                 }).ToList();
             //var result =
             //   (from od in orderDetailList
@@ -97,18 +101,20 @@ namespace ECommerce_Base.Controllers
         }
 
         [HttpPost]
-        public JsonResult CrudOrderDetail(OrderDetailDTO p)
+        public JsonResult CrudOrderDetail(CRUDOrderDetailModel p)
         {
             OrderDetail c = new OrderDetail();
+            c.OrderDetailID= p.OrderDetailID;
             c.OrderDetailDiscount = p.OrderDetailDiscount;
             c.OrderDetailQuantity = p.OrderDetailQuantity;
             c.OrderDetailUnitPrice = p.OrderDetailUnitPrice;
+            c.OrderDetailStatus = p.OrderDetailStatus;
             c.OrderID = p.OrderID;
             c.ProductID = p.ProductID;
 
             if (p.processCode == "Delete")
             {
-                var orderDetailvalue = cm.GetById(p.ProductID, p.OrderID); //ProductID , OrderID C omposite key
+                var orderDetailvalue = cm.GetById(p.OrderDetailID); //ProductID , OrderID C omposite key
                 //OrderDetail prdct = new OrderDetail();
                 //prdct.OrderDetailID = orderDetailvalue.OrderDetailID;
                 //prdct.CategoryID = orderDetailvalue.CategoryID;

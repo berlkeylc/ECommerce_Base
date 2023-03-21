@@ -82,6 +82,11 @@
                             </div>
                             <br /> <br />
                             <div class="col-6">
+                                <label for="ProductImage" class="form-label">Select image:</label>
+                                <input type="file" class="form-control" id="ProductImage" name="ProductImage" accept="image/*">
+                            </div>
+                            <br /> <br />
+                            <div class="col-6">
                                 <div class="col-6 mx-auto">
                                     <label class="form-label">Product Status</label>
                                     <br />
@@ -178,8 +183,8 @@
                             </div>
                             <br /> <br />
                             <div class="col-6">
-                                <label for="UserAdress" class="form-label">Address</label>
-                                <input type="text" class="form-control" id="UserAdress" name="UserAdress">
+                                <label for="UserAddress" class="form-label">Address</label>
+                                <input type="text" class="form-control" id="UserAddress" name="UserAddress">
                             </div>
                             <br /> <br />
                             <div class="col-6">
@@ -205,6 +210,27 @@
                             <div class="col-6">
                                 <label for="UserPhone" class="form-label">Phone</label>
                                 <input type="text" class="form-control" id="UserPhone" name="UserPhone">
+                            </div>
+                            <br /> <br />
+                            <div class="col-6">
+                                <div class="col-6 mx-auto">
+                                    <label class="form-label">User Status</label>
+                                    <br />
+                                    <div class="d-flex justify-content-between">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="UserStatus" id="UserStatus" value="True">
+                                            <label class="form-check-label" for="UserStatus">
+                                                True
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="UserStatus" id="UserStatus" value="False">
+                                            <label class="form-check-label" for="UserStatus">
+                                                False
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <br /> <br />
                         </div>
@@ -263,6 +289,27 @@
                                 <label for="OrderIsDelivered" class="form-label">Order Is Delivered?</label>
                                 <input type="text" class="form-control" id="OrderIsDelivered" name="OrderIsDelivered">
                             </div>
+                            <div class="col-6">
+                                <div class="col-6 mx-auto">
+                                    <label class="form-label">Order Status</label>
+                                    <br />
+                                    <div class="d-flex justify-content-between">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="OrderStatus" id="OrderStatus" value="True">
+                                            <label class="form-check-label" for="OrderStatus">
+                                                True
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="OrderStatus" id="OrderStatus" value="False">
+                                            <label class="form-check-label" for="OrderStatus">
+                                                False
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br /> <br />
                         </div>
                     </div>
                     <br /> <br />
@@ -289,6 +336,10 @@
                 <div class="mx-auto">
                     <div class="form-group d-flex justify-content-center">
                         <div class="row">
+                            <div class="col-6" style="display:none">
+                                <label for="OrderDetailID" class="form-label">Order Detail ID</label>
+                                <input class="form-control" id="OrderDetailID" name="OrderDetailID">
+                            </div>
                             <br /> <br />
                             <div class="col-6">
                                 <label for="OrderID" class="form-label">Order ID</label>
@@ -311,6 +362,27 @@
                                 <label for="OrderDetailDiscount" class="form-label">Order Detail Discount</label>
                                 <input type="text" class="form-control" id="OrderDetailDiscount" name="OrderDetailDiscount">
                             </div>
+                            <div class="col-6">
+                                <div class="col-6 mx-auto">
+                                    <label class="form-label">Order Detail Status</label>
+                                    <br />
+                                    <div class="d-flex justify-content-between">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="OrderDetailStatus" id="OrderDetailStatus" value="True">
+                                            <label class="form-check-label" for="OrderDetailStatus">
+                                                True
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="OrderDetailStatus" id="OrderDetailStatus" value="False">
+                                            <label class="form-check-label" for="OrderDetailStatus">
+                                                False
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br /> <br />
                         </div>
                     </div>
                     <br /> <br />

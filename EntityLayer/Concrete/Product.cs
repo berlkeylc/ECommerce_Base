@@ -18,6 +18,8 @@ namespace EntityLayer.Concrete
         [StringLength(200)]
         public string ProductDescription { get; set; }
 
+        public string ProductImage { get; set; }
+
         public int ProductPrice { get; set; }
 
         public int ProductStock { get; set; }

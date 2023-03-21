@@ -14,16 +14,16 @@
 //})
 function fillInputs(element) {
     
-    $($(element).attr("data-bs-target")).find("input").each(function (index, input) {
+    $($(element).attr("data-bs-target")).find("input,option").each(function (index, input) {
         $(element).closest('tr').children().each(function (index, row) {
-
+            
             if (!$(row).children().is("button")) {
 
-                if ($(input).attr("class") != "form-check-input") {
+                if ($(input).attr("class") == "form-control") {
 
                     if ($(row).attr("name") == $(input).attr("name")) { $(input).attr("value", $(row).html()) }
                 }
-                else {
+                else if ($(input).attr("class") == "form-check-input") {
 
                     if ($(row).attr("name") == $(input).attr("name")) {
                         
@@ -32,14 +32,15 @@ function fillInputs(element) {
                         if ($(input).attr("value") == "False") { $(input).attr("checked", $(row).html() == "false" ? true : false) }
                     }
                 }
+                else if ($(input).prop('nodeName') == "OPTION") {
+                    if ($(row).html() == $(input).html()) { $(input).prop('selected', true) }
+                }
             }
         })
         
     })
     
     $($(element).attr("data-bs-target")).find("form").attr("data", "Update")
-    console.log($("#exampleModal").find("form").attr("data"))
-    
 }
 
 function deleteModalHelper(element) {

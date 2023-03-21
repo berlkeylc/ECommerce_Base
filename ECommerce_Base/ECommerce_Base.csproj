@@ -137,12 +137,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\CategoryDTO.cs" />
+    <Compile Include="Models\CRUDCategoryModel.cs" />
+    <Compile Include="Models\CRUDBaseModel.cs" />
     <Compile Include="Models\EditProductViewModel.cs" />
-    <Compile Include="Models\OrderDetailDTO.cs" />
-    <Compile Include="Models\OrderDTO.cs" />
-    <Compile Include="Models\ProductDTO.cs" />
-    <Compile Include="Models\UserDTO.cs" />
+    <Compile Include="Models\CRUDOrderDetailModel.cs" />
+    <Compile Include="Models\CRUDOrderModel.cs" />
+    <Compile Include="Models\CRUDProductModel.cs" />
+    <Compile Include="Models\CRUDUserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -204,7 +205,9 @@
     <Content Include="Views\AdminOrder\Index.cshtml" />
     <Content Include="Views\AdminOrderDetail\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Image\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

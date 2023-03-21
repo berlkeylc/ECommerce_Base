@@ -13,8 +13,11 @@ var AppForm = {
     },
 
     ObjectifyForm: function (form) {
-        var serializeData = form.serializeArray();
+        
+        
 
+        var serializeData = form.serializeArray();
+        
         var returnArray = {};
         for (var i = 0; i < serializeData.length; i++) {
             returnArray[serializeData[i]['name']] = serializeData[i]['value'];
@@ -68,6 +71,10 @@ var AppParsley = {
                         min: 0,
                         max: 10
                     }
+                },
+                {
+                    Name: "ProductImage",
+                    Required: true,
                 },
                 {
                     Name: "CategoryID",
@@ -146,7 +153,7 @@ var AppParsley = {
                     }
                 },
                 {
-                    Name: "UserAdress",
+                    Name: "UserAddress",
                     StringLength: {
                         min: 0,
                         max: 50
@@ -186,6 +193,10 @@ var AppParsley = {
                         min: 0,
                         max: 11
                     }
+                },
+                {
+                    Name: "UserStatus",
+                    Required: true
                 },
             ]
         },
@@ -235,6 +246,10 @@ var AppParsley = {
                     Name: "OrderIsDelivered",
                     Required: true,
                 },
+                {
+                    Name: "OrderStatus",
+                    Required: true
+                },
             ]
         },
         OrderDetailModalSaveForm: {
@@ -278,6 +293,10 @@ var AppParsley = {
                         min: 0,
                         max: 5
                     }
+                },
+                {
+                    Name: "OrderDetailStatus",
+                    Required: true
                 },
             ]
         },
@@ -339,9 +358,15 @@ var AppParsley = {
             commonHelper(AppForm.FormKeys.ProductModalSaveForm)
             $(AppForm.FormKeys.ProductModalSaveForm).parsley().on('form:submit', function () {
                 console.log($(AppForm.FormKeys.ProductModalSaveForm).length)
-
+                var reader = new FileReader();
+                logFile = $("#ProductModalSaveForm").find("input")[2].files[0]
+                reader.readAsText(logFile);
+                console.log(reader.result)
+                //reader.onload = function (event) {
+                //    console.log(reader.result)
+                //};
                 var model = AppForm.ObjectifyForm($(AppForm.FormKeys.ProductModalSaveForm));
-
+                model.ProductImage = $(AppForm.FormKeys.ProductModalSaveForm).find("#ProductImage").attr("value")
                 if (model.ProductID != "" && model.ProductID != null && model.ProductID > 0) {
                     $(AppForm.FormKeys.ProductModalSaveForm).attr("data-processCode", "Update")
                     model.processCode = "Update"
@@ -399,8 +424,7 @@ var AppParsley = {
 
                 var model = AppForm.ObjectifyForm($(AppForm.FormKeys.OrderDetailModalSaveForm));
 
-                if (model.OrderID != "" && model.OrderID != null && model.OrderID > 0 &&
-                    model.ProductID != "" && model.ProductID != null && model.ProductID > 0) {
+                if (model.OrderDetailID != "" && model.OrderDetailID != null && model.OrderDetailID > 0) {
                     $(AppForm.FormKeys.OrderDetailModalSaveForm).attr("data-processCode", "Update")
                     model.processCode = "Update"
                 }

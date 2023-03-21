@@ -90,4 +90,24 @@ window.onload = function () {
         AppData.Init();
     }
 
+    
+    
+    const fileInput = $("#ProductImage");
+    
+    // Listen for the change event so we can capture the file
+    fileInput.on('change', (e) => {
+        // Get a reference to the file
+        const file = e.target.files[0];
+
+        // Encode the file using the FileReader API
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            console.log(reader.result);
+            $("#ProductImage").attr("value", reader.result);
+            // Logs data:<type>;base64,wL2dvYWwgbW9yZ...
+        };
+        reader.readAsDataURL(file);
+
+    });
+
 }

@@ -5,6 +5,7 @@ using ECommerce_Base.Models;
 using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -25,18 +26,25 @@ namespace ECommerce_Base.Controllers
         [HttpPost]
         public JsonResult GetProducts()
         {
+            string fileName = Path.GetFileName("001.jpg");
+            string fileExtension = Path.GetExtension(fileName);
             var productvalues = cm.GetList();
-            List<ProductDTO> productList = new List<ProductDTO>();
+            List<CRUDProductModel> productList = new List<CRUDProductModel>();
             foreach (Product p in productvalues)
             {
-                ProductDTO temp = new ProductDTO();
+                CRUDProductModel temp = new CRUDProductModel();
                 temp.ProductID = p.ProductID;
+                temp.ProductImage = p.ProductImage;
                 temp.ProductStatus = p.ProductStatus;
                 temp.ProductStock = p.ProductStock;
                 temp.ProductPrice = p.ProductPrice;
                 temp.ProductName = p.ProductName;
                 temp.CategoryID = p.CategoryID;
                 temp.ProductDescription = p.ProductDescription;
+
+                //temp.ProductImage.SaveAs(Server.MapPath(fileName));
+                
+
                 productList.Add(temp);
             }
 
@@ -46,28 +54,34 @@ namespace ECommerce_Base.Controllers
                from nt in t.DefaultIfEmpty() select new 
                { pl.ProductName,
                pl.CategoryID,
+               pl.ProductImage,
                pl.ProductDescription,
                pl.ProductStock,
                pl.ProductPrice,
                pl.ProductID,
                pl.ProductStatus,
-                 nt.CategoryName,
+                 nt.CategoryName
                } ).ToList();
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult CrudProduct(ProductDTO p)
+        public JsonResult CrudProduct(CRUDProductModel p)
         {
             Product c = new Product();
             c.ProductID = p.ProductID;
             c.ProductName = p.ProductName;
+            c.ProductImage= p.ProductImage;
             c.ProductDescription = p.ProductDescription;
             c.ProductPrice = p.ProductPrice;
             c.ProductStock = p.ProductStock;
             c.ProductStatus = p.ProductStatus;
             c.CategoryID = p.CategoryID;
+
+            string base64 = c.ProductImage.Replace("data:image/jpeg;base64,", "");
+            System.IO.File.WriteAllBytes("C:\\Users\\90535\\Desktop\\projects\\ASP .NET\\ECommerce_Base\\ECommerce_Base\\Image\\"+ c.ProductName + c.ProductID +".jpg", Convert.FromBase64String(base64));
+            c.ProductImage = "/Image/" + c.ProductName + c.ProductID;
 
             if (p.processCode == "Delete")
             {
@@ -84,7 +98,7 @@ namespace ECommerce_Base.Controllers
 
                 cm.ProductDelete(productvalue);
             }
-            else if (p.ProductID > 1 && p.processCode == "Update")
+            else if (p.ProductID > 0 && p.processCode == "Update")
             {
                 cm.ProductUpdate(c);
             }

@@ -22,6 +22,8 @@ namespace EntityLayer.Concrete
 
         public bool OrderIsDelivered { get; set;}
 
+        public bool OrderStatus { get; set; }
+
         public int UserID { get; set; }
         public virtual User User { get; set; }
 

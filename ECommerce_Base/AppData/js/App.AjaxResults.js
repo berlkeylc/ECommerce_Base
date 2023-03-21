@@ -84,6 +84,7 @@
             <tr name="ProductRow" >
                 <td name="ProductID">${row.ProductID}</td>
                 <td name="ProductName">${row.ProductName}</td>
+                <td name="ProductImage"><img src="${row.ProductImage}.jpg" width="50" height="50"></td>
                 <td name="CategoryID">${row.CategoryName}</td>
                 <td name="ProductPrice">${row.ProductPrice}</td>
                 <td name="ProductStock">${row.ProductStock}</td>
@@ -122,12 +123,13 @@
                 <td name="UserFirstName">${row.UserFirstName}</td>
                 <td name="UserLastName">${row.UserLastName}</td>
                 <td name="UserPassword">${row.UserPassword}</td>
-                <td name="UserAdress">${row.UserAdress}</td>
+                <td name="UserAddress">${row.UserAddress}</td>
                 <td name="UserPostalCode">${row.UserPostalCode}</td>
                 <td name="UserCity">${row.UserCity}</td>
                 <td name="UserCountry">${row.UserCountry}</td>
                 <td name="UserGender">${row.UserGender}</td>
                 <td name="UserPhone">${row.UserPhone}</td>
+                <td name="UserStatus">${row.UserStatus}</td>
                 <td>
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="deleteModalHelper(this)">Delete</button>
                 </td>
@@ -164,6 +166,7 @@
                 <td name="OrderShippedDate">${row.OrderShippedDate}</td>
                 <td name="OrderFreight">${row.OrderFreight}</td>
                 <td name="OrderIsDelivered">${row.OrderIsDelivered}</td>
+                <td name="OrderStatus">${row.OrderStatus}</td>
                 <td>
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="deleteModalHelper(this)">Delete</button>
                 </td>
@@ -191,12 +194,13 @@
         $.each(result, function (index, row) {
             const tr = `
             <tr>
+                <td name="OrderDetailID">${row.OrderDetailID}</td>
                 <td name="OrderID">${row.OrderID}</td>
                 <td name="UserFirstName">${row.UserFirstName}</td>
                 <td name="UserLastName">${row.UserLastName}</td>
                 <td name="UserName">${row.UserName}</td>
                 <td name="UserPhone">${row.UserPhone}</td>
-                <td name="UserAdress">${row.UserAdress}</td>
+                <td name="UserAddress">${row.UserAddress}</td>
                 <td name="UserCity">${row.UserCity}</td>
                 <td name="UserPostalCode">${row.UserPostalCode}</td>
                 <td name="OrderDate">${row.OrderDate}</td>
@@ -207,6 +211,7 @@
                 <td name="OrderDetailUnitPrice">${row.OrderDetailUnitPrice}</td>
                 <td name="OrderDetailDiscount">${row.OrderDetailDiscount}</td>
                 <td name="OrderIsDelivered">${row.OrderIsDelivered}</td>
+                <td name="OrderDetailStatus">${row.OrderDetailStatus}</td>
                 <td>
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="deleteModalHelper(this)">Delete</button>
                 </td>

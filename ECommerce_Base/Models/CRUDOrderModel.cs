@@ -6,7 +6,7 @@ using System.Web;
 
 namespace ECommerce_Base.Models
 {
-    public class OrderDTO
+    public class CRUDOrderModel : CRUDBaseModel
     {
         public int OrderID { get; set; }
 
@@ -20,9 +20,10 @@ namespace ECommerce_Base.Models
 
         public bool OrderIsDelivered { get; set; }
 
-        public int UserID { get; set; }
-        public virtual User User { get; set; }
+        public bool OrderStatus { get; set; }
 
-        public string processCode { get; set; }
+        public int UserID { get; set; }
+
+        public virtual User User { get; set; }
     }
 }

@@ -8,21 +8,22 @@ using System.Web;
 
 namespace ECommerce_Base.Models
 {
-    public class OrderDetailDTO
+    public class CRUDOrderDetailModel : CRUDBaseModel
     {
+        public int OrderDetailID { get; set; }
+
         public int OrderDetailUnitPrice { get; set; }
+
         public int OrderDetailQuantity { get; set; }
 
         public int OrderDetailDiscount { get; set; }
 
-        [Key, Column(Order = 0)]
+        public bool OrderDetailStatus { get; set; }
+
         public int OrderID { get; set; }
         public virtual Order Order { get; set; }
 
-        [Key, Column(Order = 1)]
         public int ProductID { get; set; }
         public virtual Product Product { get; set; }
-
-        public string processCode { get; set; }
     }
 }

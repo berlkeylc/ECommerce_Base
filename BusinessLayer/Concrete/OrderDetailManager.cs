@@ -33,9 +33,9 @@ namespace BusinessLayer.Concrete
             _orderDetailDal.Update(orderDetail);
         }
 
-        public OrderDetail GetById(int productID, int orderID)
+        public OrderDetail GetById(int id)
         {
-            return _orderDetailDal.Get(x => x.ProductID == productID && x.OrderID == orderID);
+            return _orderDetailDal.Get(x => x.OrderDetailID == id);
         }
 
         public List<OrderDetail> GetList()
@@ -43,9 +43,5 @@ namespace BusinessLayer.Concrete
             return _orderDetailDal.List();
         }
 
-        public OrderDetail GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

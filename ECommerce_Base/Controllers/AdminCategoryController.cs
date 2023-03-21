@@ -95,7 +95,7 @@ namespace ECommerce_Base.Controllers
         }
 
         [HttpPost]
-        public JsonResult CrudCategory(CategoryDTO p)
+        public JsonResult CrudCategory(CRUDCategoryModel p)
         {
             Category c = new Category();
             c.CategoryID = p.CategoryID;
@@ -108,7 +108,7 @@ namespace ECommerce_Base.Controllers
                 var categoryvalue = cm.GetById(p.CategoryID);
                 cm.CategoryDelete(categoryvalue);
             }
-            else if(p.CategoryID > 1 && p.processCode == "Update")
+            else if(p.CategoryID > 0 && p.processCode == "Update")
             {
                 cm.CategoryUpdate(c);
             }

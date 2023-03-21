@@ -26,16 +26,17 @@ namespace ECommerce_Base.Controllers
         public JsonResult GetOrders()
         {
             var ordervalues = cm.GetList();
-            List<OrderDTO> orderList = new List<OrderDTO>();
+            List<CRUDOrderModel> orderList = new List<CRUDOrderModel>();
             foreach (Order p in ordervalues)
             {
-                OrderDTO temp = new OrderDTO();
+                CRUDOrderModel temp = new CRUDOrderModel();
                 temp.OrderID = p.OrderID;
                 temp.OrderDate = p.OrderDate;
                 temp.OrderRequiredDate = p.OrderRequiredDate;
                 temp.OrderShippedDate = p.OrderShippedDate;
                 temp.OrderFreight = p.OrderFreight;
                 temp.OrderIsDelivered = p.OrderIsDelivered;
+                temp.OrderStatus= p.OrderStatus;
                 temp.UserID = p.UserID;
                 orderList.Add(temp);
             }
@@ -50,18 +51,19 @@ namespace ECommerce_Base.Controllers
                     nt.UserFirstName,
                     nt.UserLastName,
                     nt.UserID,
-                    pl.OrderDate,
-                    pl.OrderRequiredDate,
-                    pl.OrderShippedDate,
+                    OrderDate = pl.OrderDate.ToString("yyyy-MM-dd"),
+                    OrderRequiredDate = pl.OrderRequiredDate.ToString("yyyy-MM-dd"),
+                    OrderShippedDate = pl.OrderShippedDate.ToString("yyyy-MM-dd"),
                     pl.OrderFreight,
                     pl.OrderIsDelivered,
+                    pl.OrderStatus,
                 }).ToList();
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult CrudOrder(OrderDTO p)
+        public JsonResult CrudOrder(CRUDOrderModel p)
         {
             Order c = new Order();
             c.OrderID = p.OrderID;
@@ -70,6 +72,7 @@ namespace ECommerce_Base.Controllers
             c.OrderShippedDate = p.OrderShippedDate;
             c.OrderFreight = p.OrderFreight;
             c.OrderIsDelivered = p.OrderIsDelivered;
+            c.OrderStatus= p.OrderStatus;
             c.UserID = p.UserID;
 
             if (p.processCode == "Delete")
@@ -87,7 +90,7 @@ namespace ECommerce_Base.Controllers
 
                 cm.OrderDelete(ordervalue);
             }
-            else if (p.OrderID > 1 && p.processCode == "Update")
+            else if (p.OrderID > 0 && p.processCode == "Update")
             {
                 cm.OrderUpdate(c);
             }

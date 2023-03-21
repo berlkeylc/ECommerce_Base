@@ -10,16 +10,17 @@ namespace EntityLayer.Concrete
 {
     public class OrderDetail
     {
+        [Key]
+        public int OrderDetailID { get; set; }
         public int OrderDetailUnitPrice { get; set; }
         public int OrderDetailQuantity { get; set; }
 
         public int OrderDetailDiscount { get; set; }
+        public bool OrderDetailStatus { get; set; }
 
-        [Key, Column(Order = 0)]
         public int OrderID { get; set; }
         public virtual Order Order { get; set; }
 
-        [Key, Column(Order = 1)]
         public int ProductID { get; set; }
         public virtual Product Product { get; set; }
     }

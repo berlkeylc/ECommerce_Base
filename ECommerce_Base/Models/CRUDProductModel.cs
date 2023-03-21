@@ -7,15 +7,14 @@ using System.Web;
 
 namespace ECommerce_Base.Models
 {
-    public class ProductDTO
+    public class CRUDProductModel : CRUDBaseModel
     {
-        [Key]
         public int ProductID { get; set; }
 
-        [StringLength(50)]
         public string ProductName { get; set; }
 
-        [StringLength(200)]
+        public string ProductImage { get; set; }
+
         public string ProductDescription { get; set; }
 
         public int ProductPrice { get; set; }
@@ -27,8 +26,5 @@ namespace ECommerce_Base.Models
         public int CategoryID { get; set; }
         public virtual Category Category { get; set; }
 
-        public string processCode { get; set; }
-
-        public string CategoryName { get; set; }
     }
 }

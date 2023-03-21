@@ -28,7 +28,7 @@ namespace EntityLayer.Concrete
         public string UserPassword { get; set; }
 
         [StringLength(50)]
-        public string UserAdress { get; set; }
+        public string UserAddress { get; set; }
 
         [StringLength(5)]
         public string UserPostalCode { get; set; }
@@ -45,7 +45,9 @@ namespace EntityLayer.Concrete
         [StringLength(11)]
         public string UserPhone { get; set; }
 
-        public ICollection<User> Users { get; set; }
+        public bool UserStatus { get; set; }
+
+        public ICollection<Order> Orders { get; set; }
 
 
     }
