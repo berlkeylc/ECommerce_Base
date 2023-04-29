@@ -22,11 +22,15 @@
                         case "OrderDetailsTable":
                             SaveModals.GetOrderDetails();
                             break;
+                        case "CartsTable":
+                            SaveModals.GetCarts();
+                            break;
                     }
                 }
 
             }
         }
+        SaveModals.GetProductsContainer();
     }
 
 }

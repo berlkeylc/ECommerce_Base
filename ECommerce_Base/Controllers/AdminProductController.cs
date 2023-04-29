@@ -79,9 +79,7 @@ namespace ECommerce_Base.Controllers
             c.ProductStatus = p.ProductStatus;
             c.CategoryID = p.CategoryID;
 
-            string base64 = c.ProductImage.Replace("data:image/jpeg;base64,", "");
-            System.IO.File.WriteAllBytes("C:\\Users\\90535\\Desktop\\projects\\ASP .NET\\ECommerce_Base\\ECommerce_Base\\Image\\"+ c.ProductName + c.ProductID +".jpg", Convert.FromBase64String(base64));
-            c.ProductImage = "/Image/" + c.ProductName + c.ProductID;
+            
 
             if (p.processCode == "Delete")
             {
@@ -100,10 +98,16 @@ namespace ECommerce_Base.Controllers
             }
             else if (p.ProductID > 0 && p.processCode == "Update")
             {
+                string base64 = c.ProductImage.Replace("data:image/jpeg;base64,", "");
+                System.IO.File.WriteAllBytes("C:\\Users\\90535\\Desktop\\projects\\ASP .NET\\ECommerce_Base\\ECommerce_Base\\Image\\" + c.ProductName + c.ProductID + ".jpg", Convert.FromBase64String(base64));
+                c.ProductImage = "/Image/" + c.ProductName + c.ProductID;
                 cm.ProductUpdate(c);
             }
             else
             {
+                string base64 = c.ProductImage.Replace("data:image/jpeg;base64,", "");
+                System.IO.File.WriteAllBytes("C:\\Users\\90535\\Desktop\\projects\\ASP .NET\\ECommerce_Base\\ECommerce_Base\\Image\\" + c.ProductName + c.ProductID + ".jpg", Convert.FromBase64String(base64));
+                c.ProductImage = "/Image/" + c.ProductName + c.ProductID;
                 cm.ProductAddBL(c);
             }
             return Json(true, JsonRequestBehavior.AllowGet);

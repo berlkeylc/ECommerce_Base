@@ -1,0 +1,72 @@
+﻿@*@model ECommerce_Base.Models.CartItemDto*@
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_ECommerceLayout.cshtml";
+}
+
+<div class="bg-light" style="height:150px;">
+    <h3 class="text-center" style="font-size:75px">Advertisement Board</h3>
+</div>
+<div class="container mt-5">
+    <table class="table" id="CartsTable">
+        <thead>
+            <tr>
+                <th scope="col">Products</th>
+                <th></th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @*@foreach (var item in Model)
+            {
+                <tr>
+                    <th><img src=@Html.Raw(item.ProductImage + ".jpg")></th>
+                    <td>@item.ProductName</td>
+                    <td>@Html.Raw(item.ProductPrice)</td>
+                    <td>@Html.Raw(item.CartItemQuantity)</td>
+                    <td>@Html.Raw(item.ProductPrice * item.CartItemQuantity)</td>
+                    <td>remove</td>
+                </tr>
+            }*@
+            @*<tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>asdf</td>
+                <td>remove</td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>asdf</td>
+                <td>remove</td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td colspan="2">Larry the Bird</td>
+                <td>asdf</td>
+                <td>remove</td>
+            </tr>*@
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="mt-4 col-6">
+            <button type="button" class="btn btn-warning">Continue to Shopping</button>
+        </div>
+        <div class="mt-4 p-3 col-6 bg-light">
+            <h5>Cart Total</h5>
+            <div class="d-flex justify-content-between py-3">
+                <p>Total</p>
+                <p class="pe-5">Price</p>
+            </div>
+            <a href="/Checkout/Index" type="button" class="btn btn-success">Proceed to Checkout</a>
+        </div>
+    </div>
+    
+</div>
+
+

@@ -4,6 +4,7 @@
 
 var AppForm = {
     FormKeys: {
+        LoginForm: "#loginform",
         CategoryModalSaveForm: "#CategoryModalSaveForm",
         ProductModalSaveForm: "#ProductModalSaveForm",
         UserModalSaveForm: "#UserModalSaveForm",
@@ -38,6 +39,26 @@ var AppForm = {
 
 var AppParsley = {
     Forms: {
+        LoginForm: {
+            Fields: [
+                {
+                    Name: "UserName",
+                    Required: true,
+                    StringLength: {
+                        min: 0,
+                        max: 15
+                    }
+                },
+                {
+                    Name: "Password",
+                    Required: true,
+                    StringLength: {
+                        min: 0,
+                        max: 50
+                    }
+                }
+            ]
+        },
         CategoryModalSaveForm: {
             Fields: [
                 {
@@ -333,7 +354,17 @@ var AppParsley = {
                 }
             });
         }
-        
+        if ($(AppForm.FormKeys.LoginForm).length >= 1) {
+            commonHelper(AppForm.FormKeys.LoginForm)
+            $(AppForm.FormKeys.LoginForm).parsley().on('form:submit', function () {
+
+                var model = AppForm.ObjectifyForm($(AppForm.FormKeys.LoginForm));
+
+                Account.Login(model)
+                return true;
+            });
+        } 
+
         if ($(AppForm.FormKeys.CategoryModalSaveForm).length >= 1)
         {
             commonHelper(AppForm.FormKeys.CategoryModalSaveForm)

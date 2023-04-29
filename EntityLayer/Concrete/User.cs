@@ -48,6 +48,7 @@ namespace EntityLayer.Concrete
         public bool UserStatus { get; set; }
 
         public ICollection<Order> Orders { get; set; }
+        public ICollection<Cart> Carts { get; set; }
 
 
     }

@@ -30,5 +30,7 @@ namespace EntityLayer.Concrete
         public virtual Category Category { get; set; }
 
         public ICollection<OrderDetail> OrderDetails { get; set; }
+
+        public ICollection<CartItem> CartItems { get; set; }
     }
 }

@@ -1,0 +1,17 @@
+﻿@using BusinessLayer.Concrete
+
+
+    <div class="dropdown col-3">
+        <div class="dropdown bg-secondary text-center" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"  style="height: 45px !important; color: white; font-size: 1.5rem;">
+            Categories
+        </div>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="width:91.5%">
+            @foreach (var item in CacheManager.GetAllCategories())
+            {
+                <li><a class="dropdown-item bg-light" href="#">@item.CategoryName</a></li>
+                <li><hr class="dropdown-divider"></li>
+            }
+        </ul>
+    </div>
+
+

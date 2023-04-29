@@ -6,12 +6,12 @@ var Enums = {
     WebResultTypes: { Nothing: -1, Message: 1, Html: 2, Redirect: 3, Data: 4, ProposalHtml: 5, LoginUsersSessionTimeout: 6, ResourceCode: 7 },
 }
 
-//var Account = {
-//    Login: function (model) {
-//        AjaxPost("/Account/Logintest", model, AjaxResults.LoginSucc);
-//    }
+var Account = {
+    Login: function (model) {
+        AjaxPost("/Account/Login", model, AjaxResults.LoginSucc);
+    }
 
-//}
+}
 
 var SaveModals = {
     GetCategories: function (model = {}) {
@@ -53,6 +53,17 @@ var SaveModals = {
     },
     CrudOrderDetails: function (model = {}) {
         AjaxPost("/AdminOrderDetail/CrudOrderDetail", model, AjaxResults.CrudOrderDetailSucc);
+    },
+
+    GetProductsContainer: function (model = {}) {
+        AjaxPost("/AdminProduct/GetProducts", model, AjaxResults.GetProductsContainerSucc);
+    },
+
+    GetCarts: function (model = {}) {
+        AjaxPost("/Cart/GetCarts", model, AjaxResults.GetCartsSucc);
+    },
+    CrudCarts: function (model = {}) {
+        AjaxPost("/Cart/AddToCart", model, AjaxResults.CrudCartsSucc);
     },
 }
 
@@ -109,5 +120,32 @@ window.onload = function () {
         reader.readAsDataURL(file);
 
     });
+
+    let items = document.querySelectorAll('.carousel .carousel-item')
+
+    items.forEach((el) => {
+        const minPerSlide = 4
+        let next = el.nextElementSibling
+        for (var i = 1; i < minPerSlide; i++) {
+            if (!next) {
+                // wrap carousel by using first child
+                next = items[0]
+            }
+            let cloneChild = next.cloneNode(true)
+            el.appendChild(cloneChild.children[0])
+            next = next.nextElementSibling
+        }
+    })
+
+    setTimeout(myGreeting, 1000);
+    function myGreeting() {
+        $(".addToCart").on("click", function () {
+            var model = {}
+            model.ProductID = $(this).closest('.card').find('input').attr('value')
+            SaveModals.CrudCarts(model)
+            console.log("sepete eklendi..")
+        });
+    }
+    
 
 }

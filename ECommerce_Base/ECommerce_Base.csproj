@@ -127,26 +127,38 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminCategoryController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AdminOrderController.cs" />
     <Compile Include="Controllers\AdminOrderDetailController.cs" />
     <Compile Include="Controllers\AdminProductController.cs" />
     <Compile Include="Controllers\AdminUserController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructures\Enums.cs" />
+    <Compile Include="Models\CartItemDto.cs" />
+    <Compile Include="Models\CartItemModel.cs" />
+    <Compile Include="Models\CartModel.cs" />
     <Compile Include="Models\CRUDCategoryModel.cs" />
     <Compile Include="Models\CRUDBaseModel.cs" />
+    <Compile Include="Models\DTOs\LoginDTO.cs" />
     <Compile Include="Models\EditProductViewModel.cs" />
     <Compile Include="Models\CRUDOrderDetailModel.cs" />
     <Compile Include="Models\CRUDOrderModel.cs" />
     <Compile Include="Models\CRUDProductModel.cs" />
     <Compile Include="Models\CRUDUserModel.cs" />
+    <Compile Include="Models\WebResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AppData\css\ECommerceStyle.css" />
     <Content Include="AppData\css\style.css" />
     <Content Include="AppData\js\App.AjaxResults.js" />
     <Content Include="AppData\js\App.Data.js" />
@@ -204,6 +216,15 @@
     <Content Include="Views\AdminUser\Index.cshtml" />
     <Content Include="Views\AdminOrder\Index.cshtml" />
     <Content Include="Views\AdminOrderDetail\Index.cshtml" />
+    <Content Include="Views\Shared\_ECommerceLayout.cshtml" />
+    <Content Include="Views\Category\GetCategories.cshtml" />
+    <Content Include="Views\Shared\_LeftMenu.cshtml" />
+    <Content Include="Views\Product\GetProducts.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Checkout\Index.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Shared\_AccountLayout.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Image\" />

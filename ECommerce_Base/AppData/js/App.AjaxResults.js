@@ -1,7 +1,6 @@
 ﻿var AjaxResults = {
-    /*LoginSucc: function (result) {
-        // SfsBool, WebResult, Login
 
+    LoginSucc: function (result) {
 
         switch (result.Type) {
             case Enums.WebResultTypes.Redirect:
@@ -9,9 +8,11 @@
                 break;
             case Enums.WebResultTypes.Message:
                 alert(result.Message);
+                //alert("Hata olustu");
             default:
         }
-    },*/
+    },
+
     Error: function (result) {
 
     },
@@ -221,5 +222,55 @@
             </tr>`
             orderDetailTable.append(tr);
         });
+    },
+
+    GetProductsContainerSucc: function (result) {
+
+        const productsContainer = $("#ProductsContainer")
+        $.each(result, function (index, row) {
+            const elm = `
+                    
+                    <div class="card col-3 ms-4" style="width: 18rem;">
+                        <input class="form-control" type="hidden" id="ProductID" name="ProductID" value=${row.ProductID}>
+                        <img src="${row.ProductImage}.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">${row.ProductName}</h5>
+                            <p>Category</p>
+                            <p>${row.ProductPrice}</p>
+                            <div class="d-flex justify-content-center">
+                                <button type="button" href="#" class="btn btn-secondary addToCart">Add to Cart</button>
+                            </div>
+
+                        </div>
+                    </div>`
+            productsContainer.append(elm)
+        });
+    },
+
+    GetCartsSucc: function (result) {
+
+        const cartsTable = $("#CartsTable").find("tbody")
+        $.each(result, function (index, row) {
+            const elm = `
+                <tr>
+                    <th><img src="${row.ProductImage}.jpg" style="width: 50px; height:50px;"></th>
+                    <td>${row.ProductName}</td>
+                    <td>${row.ProductPrice}</td>
+                    <td>${row.CartItemQuantity}</td>
+                    <td>${row.ProductPrice * row.CartItemQuantity}</td>
+                    <td>remove</td>
+                </tr>`
+            cartsTable.append(elm)
+        });
+    },
+
+    CrudCartsSucc: function (result) {
+        if (result == "true") {
+            SaveModals.GetCarts();
+        }
+        else {
+            console.log("İşlem Başarısız")
+        }
+
     },
 }
