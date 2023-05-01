@@ -38,6 +38,11 @@ namespace BusinessLayer.Concrete
             return _orderDetailDal.Get(x => x.OrderDetailID == id);
         }
 
+        public List<OrderDetail> GetByOrderID(int id)
+        {
+            return _orderDetailDal.List(x => x.OrderID == id);
+        }
+
         public List<OrderDetail> GetList()
         {
             return _orderDetailDal.List();

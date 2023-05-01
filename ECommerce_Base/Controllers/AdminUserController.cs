@@ -27,7 +27,16 @@ namespace ECommerce_Base.Controllers
             return Json(uservalues, JsonRequestBehavior.AllowGet);
         }
 
-        
+        [HttpPost]
+        [Authorize]
+        public JsonResult GetUserByUserName()
+        {
+            //var uservalues = cm.GetByUserName();
+            User user = cm.GetByUserName(Session["UserName"].ToString());
+            return Json(user, JsonRequestBehavior.AllowGet);
+        }
+
+
 
         [HttpPost]
         public JsonResult CrudUser(CRUDUserModel p)

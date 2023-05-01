@@ -10,7 +10,8 @@ var AppForm = {
         UserModalSaveForm: "#UserModalSaveForm",
         OrderModalSaveForm: "#OrderModalSaveForm",
         OrderDetailModalSaveForm: "#OrderDetailModalSaveForm",
-        deleteModal: "#deleteModal"
+        deleteModal: "#deleteModal",
+        CheckOutSaveForm: "#CheckOutSaveForm"
     },
 
     ObjectifyForm: function (form) {
@@ -321,6 +322,70 @@ var AppParsley = {
                 },
             ]
         },
+        CheckOutSaveForm: {
+            Fields: [
+                {
+                    Name: "UserFirstName",
+                    Required: true,
+                    StringLength: {
+                        min: 0,
+                        max: 15
+                    }
+                },
+                {
+                    Name: "UserLastName",
+                    Required: true,
+                    StringLength: {
+                        min: 0,
+                        max: 15
+                    }
+                },
+                {
+                    Name: "UserCountry",
+                    StringLength: {
+                        min: 0,
+                        max: 25
+                    }
+                },
+                {
+                    Name: "UserCity",
+                    StringLength: {
+                        min: 0,
+                        max: 25
+                    }
+                },
+                {
+                    Name: "UserAddress",
+                    StringLength: {
+                        min: 0,
+                        max: 50
+                    }
+                },
+                {
+                    Name: "UserPostalCode",
+                    StringLength: {
+                        min: 0,
+                        max: 5
+                    }
+                },
+                {
+                    Name: "UserPhone",
+                    StringLength: {
+                        min: 0,
+                        max: 11
+                    }
+                },
+                {
+                    Name: "UserEmail",
+                    Required: true,
+                    StringLength: {
+                        min: 0,
+                        max: 50
+                    }
+                },
+                
+            ]
+        },
 
     },
     Init: function () {
@@ -463,6 +528,26 @@ var AppParsley = {
                     model.processCode = "Create"
                 }
                 SaveModals.CrudOrderDetails(model)
+                return true;
+            });
+        }
+
+        if ($(AppForm.FormKeys.CheckOutSaveForm).length >= 1) {
+            commonHelper(AppForm.FormKeys.CheckOutSaveForm)
+            $(AppForm.FormKeys.CheckOutSaveForm).parsley().on('form:submit', function () {
+                console.log($(AppForm.FormKeys.CheckOutSaveForm).length)
+
+                var model = AppForm.ObjectifyForm($(AppForm.FormKeys.CheckOutSaveForm));
+
+                if (model.OrderID != "" && model.OrderID != null && model.OrderID > 0) {
+                    $(AppForm.FormKeys.CheckOutSaveForm).attr("data-processCode", "Update")
+                    model.processCode = "Update"
+                }
+                else {
+                    model.processCode = "Create"
+                }
+                SaveModals.AddOrder(model)
+                SaveModals.AddOrderDetail(model)
                 return true;
             });
         }

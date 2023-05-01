@@ -35,13 +35,20 @@ namespace ECommerce_Base.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddtoCart(int productID)
+        public ActionResult AddtoCart(CartItemModel px)
         {
            
            // CartItem cartItem = new CartItem();
             User user = um.GetByUserName(Session["UserName"].ToString());
-            var productvalue = pm.GetById(productID);
+            var productvalue = pm.GetById(px.ProductID);
             var cart = cm.GetByUserId(user.UserID);
+
+            if(cart == null)
+            {
+                cart = new Cart();
+                cart.UserID= user.UserID;
+                cm.CartAddBL(cart);
+            }
 
             var cartItem = cim.GetList().SingleOrDefault(
            c => c.CartID == cart.CartID
@@ -57,9 +64,20 @@ namespace ECommerce_Base.Controllers
             }
             else
             {
-                cartItem.CartItemQuantity++;
-                cim.CartItemUpdate(cartItem);
-
+                if (px.processCode == "Increase")
+                {
+                    cartItem.CartItemQuantity++;
+                    cim.CartItemUpdate(cartItem);
+                }
+                else if (px.processCode == "Decrease")
+                {
+                    cartItem.CartItemQuantity--;
+                    if (cartItem.CartItemQuantity < 0)
+                    {
+                        cartItem.CartItemQuantity = 0;
+                    }
+                    cim.CartItemUpdate(cartItem);
+                }
             }
             
 
@@ -81,6 +99,7 @@ namespace ECommerce_Base.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public JsonResult GetCarts()
         {
             
@@ -116,7 +135,8 @@ namespace ECommerce_Base.Controllers
                     pl.CartItemQuantity,
                     nt.ProductPrice,
                     nt.ProductName,
-                    nt.ProductImage
+                    nt.ProductImage,
+                    nt.ProductID
                 }).ToList();
             CartItemDto asd = new CartItemDto();
             //asd = result;

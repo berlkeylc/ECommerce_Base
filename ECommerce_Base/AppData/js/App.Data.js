@@ -31,6 +31,9 @@
             }
         }
         SaveModals.GetProductsContainer();
+        SaveModals.GetCartCheckOut();
+        SaveModals.GetUserInfoCheckOut();
+        SaveModals.GetOrderDetail();
     }
 
 }

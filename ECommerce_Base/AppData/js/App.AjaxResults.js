@@ -249,19 +249,31 @@
 
     GetCartsSucc: function (result) {
 
+        let totalPrices = 0;
         const cartsTable = $("#CartsTable").find("tbody")
+        cartsTable.empty();
         $.each(result, function (index, row) {
-            const elm = `
-                <tr>
+            if (row.CartItemQuantity != 0) {
+                const elm = `
+                <tr data-productID = "${row.ProductID}">
                     <th><img src="${row.ProductImage}.jpg" style="width: 50px; height:50px;"></th>
                     <td>${row.ProductName}</td>
-                    <td>${row.ProductPrice}</td>
-                    <td>${row.CartItemQuantity}</td>
+                    <td name="ProductPrice">${row.ProductPrice}</td>
+                    <td name="CartItemQuantity">${row.CartItemQuantity}</td>
                     <td>${row.ProductPrice * row.CartItemQuantity}</td>
-                    <td>remove</td>
+                    <td>
+                        <div class="input-group w-auto justify-content-end align-items-center">
+                            <input type="button" value="-" class="button-minus border rounded-circle  icon-shape icon-sm mx-1 " data-field="quantity">
+                            <input type="text" step="1" max="10" value="${row.CartItemQuantity}" name="quantity" class="quantity-field border-0 text-center w-25" disabled>
+                            <input type="button" value="+" class="button-plus border rounded-circle icon-shape icon-sm " data-field="quantity">
+                        </div>
+                    </td>
                 </tr>`
-            cartsTable.append(elm)
+                totalPrices += row.ProductPrice * row.CartItemQuantity
+                cartsTable.append(elm)
+            }
         });
+        $("#CartTotalPrice").html(totalPrices)
     },
 
     CrudCartsSucc: function (result) {
@@ -271,6 +283,71 @@
         else {
             console.log("İşlem Başarısız")
         }
+    },
 
+    GetCartCheckOutSucc: function (result) {
+        const cartCheckOut = $("#CartCheckOut")
+        let totalPrices = 0;
+        $.each(result, function (index, row) {
+            const elm = `
+                <li class="d-flex justify-content-between py-2">
+                    <p class="px-2">${row.ProductName} x ${row.CartItemQuantity}</p>
+                    <p class="px-5">${row.ProductPrice * row.CartItemQuantity}</p>
+                </li>
+                `
+            totalPrices += row.ProductPrice * row.CartItemQuantity
+            cartCheckOut.append(elm)
+        });
+        let elm2 = `
+            <li><hr/></li>
+            <li class="d-flex justify-content-between py-2">
+                  <p class="px-2">Total</p>
+                  <p class="px-5">${totalPrices}</p>
+            </li>
+            <li><hr/></li>
+            `
+        cartCheckOut.append(elm2)
+    },
+
+    GetUserInfoCheckOutSucc: function (result) {
+        
+        console.log(Object.keys(result))
+        $('#CheckOutInfos').find(':input').each(function (index, row) {
+            Object.keys(result).forEach(function (element) {
+                if (element == $(row).attr("name")) {
+                    $(row).attr("value",result[element])
+                }
+        });
+        })
+    },
+
+    AddOrderSucc: function (result) {
+        if (result == "true") {
+            SaveModals.GetOrderDetails();
+        }
+        else {
+            console.log("İşlem Başarısız")
+        }
+    },
+
+    GetOrderDetailSucc: function (result) {
+        
+        const orderTable = $("#OrderTable").find("tbody")
+        
+        $.each(result, function (index, row) {
+                const elm = `
+                <tr>
+                    <th><img src="${row.ProductImage}.jpg" style="width: 50px; height:50px;"></th>
+                    <td>${row.ProductName}</td>
+                    <td name="ProductPrice">${row.OrderDetailQuantity}</td>
+                    <td name="CartItemQuantity">${row.OrderDetailDiscount}</td>
+                    <td>${row.ProductPrice * row.OrderDetailQuantity}</td>
+                    <td>${row.OrderDate}</td>
+                    <td>${row.OrderRequiredDate}</td>
+                    <td style="background-color:${row.OrderIsDelivered ? "green" : "red"};"></td>
+                </tr>`
+                
+                orderTable.append(elm)
+        });
     },
 }

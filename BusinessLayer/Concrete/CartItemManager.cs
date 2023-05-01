@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Abstract;
 using DataAccessLayer.Abstract;
+using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,11 @@ namespace BusinessLayer.Concrete
         public CartItem GetById(int id)
         {
             return _cartItemDal.Get(x => x.CartItemID == id);
+        }
+
+        public List<CartItem> GetByCartID(int id)
+        {
+            return _cartItemDal.List(x => x.CartID == id);
         }
 
         public List<CartItem> GetList()

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace ECommerce_Base.Models
 {
-    public class CartItemModel
+    public class CartItemModel : CRUDBaseModel
     {
         public int CartItemID { get; set; }
 

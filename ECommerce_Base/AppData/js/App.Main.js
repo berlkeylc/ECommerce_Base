@@ -65,6 +65,26 @@ var SaveModals = {
     CrudCarts: function (model = {}) {
         AjaxPost("/Cart/AddToCart", model, AjaxResults.CrudCartsSucc);
     },
+
+    GetCartCheckOut: function (model = {}) {
+        AjaxPost("/Cart/GetCarts", model, AjaxResults.GetCartCheckOutSucc);
+    }, 
+
+    GetUserInfoCheckOut: function (model = {}) {
+        AjaxPost("/AdminUser/GetUserByUserName", model, AjaxResults.GetUserInfoCheckOutSucc);
+    },
+
+    AddOrder: function (model = {}) {
+        AjaxPost("/Order/CrudOrder", model, AjaxResults.CrudOrderSucc);
+    },
+
+    AddOrderDetail: function(model = {}) {
+        AjaxPost("/OrderDetail/CrudOrderDetail", model, AjaxResults.AddOrderSucc);
+    },
+
+    GetOrderDetail: function (model = {}) {
+        AjaxPost("/OrderDetail/GetOrderDetail", model, AjaxResults.GetOrderDetailSucc);
+    },
 }
 
 
@@ -142,8 +162,54 @@ window.onload = function () {
         $(".addToCart").on("click", function () {
             var model = {}
             model.ProductID = $(this).closest('.card').find('input').attr('value')
+            model.processCode = "Increase"
             SaveModals.CrudCarts(model)
             console.log("sepete eklendi..")
+        });
+        function incrementValue(e) {
+            e.preventDefault();
+            var fieldName = $(e.target).data('field');
+            var parent = $(e.target).closest('div');
+            var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
+
+            if (!isNaN(currentVal)) {
+                parent.find('input[name=' + fieldName + ']').val(currentVal + 1);
+                $(e.target).closest('tr').find('td[name = "CartItemQuantity"]').html(currentVal + 1)
+                $("#CartTotalPrice").html(parseInt($("#CartTotalPrice").html()) + parseInt($(e.target).closest('tr').find('td[name = "ProductPrice"]').html()))
+            } else {
+                parent.find('input[name=' + fieldName + ']').val(0);
+            }
+        } 
+
+        function decrementValue(e) {
+            e.preventDefault();
+            var fieldName = $(e.target).data('field');
+            var parent = $(e.target).closest('div');
+            var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
+
+            if (!isNaN(currentVal) && currentVal > 0) {
+                parent.find('input[name=' + fieldName + ']').val(currentVal - 1);
+                $(e.target).closest('tr').find('td[name = "CartItemQuantity"]').html(currentVal - 1)
+            } else {
+                parent.find('input[name=' + fieldName + ']').val(0);
+            }
+        }
+
+        $('.input-group').on('click', '.button-plus', function (e) {
+            incrementValue(e);
+            var model = {}
+            model.ProductID = $(this).closest('tr').attr('data-productid')
+            model.processCode = "Increase"
+            SaveModals.CrudCarts(model)
+            //SaveModals.GetCarts();
+        });
+
+        $('.input-group').on('click', '.button-minus', function (e) {
+            decrementValue(e);
+            var model = {}
+            model.ProductID = $(this).closest('tr').attr('data-productid')
+            model.processCode = "Decrease"
+            SaveModals.CrudCarts(model)
         });
     }
     
