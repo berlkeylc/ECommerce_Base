@@ -144,6 +144,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructures\Enums.cs" />
+    <Compile Include="Infrastructures\UtilityHelper.cs" />
+    <Compile Include="Infrastructures\UtilityOperation.cs" />
     <Compile Include="Models\CartItemDto.cs" />
     <Compile Include="Models\CartItemModel.cs" />
     <Compile Include="Models\CartModel.cs" />
@@ -155,6 +157,9 @@
     <Compile Include="Models\CRUDOrderModel.cs" />
     <Compile Include="Models\CRUDProductModel.cs" />
     <Compile Include="Models\CRUDUserModel.cs" />
+    <Compile Include="Models\ViewModel\OrderDetailViewModel.cs" />
+    <Compile Include="Models\ViewModel\OrderViewModel.cs" />
+    <Compile Include="Models\ViewModel\ProductViewModel.cs" />
     <Compile Include="Models\WebResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
