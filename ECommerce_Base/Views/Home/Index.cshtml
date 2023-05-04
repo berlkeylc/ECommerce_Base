@@ -1,31 +1,51 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "GetCategories";
+    Layout = "~/Views/Shared/_ECommerceLayout.cshtml";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<div class="container row mx-auto">
+    @Html.Partial("_LeftMenu")
+    <div class="col-9 bg-light d-flex align-items-center auto justify-content-center" style="height: 500px !important;">
+        <h3 class="text-center" style="font-size:100px">Advertisement Board</h3>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+
+</div>
+<div class="container text-center my-3 mt-5">
+    <div class="row mx-auto my-auto justify-content-center">
+        <div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner" role="listbox">
+                @foreach (var item in @Model)
+                {
+                    <div class="carousel-item">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img">
+                                    <img src=@Html.Raw(item.ProductImage + ".jpg") class="img-fluid">
+                                </div>
+                                <div class="card-img-overlay">@item.ProductName</div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="carousel-item active">
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-img">
+                                <img src="https://via.placeholder.com/700x500.png/CB997E/333333?text=1" class="img-fluid">
+                            </div>
+                            <div class="card-img-overlay">Slide 1</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <a class="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel" role="button" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </a>
+            <a class="carousel-control-next bg-transparent w-aut" href="#recipeCarousel" role="button" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </a>
+        </div>
     </div>
 </div>

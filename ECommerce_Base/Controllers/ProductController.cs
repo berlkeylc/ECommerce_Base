@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
+using ECommerce_Base.Infrastructures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,8 @@ namespace ECommerce_Base.Controllers
 {
     public class ProductController : Controller
     {
-        // GET: Product
-        CategoryManager cm = new CategoryManager(new EFCategoryDal());
-        ProductManager pm = new ProductManager(new EFProductDal());
-        // GET: Category
+
+        UtilityOperation utilityOperation = new UtilityOperation();
 
         [Authorize]
         public ActionResult Index()
@@ -24,10 +23,7 @@ namespace ECommerce_Base.Controllers
         [HttpPost]
         public ActionResult GetProducts()
         {
-            var categoryvalues = cm.GetList();
-            var productvalues = pm.GetList();
-            //return View(productvalues);
-            return Json(productvalues, JsonRequestBehavior.AllowGet);
+            return Json(utilityOperation.GetProductsOperation(), JsonRequestBehavior.AllowGet);
         }
     }
 }

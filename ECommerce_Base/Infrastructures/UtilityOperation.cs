@@ -18,6 +18,8 @@ namespace ECommerce_Base.Infrastructures
         UserManager um = new UserManager(new EFUserDal());
         OrderManager om = new OrderManager(new EFOrderDal());
         OrderDetailManager odm = new OrderDetailManager(new EFOrderDetailDal());
+        CartManager cartm = new CartManager(new EFCartDal());
+        CartItemManager cim = new CartItemManager(new EFCartItemDal());
 
         public List<Category> GetCategoriesOperation()
         {
@@ -247,6 +249,70 @@ namespace ECommerce_Base.Infrastructures
             else
             {
                 odm.OrderDetailAddBL(orderDetail);
+            }
+        }
+
+        public List<CartViewModel> GetCartsOperation(string session)
+        {
+            User user = um.GetByUserName(session);
+            var cart = cartm.GetByUserId(user.UserID);
+            var result =
+               (from pl in cim.GetByCartID(cart.CartID)
+                join cl in pm.GetList() on pl.ProductID equals cl.ProductID into t
+                from nt in t.DefaultIfEmpty()
+                select new CartViewModel
+                {
+                    CartItemQuantity = pl.CartItemQuantity,
+                    ProductPrice = nt.ProductPrice,
+                    ProductName = nt.ProductName,
+                    ProductImage = nt.ProductImage,
+                    ProductID = nt.ProductID
+                }).ToList();
+
+            return result;
+        }
+
+        public void CrudCartOperation(CartItemModel arg, string session)
+        {
+            User user = um.GetByUserName(session);
+            var productvalue = pm.GetById(arg.ProductID);
+            var cart = cartm.GetByUserId(user.UserID);
+
+            if (cart == null)
+            {
+                cart = new Cart();
+                cart.UserID = user.UserID;
+                cartm.CartAddBL(cart);
+            }
+
+            var cartItem = cim.GetList().SingleOrDefault(
+           c => c.CartID == cart.CartID
+           && c.ProductID == productvalue.ProductID);
+
+            if (cartItem == null)
+            {
+                cartItem = new CartItem();
+                cartItem.ProductID = productvalue.ProductID;
+                cartItem.CartItemQuantity += 1;
+                cartItem.CartID = cart.CartID;
+                cim.CartItemAddBL(cartItem);
+            }
+            else
+            {
+                if (arg.processCode == "Increase")
+                {
+                    cartItem.CartItemQuantity++;
+                    cim.CartItemUpdate(cartItem);
+                }
+                else if (arg.processCode == "Decrease")
+                {
+                    cartItem.CartItemQuantity--;
+                    if (cartItem.CartItemQuantity < 0)
+                    {
+                        cartItem.CartItemQuantity = 0;
+                    }
+                    cim.CartItemUpdate(cartItem);
+                }
             }
         }
 

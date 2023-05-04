@@ -63,7 +63,7 @@ var SaveModals = {
         AjaxPost("/Cart/GetCarts", model, AjaxResults.GetCartsSucc);
     },
     CrudCarts: function (model = {}) {
-        AjaxPost("/Cart/AddToCart", model, AjaxResults.CrudCartsSucc);
+        AjaxPost("/Cart/CrudCart", model, AjaxResults.CrudCartsSucc);
     },
 
     GetCartCheckOut: function (model = {}) {

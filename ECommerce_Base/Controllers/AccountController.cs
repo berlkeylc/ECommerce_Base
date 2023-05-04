@@ -34,7 +34,7 @@ namespace ECommerce_Base.Controllers
                     Session["UserName"] = model.UserName;
 
                     //return View();
-                    webResult.Url = Url.Action("GetCategories", "Category");
+                    webResult.Url = Url.Action("Index", "Home");
                     webResult.Type = Infrastructures.Enums.WebResultTypes.Redirect;
                 }
                 else
