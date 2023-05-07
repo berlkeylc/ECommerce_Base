@@ -5,44 +5,39 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
     @Styles.Render("~/AppData/css")
 </head>
 <body>
 
-    <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;" id="adminsidebar">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-            <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
             <span class="fs-4">Admin</span>
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="/AdminCategory/Index" class="nav-link active" aria-current="page">
-                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                <a href="/AdminCategory/Index" class="nav-link text-white" aria-current="page">
                     Categories
                 </a>
-            </li>
+            </li class="nav-item">
             <li>
-                <a href="/AdminProduct/Index" class="nav-link text-white">
-                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+                <a href="/AdminProduct/Index" class="nav-link text-white" aria-current="page">
                     Products
                 </a>
             </li>
             <li>
                 <a href="/AdminUser/Index" class="nav-link text-white">
-                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
                     Users
                 </a>
             </li>
             <li>
                 <a href="/AdminOrder/Index" class="nav-link text-white">
-                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
                     Orders
                 </a>
             </li>
             <li>
                 <a href="/AdminOrderDetail/Index" class="nav-link text-white">
-                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
                     Order Details
                 </a>
             </li>
@@ -63,7 +58,7 @@
             </div>*@
     </div>
 
-    <div style="width:100%">
+    <div style="width: 100%; overflow-y: scroll;">
         @RenderBody()
 
     </div>
@@ -73,6 +68,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="~/Scripts/parsley.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
     @Scripts.Render("~/AppData/js")
 </body>
 </html>

@@ -5,7 +5,7 @@
 
 <div class="container row mx-auto">
     @Html.Partial("_LeftMenu")
-    <div class="col-9 bg-light d-flex align-items-center auto justify-content-center" style="height: 500px !important;">
+    <div class="col-9 bg-light d-flex align-items-center auto justify-content-center" style="height: 400px !important;">
         <h3 class="text-center" style="font-size:100px">Advertisement Board</h3>
 
     </div>
@@ -18,17 +18,21 @@
                 @foreach (var item in @Model)
                 {
                     <div class="carousel-item">
-                        <div class="col-md-3">
+                        <div class="col-md-3 mx-3">
                             <div class="card">
-                                <div class="card-img">
-                                    <img src=@Html.Raw(item.ProductImage + ".jpg") class="img-fluid">
+                                <br />
+                                <div style="height:250px;overflow: hidden;" class="d-flex align-items-center justify-content-center">
+                                    <img src=@Html.Raw(item.ProductImage + ".jpg") class="w-100 rounded mx-auto d-block">
                                 </div>
-                                <div class="card-img-overlay">@item.ProductName</div>
+                                @*<img src=@Html.Raw(item.ProductImage + ".jpg") class="img-thumbnail rounded mx-auto d-block" style="height:250px">*@
+                                <div class="card-body">
+                                    <h5 class="card-title">@item.ProductName</h5>
+                                </div>
                             </div>
                         </div>
                     </div>
                 }
-                <div class="carousel-item active">
+                @*<div class="carousel-item active">
                     <div class="col-md-3">
                         <div class="card">
                             <div class="card-img">
@@ -37,8 +41,18 @@
                             <div class="card-img-overlay">Slide 1</div>
                         </div>
                     </div>
+                </div>*@
+                <div class="carousel-item active">
+                    <div class="col-md-3 mx-3">
+                        <div class="card">
+                            <br />
+                            <div class="bg-light" style="height:250px"></div>
+                            <div class="card-body">
+                                <h5 class="card-title">İndirimli Ürünler</h5>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
             </div>
             <a class="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel" role="button" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>

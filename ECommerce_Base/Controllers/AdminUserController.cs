@@ -27,6 +27,13 @@ namespace ECommerce_Base.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+        public JsonResult GetUserByUserName()
+        {
+            return Json(utilityOperation.GetUserByUserNameOperation(Session["UserName"].ToString()), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public JsonResult CrudUser(CRUDUserModel user)
         {
             utilityOperation.CrudUserOperation(user);

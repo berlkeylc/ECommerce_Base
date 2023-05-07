@@ -5,13 +5,15 @@
 var AppForm = {
     FormKeys: {
         LoginForm: "#loginform",
+        RegisterForm: "#registerform",
         CategoryModalSaveForm: "#CategoryModalSaveForm",
         ProductModalSaveForm: "#ProductModalSaveForm",
         UserModalSaveForm: "#UserModalSaveForm",
         OrderModalSaveForm: "#OrderModalSaveForm",
         OrderDetailModalSaveForm: "#OrderDetailModalSaveForm",
         deleteModal: "#deleteModal",
-        CheckOutSaveForm: "#CheckOutSaveForm"
+        CheckOutSaveForm: "#CheckOutSaveForm",
+        LogoutModalSaveForm: "#LogoutModalSaveForm"
     },
 
     ObjectifyForm: function (form) {
@@ -52,6 +54,58 @@ var AppParsley = {
                 },
                 {
                     Name: "Password",
+                    Required: true,
+                    StringLength: {
+                        min: 0,
+                        max: 50
+                    }
+                }
+            ]
+        },
+        RegisterForm: {
+            Fields: [
+                {
+                    Name: "UserFirstName",
+                    Required: true,
+                    StringLength: {
+                        min: 0,
+                        max: 15
+                    }
+                },
+                {
+                    Name: "UserLastName",
+                    Required: true,
+                    StringLength: {
+                        min: 0,
+                        max: 15
+                    }
+                },
+                {
+                    Name: "UserName",
+                    Required: true,
+                    StringLength: {
+                        min: 0,
+                        max: 15
+                    }
+                },
+                {
+                    Name: "UserEmail",
+                    Required: true,
+                    StringLength: {
+                        min: 0,
+                        max: 50
+                    }
+                },
+                {
+                    Name: "Password",
+                    Required: true,
+                    StringLength: {
+                        min: 0,
+                        max: 50
+                    }
+                },
+                {
+                    Name: "RepeatPassword",
                     Required: true,
                     StringLength: {
                         min: 0,
@@ -391,6 +445,12 @@ var AppParsley = {
     Init: function () {
         var formKeys = Object.keys(this.Forms); // ['LoginForm', 'RegisterForm'] vs
 
+        //Object.keys(AppForm.FormKeys).forEach(function (key) {
+
+        //    clearModalInputs(AppForm.FormKeys[key]);
+
+        //});
+
         function commonHelper(formkey) {
 
             var $form = $(formkey);
@@ -430,6 +490,18 @@ var AppParsley = {
             });
         } 
 
+        if ($(AppForm.FormKeys.RegisterForm).length >= 1) {
+            commonHelper(AppForm.FormKeys.RegisterForm)
+            $(AppForm.FormKeys.RegisterForm).parsley().on('form:submit', function () {
+
+                var model = AppForm.ObjectifyForm($(AppForm.FormKeys.RegisterForm));
+                if (model.Password == model.RepeatPassword) {
+                    Account.Register(model)
+                    return true;
+                }
+            });
+        } 
+
         if ($(AppForm.FormKeys.CategoryModalSaveForm).length >= 1)
         {
             commonHelper(AppForm.FormKeys.CategoryModalSaveForm)
@@ -446,6 +518,7 @@ var AppParsley = {
                     model.processCode = "Create"
                 }
                 SaveModals.CrudCategories(model)
+                
                 return true;
             });
         }
@@ -546,7 +619,7 @@ var AppParsley = {
                 else {
                     model.processCode = "Create"
                 }
-                SaveModals.AddOrder(model)
+                SaveModals.CrudOrders(model)
                 SaveModals.AddOrderDetail(model)
                 return true;
             });
@@ -571,6 +644,15 @@ var AppParsley = {
                     case "OrderDetailsTable":
                         SaveModals.CrudOrderDetails(model)
                 }
+
+                return true;
+            });
+        }
+        
+        if ($("#logoutModal").length >= 1) {
+            $("#logoutModal").on('click', function () {
+
+                Account.Logout();
 
                 return true;
             });

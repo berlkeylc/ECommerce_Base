@@ -151,6 +151,7 @@
     <Compile Include="Models\CRUDCategoryModel.cs" />
     <Compile Include="Models\CRUDBaseModel.cs" />
     <Compile Include="Models\DTOs\LoginDTO.cs" />
+    <Compile Include="Models\DTOs\RegisterDTO.cs" />
     <Compile Include="Models\EditProductViewModel.cs" />
     <Compile Include="Models\CRUDOrderDetailModel.cs" />
     <Compile Include="Models\CRUDOrderModel.cs" />
@@ -227,6 +228,8 @@
     <Content Include="Views\Shared\_AccountLayout.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\OrderDetail\Index.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\RegisterPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Image\" />

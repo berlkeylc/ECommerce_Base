@@ -9,6 +9,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Xml.Linq;
 
 namespace ECommerce_Base.Controllers
 {
@@ -17,6 +18,11 @@ namespace ECommerce_Base.Controllers
         // GET: Account
         UserManager um = new UserManager(new EFUserDal());
         public ActionResult Login()
+        {
+            return View();
+        }
+
+        public ActionResult RegisterPage()
         {
             return View();
         }
@@ -43,18 +49,59 @@ namespace ECommerce_Base.Controllers
                     webResult.Message = "Yanlış Şifre.";
                 }
             }
-            
             else
             {
                 webResult.Type = Infrastructures.Enums.WebResultTypes.Message;
                 webResult.Message = "Kullanıcı Bulunamadı.";
             }
             return Json(webResult, JsonRequestBehavior.AllowGet);
-
         }
-        public ActionResult Register()
+
+        [HttpPost]
+        public JsonResult Register(RegisterDTO model)
         {
-            return View();
+            var webResult = new WebResult();
+            User userIsExist = um.GetByUserName(model.UserName);
+
+            if (userIsExist == null)
+            {
+                if (model.RepeatPassword == model.Password)
+                {
+                    User user = new User();
+                    
+                    user.UserEmail = model.UserEmail;
+                    user.UserName = model.UserName;
+                    user.UserLastName = model.UserLastName;
+                    user.UserFirstName = model.UserFirstName;
+                    user.UserPassword = model.Password;
+
+                    um.UserAddBL(user);
+
+                    webResult.Url = Url.Action("Login", "Account"); ;
+                    webResult.Type = Infrastructures.Enums.WebResultTypes.Redirect;
+                }
+                else
+                {
+                    webResult.Type = Infrastructures.Enums.WebResultTypes.Message;
+                    webResult.Message = "Şifreler Bilbiri İle Uyuşmuyor.";
+                }
+            }
+            else
+            {
+                webResult.Type = Infrastructures.Enums.WebResultTypes.Message;
+                webResult.Message = "Kullanıcı Adı Daha Önceden Alınmış.";
+            }
+            return Json(webResult, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult Logout()
+        {
+            var webResult = new WebResult();
+            FormsAuthentication.SignOut();
+            webResult.Url = Url.Action("Login", "Account");
+            webResult.Type = Infrastructures.Enums.WebResultTypes.Redirect;
+            return Json(webResult, JsonRequestBehavior.AllowGet);
         }
     }
 }

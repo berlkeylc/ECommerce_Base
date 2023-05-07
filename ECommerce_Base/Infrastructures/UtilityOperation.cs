@@ -107,6 +107,11 @@ namespace ECommerce_Base.Infrastructures
             return um.GetList();
         }
 
+        public User GetUserByUserNameOperation(string session)
+        {
+            return um.GetByUserName(session);
+        }
+
         public void CrudUserOperation(CRUDUserModel arg)
         {
             User user = new User();
@@ -256,20 +261,28 @@ namespace ECommerce_Base.Infrastructures
         {
             User user = um.GetByUserName(session);
             var cart = cartm.GetByUserId(user.UserID);
-            var result =
-               (from pl in cim.GetByCartID(cart.CartID)
-                join cl in pm.GetList() on pl.ProductID equals cl.ProductID into t
-                from nt in t.DefaultIfEmpty()
-                select new CartViewModel
-                {
-                    CartItemQuantity = pl.CartItemQuantity,
-                    ProductPrice = nt.ProductPrice,
-                    ProductName = nt.ProductName,
-                    ProductImage = nt.ProductImage,
-                    ProductID = nt.ProductID
-                }).ToList();
+            if (cart != null)
+            {
+                var result =
+              (from pl in cim.GetByCartID(cart.CartID)
+               join cl in pm.GetList() on pl.ProductID equals cl.ProductID into t
+               from nt in t.DefaultIfEmpty()
+               select new CartViewModel
+               {
+                   CartItemQuantity = pl.CartItemQuantity,
+                   ProductPrice = nt.ProductPrice,
+                   ProductName = nt.ProductName,
+                   ProductImage = nt.ProductImage,
+                   ProductID = nt.ProductID
+               }).ToList();
 
-            return result;
+                return result;
+            }
+            else
+            {
+                return null;
+            }
+           
         }
 
         public void CrudCartOperation(CartItemModel arg, string session)
@@ -314,6 +327,77 @@ namespace ECommerce_Base.Infrastructures
                     cim.CartItemUpdate(cartItem);
                 }
             }
+        }
+
+        public List<OrderDetailViewModel> GetOrderDetailsUserOperation(string session)
+        {
+            User user = um.GetByUserName(session);
+            var order = om.GetByUserID(user.UserID).LastOrDefault();
+
+            if(order != null)
+            {
+                var result =
+               (from od in odm.GetByOrderID(order.OrderID)
+                join t2 in pm.GetList() on od.ProductID equals t2.ProductID into t
+                from m in t.DefaultIfEmpty()
+                join o in om.GetList() on od.OrderID equals o.OrderID into s
+                from nt in s.DefaultIfEmpty()
+                select new OrderDetailViewModel
+                {
+                    UserFirstName = nt.User.UserFirstName,
+                    UserLastName = nt.User.UserLastName,
+                    UserEmail = nt.User.UserEmail,
+                    UserName = nt.User.UserName,
+                    UserPhone = nt.User.UserPhone,
+                    UserAddress = nt.User.UserAddress,
+                    UserCity = nt.User.UserCity,
+                    UserPostalCode = nt.User.UserPostalCode,
+                    OrderDate = nt.OrderDate.ToString("yyyy-MM-dd"),
+                    OrderID = nt.OrderID,
+                    OrderRequiredDate = nt.OrderRequiredDate.ToString("yyyy-MM-dd"),
+                    OrderFreight = nt.OrderFreight,
+                    OrderIsDelivered = nt.OrderIsDelivered,
+                    ProductID = m.ProductID,
+                    ProductImage = m.ProductImage,
+                    ProductName = m.ProductName,
+                    ProductPrice = m.ProductPrice,
+                    OrderDetailQuantity = od.OrderDetailQuantity,
+                    OrderDetailDiscount = od.OrderDetailDiscount,
+                    OrderDetailUnitPrice = od.OrderDetailUnitPrice,
+                    OrderDetailStatus = od.OrderDetailStatus,
+                    OrderDetailID = od.OrderDetailID,
+                }).ToList();
+
+                return result;
+            }
+            else
+            {
+                return null;
+            }
+            
+        }
+
+        public void CrudOrderDetailUserOperation(string session)
+        {
+            User user = um.GetByUserName(session);
+            var order = om.GetByUserID(user.UserID).LastOrDefault();
+            var cart = cartm.GetList().SingleOrDefault(x => x.UserID == user.UserID);
+            var cartItems = cim.GetByCartID(cart.CartID);
+
+            cartItems.ForEach(cartItem => {
+                OrderDetail orderDetail = new OrderDetail();
+                //orderDetail.OrderDetailID = p.OrderDetailID;
+                //orderDetail.OrderDetailDiscount = p.OrderDetailDiscount;
+                orderDetail.OrderDetailQuantity = cartItem.CartItemQuantity;
+                orderDetail.OrderDetailUnitPrice = pm.GetById(cartItem.ProductID).ProductPrice;
+                //orderDetail.OrderDetailStatus = p.OrderDetailStatus;
+                orderDetail.OrderID = order.OrderID;
+                orderDetail.ProductID = cartItem.ProductID;
+
+
+                odm.OrderDetailAddBL(orderDetail);
+                cim.CartItemDelete(cartItem);
+            });
         }
 
         public void convertProductImage(Product product)

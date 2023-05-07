@@ -1,5 +1,5 @@
 ﻿@using BusinessLayer.Concrete
-<!-- Add Category Modal -->
+<!-- CRUD Category Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -9,20 +9,20 @@
             </div>
             <br />
             <form method="post" id="CategoryModalSaveForm">
-                <div class="mx-auto">
-                    <div class="form-group d-flex justify-content-center">
+                <div class="container">
+                    <div class="mx-5">
                         <div class="row">
-                            <div class="col-6" style="display:none">
+                            <div class="col-6 my-3" style="display:none">
                                 <label for="CategoryID" class="form-label">Categor ID</label>
                                 <input class="form-control" id="CategoryID" name="CategoryID">
                             </div>
                             <br /> <br />
-                            <div class="col-6">
+                            <div class="col-6 my-3">
                                 <label for="CategoryName" class="form-label">CategoryName</label>
                                 <input type="text" class="form-control" id="CategoryName" name="CategoryName">
                             </div>
                             <br /> <br />
-                            <div class="col-6">
+                            <div class="col-6 my-3">
                                 <div class="col-6 mx-auto">
                                     <label class="form-label">Category Status</label>
                                     <br />
@@ -43,8 +43,10 @@
                                 </div>
                             </div>
                             <br /> <br />
-                            <label for="CategoryDescription" class="form-label">Category Description</label>
-                            <input type="text" class="form-control" id="CategoryDescription" name="CategoryDescription">
+                            <div class="col-12 my-3">
+                                <label for="CategoryDescription" class="form-label">Category Description</label>
+                                <input type="text" class="form-control" id="CategoryDescription" name="CategoryDescription">
+                            </div>
                         </div>
                     </div>
                     <br /> <br />
@@ -58,7 +60,7 @@
     </div>
 </div>
 
-<!-- Add Product Modal -->
+<!-- CRUD Product Modal -->
 <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModal2Label" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -68,26 +70,26 @@
             </div>
             <br />
             <form method="post" id="ProductModalSaveForm">
-                <div class="mx-auto">
-                    <div class="form-group d-flex justify-content-center">
+                <div class="container">
+                    <div class="mx-5">
                         <div class="row">
-                            <div class="col-6" style="display:none">
+                            <div class="col-6 p-3 px-4" style="display:none">
                                 <label for="ProductID" class="form-label">Categor ID</label>
                                 <input class="form-control" id="ProductID" name="ProductID">
                             </div>
                             <br /> <br />
-                            <div class="col-6">
+                            <div class="col-6 p-3 px-4">
                                 <label for="ProductName" class="form-label">Product Name</label>
                                 <input type="text" class="form-control" id="ProductName" name="ProductName">
                             </div>
                             <br /> <br />
-                            <div class="col-6">
+                            <div class="col-6 p-3 px-4">
                                 <label for="ProductImage" class="form-label">Select image:</label>
                                 <input type="file" class="form-control" id="ProductImage" name="ProductImage" accept="image/*">
                             </div>
                             <br /> <br />
-                            <div class="col-6">
-                                <div class="col-6 mx-auto">
+                            <div class="col-6 p-3 px-4">
+                                <div class="col-4">
                                     <label class="form-label">Product Status</label>
                                     <br />
                                     <div class="d-flex justify-content-between">
@@ -106,15 +108,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-6 p-3 px-4">
                                 <label for="ProductPrice" class="form-label">Product Price</label>
                                 <input type="text" class="form-control" id="ProductPrice" name="ProductPrice">
                             </div>
-                            <div class="col-6">
+                            <div class="col-6 p-3 px-4">
                                 <label for="ProductStock" class="form-label">Product Stock</label>
                                 <input type="text" class="form-control" id="ProductStock" name="ProductStock">
                             </div>
-                            <div class="col-6">
+                            <div class="col-6 p-3 px-4">
                                 <label for="CategoryID" class="form-label">Category Name</label>
                                 <select name="CategoryID" class="form-control">
                                     @foreach (var item in CacheManager.GetAllCategories())
@@ -124,8 +126,10 @@
                                 </select>
                             </div>
                             <br /> <br />
-                            <label for="ProductDescription" class="form-label">Product Description</label>
-                            <input type="text" class="form-control" id="ProductDescription" name="ProductDescription">
+                            <div class="col-12 m-3">
+                                <label for="ProductDescription" class="form-label">Product Description</label>
+                                <input type="text" class="form-control" id="ProductDescription" name="ProductDescription">
+                            </div>
                         </div>
                     </div>
                     <br /> <br />
@@ -149,70 +153,70 @@
             </div>
             <br />
             <form method="post" id="UserModalSaveForm">
-                <div class="mx-auto">
-                    <div class="form-group d-flex justify-content-center">
+                <div class="container">
+                    <div class="mx-5">
                         <div class="row">
                             <div class="col-6" style="display:none">
                                 <label for="UserID" class="form-label">User ID</label>
                                 <input class="form-control" id="UserID" name="UserID">
                             </div>
                             <br /> <br />
-                            <div class="col-6">
+                            <div class="col-6 p-3 px-4">
                                 <label for="UserName" class="form-label">UserName</label>
                                 <input type="text" class="form-control" id="UserName" name="UserName">
                             </div>
                             <br /> <br />
-                            <div class="col-6">
+                            <div class="col-6 p-3 px-4">
                                 <label for="UserEmail" class="form-label">E Mail</label>
                                 <input type="text" class="form-control" id="UserEmail" name="UserEmail">
                             </div>
                             <br /> <br />
-                            <div class="col-6">
+                            <div class="col-6 p-3 px-4">
                                 <label for="UserFirstName" class="form-label">First Name</label>
                                 <input type="text" class="form-control" id="UserFirstName" name="UserFirstName">
                             </div>
                             <br /> <br />
-                            <div class="col-6">
+                            <div class="col-6 p-3 px-4">
                                 <label for="UserLastName" class="form-label">Last Name</label>
                                 <input type="text" class="form-control" id="UserLastName" name="UserLastName">
                             </div>
                             <br /> <br />
-                            <div class="col-6">
+                            <div class="col-6 p-3 px-4">
                                 <label for="UserPassword" class="form-label">Password</label>
                                 <input type="text" class="form-control" id="UserPassword" name="UserPassword">
                             </div>
                             <br /> <br />
-                            <div class="col-6">
+                            <div class="col-6 p-3 px-4">
                                 <label for="UserAddress" class="form-label">Address</label>
                                 <input type="text" class="form-control" id="UserAddress" name="UserAddress">
                             </div>
                             <br /> <br />
-                            <div class="col-6">
+                            <div class="col-6 p-3 px-4">
                                 <label for="UserPostalCode" class="form-label">Postal Code</label>
                                 <input type="text" class="form-control" id="UserPostalCode" name="UserPostalCode">
                             </div>
                             <br /> <br />
-                            <div class="col-6">
+                            <div class="col-6 p-3 px-4">
                                 <label for="UserCity" class="form-label">City</label>
                                 <input type="text" class="form-control" id="UserCity" name="UserCity">
                             </div>
                             <br /> <br />
-                            <div class="col-6">
+                            <div class="col-6 p-3 px-4">
                                 <label for="UserCountry" class="form-label">Country</label>
                                 <input type="text" class="form-control" id="UserCountry" name="UserCountry">
                             </div>
                             <br /> <br />
-                            <div class="col-6">
+                            <div class="col-6 p-3 px-4">
                                 <label for="UserGender" class="form-label">Gender</label>
                                 <input type="text" class="form-control" id="UserGender" name="UserGender">
                             </div>
                             <br /> <br />
-                            <div class="col-6">
+                            <div class="col-6 p-3 px-4">
                                 <label for="UserPhone" class="form-label">Phone</label>
                                 <input type="text" class="form-control" id="UserPhone" name="UserPhone">
                             </div>
                             <br /> <br />
-                            <div class="col-6">
+                            <div class="col-6 p-3 px-4">
                                 <div class="col-6 mx-auto">
                                     <label class="form-label">User Status</label>
                                     <br />
@@ -256,40 +260,40 @@
             </div>
             <br />
             <form method="post" id="OrderModalSaveForm">
-                <div class="mx-auto">
-                    <div class="form-group d-flex justify-content-center">
+                <div class="container">
+                    <div class="mx-5">
                         <div class="row">
-                            <div class="col-6" style="display:none">
+                            <div class="col-6 p-3 px-4" style="display:none">
                                 <label for="OrderID" class="form-label">Order ID</label>
                                 <input class="form-control" id="OrderID" name="OrderID">
                             </div>
                             <br /> <br />
-                            <div class="col-6">
+                            <div class="col-6 p-3 px-4">
                                 <label for="UserID" class="form-label">User ID</label>
                                 <input class="form-control" id="UserID" name="UserID">
                             </div>
                             <br /> <br />
-                            <div class="col-6">
+                            <div class="col-6 p-3 px-4">
                                 <label for="OrderDate" class="form-label">Order Date</label>
                                 <input type="date" class="form-control" id="OrderDate" name="OrderDate">
                             </div>
-                            <div class="col-6">
+                            <div class="col-6 p-3 px-4">
                                 <label for="OrderRequiredDate" class="form-label">Order Required Date</label>
                                 <input type="date" class="form-control" id="OrderRequiredDate" name="OrderRequiredDate">
                             </div>
-                            <div class="col-6">
+                            <div class="col-6 p-3 px-4">
                                 <label for="OrderShippedDate" class="form-label">Order Shipped Date</label>
                                 <input type="date" class="form-control" id="OrderShippedDate" name="OrderShippedDate">
                             </div>
-                            <div class="col-6">
+                            <div class="col-6 p-3 px-4">
                                 <label for="OrderFreight" class="form-label">Order Freight</label>
                                 <input type="text" class="form-control" id="OrderFreight" name="OrderFreight">
                             </div>
-                            <div class="col-6">
+                            <div class="col-6 p-3 px-4">
                                 <label for="OrderIsDelivered" class="form-label">Order Is Delivered?</label>
                                 <input type="text" class="form-control" id="OrderIsDelivered" name="OrderIsDelivered">
                             </div>
-                            <div class="col-6">
+                            <div class="col-6 p-3 px-4">
                                 <div class="col-6 mx-auto">
                                     <label class="form-label">Order Status</label>
                                     <br />
@@ -333,36 +337,36 @@
             </div>
             <br />
             <form method="post" id="OrderDetailModalSaveForm">
-                <div class="mx-auto">
-                    <div class="form-group d-flex justify-content-center">
+                <div class="container">
+                    <div class="mx-5">
                         <div class="row">
-                            <div class="col-6" style="display:none">
+                            <div class="col-6 p-3 px-4" style="display:none">
                                 <label for="OrderDetailID" class="form-label">Order Detail ID</label>
                                 <input class="form-control" id="OrderDetailID" name="OrderDetailID">
                             </div>
                             <br /> <br />
-                            <div class="col-6">
+                            <div class="col-6 p-3 px-4">
                                 <label for="OrderID" class="form-label">Order ID</label>
                                 <input class="form-control" id="OrderID" name="OrderID">
                             </div>
                             <br /> <br />
-                            <div class="col-6">
+                            <div class="col-6 p-3 px-4">
                                 <label for="ProductID" class="form-label">Product ID</label>
                                 <input type="text" class="form-control" id="ProductID" name="ProductID">
                             </div>
-                            <div class="col-6">
+                            <div class="col-6 p-3 px-4">
                                 <label for="OrderDetailUnitPrice" class="form-label">Order Detail Unit Price</label>
                                 <input type="text" class="form-control" id="OrderDetailUnitPrice" name="OrderDetailUnitPrice">
                             </div>
-                            <div class="col-6">
+                            <div class="col-6 p-3 px-4">
                                 <label for="OrderDetailQuantity" class="form-label">Order Detail Quantity</label>
                                 <input type="text" class="form-control" id="OrderDetailQuantity" name="OrderDetailQuantity">
                             </div>
-                            <div class="col-6">
+                            <div class="col-6 p-3 px-4">
                                 <label for="OrderDetailDiscount" class="form-label">Order Detail Discount</label>
                                 <input type="text" class="form-control" id="OrderDetailDiscount" name="OrderDetailDiscount">
                             </div>
-                            <div class="col-6">
+                            <div class="col-6 p-3 px-4">
                                 <div class="col-6 mx-auto">
                                     <label class="form-label">Order Detail Status</label>
                                     <br />
@@ -418,4 +422,6 @@
         </div>
     </div>
 </div>
+
+
 

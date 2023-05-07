@@ -13,6 +13,32 @@
         }
     },
 
+    RegisterSucc: function (result) {
+
+        switch (result.Type) {
+            case Enums.WebResultTypes.Redirect:
+                document.location.href = result.Url;
+                break;
+            case Enums.WebResultTypes.Message:
+                alert(result.Message);
+            //alert("Hata olustu");
+            default:
+        }
+    },
+
+    LogoutSucc: function (result) {
+
+        switch (result.Type) {
+            case Enums.WebResultTypes.Redirect:
+                document.location.href = result.Url;
+                break;
+            case Enums.WebResultTypes.Message:
+                alert(result.Message);
+            //alert("Hata olustu");
+            default:
+        }
+    },
+
     Error: function (result) {
 
     },
@@ -48,22 +74,52 @@
 
     GetCategoriesSucc: function (result) {
         
-        const categoryTable = $("#CategoriesTable").find("tbody")
-        $.each(result, function (index,row) {
-            const tr = `
-            <tr name="CategoryRow" >
-                <td name="CategoryID">${row.CategoryID}</td>
-                <td name="CategoryName">${row.CategoryName}</td>
-                <td name="CategoryStatus">${row.CategoryStatus}</td>
-                <td name="CategoryDescription">${row.CategoryDescription}</td>
-                <td>
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="deleteModalHelper(this)">Delete</button>
-                </td>
-                <td>
-                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="fillInputs(this)">Update</button>
-                </td>
-            </tr>`
-            categoryTable.append(tr);
+        //const categoryTable = $("#CategoriesTable").find("tbody")
+        //$.each(result, function (index,row) {
+        //    const tr = `
+        //    <tr name="CategoryRow" >
+        //        <td name="CategoryID">${row.CategoryID}</td>
+        //        <td name="CategoryName">${row.CategoryName}</td>
+        //        <td name="CategoryStatus">${row.CategoryStatus}</td>
+        //        <td name="CategoryDescription">${row.CategoryDescription}</td>
+        //        <td>
+        //            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="deleteModalHelper(this)">Delete</button>
+        //        </td>
+        //        <td>
+        //            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="fillInputs(this)">Update</button>
+        //        </td>
+        //    </tr>`
+        //    categoryTable.append(tr);
+        //});
+        //$('#CategoriesTable').DataTable();
+        $('#CategoriesTable').DataTable({
+            data: result,
+            columns: [
+                { title: "CategoryID", "data": 'CategoryID'},
+                { title: "CategoryName", data: 'CategoryName' },
+                { title: "CategoryStatus", data: 'CategoryStatus'},
+                { title: "CategoryDescription", data: 'CategoryDescription'},
+                {
+                    "data": null, "title": "Delete",
+                    "render": function (data, type, row) {
+                        return '<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="deleteModalHelper(this)">Delete</button>';
+                    }
+                },
+                {
+                    "data": null,"title": "Update",
+                    "render": function (data, type, row) {
+                        return '<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="fillInputs(this)">Update</button>';
+                    }
+                },
+                
+            ],
+            'columnDefs': [
+                { 'targets': 0, 'createdCell': function (td) { $(td).attr('name', 'CategoryID'); } },
+                { 'targets': 1, 'createdCell': function (td) { $(td).attr('name', 'CategoryName'); } },
+                { 'targets': 2, 'createdCell': function (td) { $(td).attr('name', 'CategoryStatus'); } },
+                { 'targets': 3, 'createdCell': function (td) { $(td).attr('name', 'CategoryDescription'); } }
+            ],
+
         });
     },
 
@@ -79,26 +135,72 @@
 
     GetProductsSucc: function (result) {
 
-        const productTable = $("#ProductsTable").find("tbody")
-        $.each(result, function (index, row) {
-            const tr = `
-            <tr name="ProductRow" >
-                <td name="ProductID">${row.ProductID}</td>
-                <td name="ProductName">${row.ProductName}</td>
-                <td name="ProductImage"><img src="${row.ProductImage}.jpg" width="50" height="50"></td>
-                <td name="CategoryID">${row.CategoryName}</td>
-                <td name="ProductPrice">${row.ProductPrice}</td>
-                <td name="ProductStock">${row.ProductStock}</td>
-                <td name="ProductStatus">${row.ProductStatus}</td>
-                <td name="ProductDescription">${row.ProductDescription}</td>
-                <td>
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="deleteModalHelper(this)">Delete</button>
-                </td>
-                <td>
-                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal2" onclick="fillInputs(this)">Update</button>
-                </td>
-            </tr>`
-            productTable.append(tr);
+        //const productTable = $("#ProductsTable").find("tbody")
+        //$.each(result, function (index, row) {
+        //    const tr = `
+        //    <tr name="ProductRow" >
+        //        <td name="ProductID">${row.ProductID}</td>
+        //        <td name="ProductName">${row.ProductName}</td>
+        //        <td name="ProductImage"><img src="${row.ProductImage}.jpg" width="50" height="50"></td>
+        //        <td name="CategoryID">${row.CategoryName}</td>
+        //        <td name="ProductPrice">${row.ProductPrice}</td>
+        //        <td name="ProductStock">${row.ProductStock}</td>
+        //        <td name="ProductStatus">${row.ProductStatus}</td>
+        //        <td name="ProductDescription">${row.ProductDescription}</td>
+        //        <td>
+        //            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="deleteModalHelper(this)">Delete</button>
+        //        </td>
+        //        <td>
+        //            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal2" onclick="fillInputs(this)">Update</button>
+        //        </td>
+        //    </tr>`
+        //    productTable.append(tr);
+        //});
+        $('#ProductsTable').DataTable({
+            data: result,
+            columns: [
+                { title: "ProductID", data: 'ProductID' },
+                { title: "ProductName", data: 'ProductName' },
+                {
+                    "data": null, title: "ProductImage", 
+                    "render": function (data, type, row) {
+                        //return `<img src="${row.ProductImage}.jpg" width="50" height="50">`;
+                        return ` <div style="overflow: hidden;" class="d-flex align-items-center justify-content-center" >
+                            <img src="${row.ProductImage}.jpg" class="rounded mx-auto d-block" height="50px" >
+                        </div>`;
+                        //return `
+                        //    <img src="${row.ProductImage}.jpg" class="w-100 h-100 rounded mx-auto d-block" width="50" height="50">
+                        //`;
+                    }
+                },
+                { title: "CategoryName", data: 'CategoryName' },
+                { title: "ProductPrice", data: 'ProductPrice' },
+                { title: "ProductStock", data: 'ProductStock' },
+                { title: "ProductStatus", data: 'ProductStatus' },
+                { title: "ProductDescription", data: 'ProductDescription' },
+                {
+                    "data": null, "name": "buttonColumn",
+                    "render": function (data, type, row) {
+                        return '<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="deleteModalHelper(this)">Delete</button>';
+                    }
+                },
+                {
+                    "data": null, "name": "buttonColumn",
+                    "render": function (data, type, row) {
+                        return '<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal2" onclick="fillInputs(this)">Update</button>';
+                    }
+                }
+            ],
+            'columnDefs': [
+                { 'targets': 0, 'createdCell': function (td) { $(td).attr('name', 'ProductID'); } },
+                { 'targets': 1, 'createdCell': function (td) { $(td).attr('name', 'ProductName'); } },
+                { 'targets': 2, 'createdCell': function (td) { $(td).attr('name', 'ProductImage'); } },
+                { 'targets': 3, 'createdCell': function (td) { $(td).attr('name', 'CategoryName'); } },
+                { 'targets': 4, 'createdCell': function (td) { $(td).attr('name', 'ProductPrice'); } },
+                { 'targets': 5, 'createdCell': function (td) { $(td).attr('name', 'ProductStock'); } },
+                { 'targets': 6, 'createdCell': function (td) { $(td).attr('name', 'ProductStatus'); } },
+                { 'targets': 7, 'createdCell': function (td) { $(td).attr('name', 'ProductDescription'); } }
+            ],
         });
     },
 
@@ -114,31 +216,77 @@
 
     GetUsersSucc: function (result) {
 
-        const userTable = $("#UsersTable").find("tbody")
-        $.each(result, function (index, row) {
-            const tr = `
-            <tr>
-                <td name="UserID">${row.UserID}</td>
-                <td name="UserName">${row.UserName}</td>
-                <td name="UserEmail">${row.UserEmail}</td>
-                <td name="UserFirstName">${row.UserFirstName}</td>
-                <td name="UserLastName">${row.UserLastName}</td>
-                <td name="UserPassword">${row.UserPassword}</td>
-                <td name="UserAddress">${row.UserAddress}</td>
-                <td name="UserPostalCode">${row.UserPostalCode}</td>
-                <td name="UserCity">${row.UserCity}</td>
-                <td name="UserCountry">${row.UserCountry}</td>
-                <td name="UserGender">${row.UserGender}</td>
-                <td name="UserPhone">${row.UserPhone}</td>
-                <td name="UserStatus">${row.UserStatus}</td>
-                <td>
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="deleteModalHelper(this)">Delete</button>
-                </td>
-                <td>
-                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal3" onclick="fillInputs(this)">Update</button>
-                </td>
-            </tr>`
-            userTable.append(tr);
+        //const userTable = $("#UsersTable").find("tbody")
+        //$.each(result, function (index, row) {
+        //    const tr = `
+        //    <tr>
+        //        <td name="UserID">${row.UserID}</td>
+        //        <td name="UserName">${row.UserName}</td>
+        //        <td name="UserEmail">${row.UserEmail}</td>
+        //        <td name="UserFirstName">${row.UserFirstName}</td>
+        //        <td name="UserLastName">${row.UserLastName}</td>
+        //        <td name="UserPassword">${row.UserPassword}</td>
+        //        <td name="UserAddress">${row.UserAddress}</td>
+        //        <td name="UserPostalCode">${row.UserPostalCode}</td>
+        //        <td name="UserCity">${row.UserCity}</td>
+        //        <td name="UserCountry">${row.UserCountry}</td>
+        //        <td name="UserGender">${row.UserGender}</td>
+        //        <td name="UserPhone">${row.UserPhone}</td>
+        //        <td name="UserStatus">${row.UserStatus}</td>
+        //        <td>
+        //            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="deleteModalHelper(this)">Delete</button>
+        //        </td>
+        //        <td>
+        //            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal3" onclick="fillInputs(this)">Update</button>
+        //        </td>
+        //    </tr>`
+        //    userTable.append(tr);
+        //});
+        $('#UsersTable').DataTable({
+            data: result,
+            scrollX: true,
+            columns: [
+                { title: "UserID", data: 'UserID' },
+                { title: "UserName", data: 'UserName' },
+                { title: "UserEmail", data: 'UserEmail' },
+                { title: "UserFirstName", data: 'UserFirstName' },
+                { title: "UserLastName", data: 'UserLastName' },
+                { title: "UserPassword", data: 'UserPassword' },
+                { title: "UserAddress", data: 'UserAddress' },
+                { title: "UserPostalCode", data: 'UserPostalCode' },
+                { title: "UserCity", data: 'UserCity' },
+                { title: "UserCountry", data: 'UserCountry' },
+                { title: "UserGender", data: 'UserGender' },
+                { title: "UserPhone", data: 'UserPhone' },
+                { title: "UserStatus", data: 'UserStatus' },
+                {
+                    "data": null, "name": "buttonColumn",
+                    "render": function (data, type, row) {
+                        return '<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="deleteModalHelper(this)">Delete</button>';
+                    }
+                },
+                {
+                    "data": null, "name": "buttonColumn",
+                    "render": function (data, type, row) {
+                        return '<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal3" onclick="fillInputs(this)">Update</button>';
+                    }
+                }
+            ],
+            'columnDefs': [
+                { 'targets': 0, 'createdCell': function (td) { $(td).attr('name', 'UserID'); } },
+                { 'targets': 1, 'createdCell': function (td) { $(td).attr('name', 'UserName'); } },
+                { 'targets': 2, 'createdCell': function (td) { $(td).attr('name', 'UserEmail'); } },
+                { 'targets': 3, 'createdCell': function (td) { $(td).attr('name', 'UserFirstName'); } },
+                { 'targets': 4, 'createdCell': function (td) { $(td).attr('name', 'UserLastName'); } },
+                { 'targets': 5, 'createdCell': function (td) { $(td).attr('name', 'UserPassword'); } },
+                { 'targets': 6, 'createdCell': function (td) { $(td).attr('name', 'UserAddress'); } },
+                { 'targets': 7, 'createdCell': function (td) { $(td).attr('name', 'UserPostalCode'); } },
+                { 'targets': 8, 'createdCell': function (td) { $(td).attr('name', 'UserCity'); } },
+                { 'targets': 9, 'createdCell': function (td) { $(td).attr('name', 'UserCountry'); } },
+                { 'targets': 10, 'createdCell': function (td) { $(td).attr('name', 'UserGender'); } },
+                { 'targets': 11, 'createdCell': function (td) { $(td).attr('name', 'UserPhone'); } },
+                { 'targets': 12, 'createdCell': function (td) { $(td).attr('name', 'UserStatus'); } }
+            ],
         });
     },
 
@@ -154,28 +302,68 @@
 
     GetOrdersSucc: function (result) {
 
-        const orderTable = $("#OrdersTable").find("tbody")
-        $.each(result, function (index, row) {
-            const tr = `
-            <tr name="OrderRow" >
-                <td name="OrderID">${row.OrderID}</td>
-                <td name="UserID">${row.UserID}</td>
-                <td name="UserFirstName">${row.UserFirstName}</td>
-                <td name="UserLastName">${row.UserLastName}</td>
-                <td name="OrderDate">${row.OrderDate}</td>
-                <td name="OrderRequiredDate">${row.OrderRequiredDate}</td>
-                <td name="OrderShippedDate">${row.OrderShippedDate}</td>
-                <td name="OrderFreight">${row.OrderFreight}</td>
-                <td name="OrderIsDelivered">${row.OrderIsDelivered}</td>
-                <td name="OrderStatus">${row.OrderStatus}</td>
-                <td>
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="deleteModalHelper(this)">Delete</button>
-                </td>
-                <td>
-                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal4" onclick="fillInputs(this)">Update</button>
-                </td>
-            </tr>`
-            orderTable.append(tr);
+        //const orderTable = $("#OrdersTable").find("tbody")
+        //$.each(result, function (index, row) {
+        //    const tr = `
+        //    <tr name="OrderRow" >
+        //        <td name="OrderID">${row.OrderID}</td>
+        //        <td name="UserID">${row.UserID}</td>
+        //        <td name="UserFirstName">${row.UserFirstName}</td>
+        //        <td name="UserLastName">${row.UserLastName}</td>
+        //        <td name="OrderDate">${row.OrderDate}</td>
+        //        <td name="OrderRequiredDate">${row.OrderRequiredDate}</td>
+        //        <td name="OrderShippedDate">${row.OrderShippedDate}</td>
+        //        <td name="OrderFreight">${row.OrderFreight}</td>
+        //        <td name="OrderIsDelivered">${row.OrderIsDelivered}</td>
+        //        <td name="OrderStatus">${row.OrderStatus}</td>
+        //        <td>
+        //            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="deleteModalHelper(this)">Delete</button>
+        //        </td>
+        //        <td>
+        //            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal4" onclick="fillInputs(this)">Update</button>
+        //        </td>
+        //    </tr>`
+        //    orderTable.append(tr);
+        //});
+        $('#OrdersTable').DataTable({
+            data: result,
+            scrollX: true,
+            columns: [
+                { title: "OrderID", data: 'OrderID' },
+                { title: "UserID", data: 'UserID' },
+                { title: "UserFirstName", data: 'UserFirstName' },
+                { title: "UserLastName", data: 'UserLastName' },
+                { title: "OrderDate", data: 'OrderDate' },
+                { title: "OrderRequiredDate", data: 'OrderRequiredDate' },
+                { title: "OrderShippedDate", data: 'OrderShippedDate' },
+                { title: "OrderFreight", data: 'OrderFreight' },
+                { title: "OrderIsDelivered", data: 'OrderIsDelivered' },
+                { title: "OrderStatus", data: 'OrderStatus' },
+                {
+                    "data": null, "name": "buttonColumn",
+                    "render": function (data, type, row) {
+                        return '<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="deleteModalHelper(this)">Delete</button>';
+                    }
+                },
+                {
+                    "data": null, "name": "buttonColumn",
+                    "render": function (data, type, row) {
+                        return '<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal4" onclick="fillInputs(this)">Update</button>';
+                    }
+                }
+            ],
+            'columnDefs': [
+                { 'targets': 0, 'createdCell': function (td) { $(td).attr('name', 'OrderID'); } },
+                { 'targets': 1, 'createdCell': function (td) { $(td).attr('name', 'UserID'); } },
+                { 'targets': 2, 'createdCell': function (td) { $(td).attr('name', 'UserFirstName'); } },
+                { 'targets': 3, 'createdCell': function (td) { $(td).attr('name', 'UserLastName'); } },
+                { 'targets': 4, 'createdCell': function (td) { $(td).attr('name', 'OrderDate'); } },
+                { 'targets': 5, 'createdCell': function (td) { $(td).attr('name', 'OrderRequiredDate'); } },
+                { 'targets': 6, 'createdCell': function (td) { $(td).attr('name', 'OrderShippedDate'); } },
+                { 'targets': 7, 'createdCell': function (td) { $(td).attr('name', 'OrderFreight'); } },
+                { 'targets': 8, 'createdCell': function (td) { $(td).attr('name', 'OrderIsDelivered'); } },
+                { 'targets': 9, 'createdCell': function (td) { $(td).attr('name', 'OrderStatus'); } },
+            ],
         });
     },
 
@@ -191,36 +379,92 @@
 
     GetOrderDetailsSucc: function (result) {
 
-        const orderDetailTable = $("#OrderDetailsTable").find("tbody")
-        $.each(result, function (index, row) {
-            const tr = `
-            <tr>
-                <td name="OrderDetailID">${row.OrderDetailID}</td>
-                <td name="OrderID">${row.OrderID}</td>
-                <td name="UserFirstName">${row.UserFirstName}</td>
-                <td name="UserLastName">${row.UserLastName}</td>
-                <td name="UserName">${row.UserName}</td>
-                <td name="UserPhone">${row.UserPhone}</td>
-                <td name="UserAddress">${row.UserAddress}</td>
-                <td name="UserCity">${row.UserCity}</td>
-                <td name="UserPostalCode">${row.UserPostalCode}</td>
-                <td name="OrderDate">${row.OrderDate}</td>
-                <td name="OrderRequiredDate">${row.OrderRequiredDate}</td>
-                <td name="ProductID">${row.ProductID}</td>
-                <td name="ProductName">${row.ProductName}</td>
-                <td name="OrderDetailQuantity">${row.OrderDetailQuantity}</td>
-                <td name="OrderDetailUnitPrice">${row.OrderDetailUnitPrice}</td>
-                <td name="OrderDetailDiscount">${row.OrderDetailDiscount}</td>
-                <td name="OrderIsDelivered">${row.OrderIsDelivered}</td>
-                <td name="OrderDetailStatus">${row.OrderDetailStatus}</td>
-                <td>
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="deleteModalHelper(this)">Delete</button>
-                </td>
-                <td>
-                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal5" onclick="fillInputs(this)">Update</button>
-                </td>
-            </tr>`
-            orderDetailTable.append(tr);
+        //const orderDetailTable = $("#OrderDetailsTable").find("tbody")
+        //$.each(result, function (index, row) {
+        //    const tr = `
+        //    <tr>
+        //        <td name="OrderDetailID">${row.OrderDetailID}</td>
+        //        <td name="OrderID">${row.OrderID}</td>
+        //        <td name="UserFirstName">${row.UserFirstName}</td>
+        //        <td name="UserLastName">${row.UserLastName}</td>
+        //        <td name="UserName">${row.UserName}</td>
+        //        <td name="UserPhone">${row.UserPhone}</td>
+        //        <td name="UserAddress">${row.UserAddress}</td>
+        //        <td name="UserCity">${row.UserCity}</td>
+        //        <td name="UserPostalCode">${row.UserPostalCode}</td>
+        //        <td name="OrderDate">${row.OrderDate}</td>
+        //        <td name="OrderRequiredDate">${row.OrderRequiredDate}</td>
+        //        <td name="ProductID">${row.ProductID}</td>
+        //        <td name="ProductName">${row.ProductName}</td>
+        //        <td name="OrderDetailQuantity">${row.OrderDetailQuantity}</td>
+        //        <td name="OrderDetailUnitPrice">${row.OrderDetailUnitPrice}</td>
+        //        <td name="OrderDetailDiscount">${row.OrderDetailDiscount}</td>
+        //        <td name="OrderIsDelivered">${row.OrderIsDelivered}</td>
+        //        <td name="OrderDetailStatus">${row.OrderDetailStatus}</td>
+        //        <td>
+        //            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="deleteModalHelper(this)">Delete</button>
+        //        </td>
+        //        <td>
+        //            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal5" onclick="fillInputs(this)">Update</button>
+        //        </td>
+        //    </tr>`
+        //    orderDetailTable.append(tr);
+        //});
+        $('#OrderDetailsTable').DataTable({
+            data: result,
+            scrollX: true,
+            columns: [
+                { title: "OrderDetailID", data: 'OrderDetailID' },
+                { title: "OrderID", data: 'OrderID' },
+                { title: "UserFirstName", data: 'UserFirstName' },
+                { title: "UserLastName", data: 'UserLastName' },
+                { title: "UserName", data: 'UserName' },
+                { title: "UserPhone", data: 'UserPhone' },
+                { title: "UserAddress", data: 'UserAddress' },
+                { title: "UserCity", data: 'UserCity' },
+                { title: "UserPostalCode", data: 'UserPostalCode' },
+                { title: "OrderDate", data: 'OrderDate' },
+                { title: "OrderRequiredDate", data: 'OrderRequiredDate' },
+                { title: "ProductID", data: 'ProductID' },
+                { title: "ProductName", data: 'ProductName' },
+                { title: "OrderDetailQuantity", data: 'OrderDetailQuantity' },
+                { title: "OrderDetailUnitPrice", data: 'OrderDetailUnitPrice' },
+                { title: "OrderDetailDiscount", data: 'OrderDetailDiscount' },
+                { title: "OrderIsDelivered", data: 'OrderIsDelivered' },
+                { title: "OrderDetailStatus", data: 'OrderDetailStatus' },
+                {
+                    "data": null, "name": "buttonColumn",
+                    "render": function (data, type, row) {
+                        return '<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="deleteModalHelper(this)">Delete</button>';
+                    }
+                },
+                {
+                    "data": null, "name": "buttonColumn",
+                    "render": function (data, type, row) {
+                        return '<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal5" onclick="fillInputs(this)">Update</button>';
+                    }
+                }
+            ],
+            'columnDefs': [
+                { 'targets': 0, 'createdCell': function (td) { $(td).attr('name', 'OrderDetailID'); } },
+                { 'targets': 1, 'createdCell': function (td) { $(td).attr('name', 'OrderID'); } },
+                { 'targets': 2, 'createdCell': function (td) { $(td).attr('name', 'UserFirstName'); } },
+                { 'targets': 3, 'createdCell': function (td) { $(td).attr('name', 'UserLastName'); } },
+                { 'targets': 4, 'createdCell': function (td) { $(td).attr('name', 'UserName'); } },
+                { 'targets': 5, 'createdCell': function (td) { $(td).attr('name', 'UserPhone'); } },
+                { 'targets': 6, 'createdCell': function (td) { $(td).attr('name', 'UserAddress'); } },
+                { 'targets': 7, 'createdCell': function (td) { $(td).attr('name', 'UserCity'); } },
+                { 'targets': 8, 'createdCell': function (td) { $(td).attr('name', 'UserPostalCode'); } },
+                { 'targets': 9, 'createdCell': function (td) { $(td).attr('name', 'OrderDate'); } },
+                { 'targets': 10, 'createdCell': function (td) { $(td).attr('name', 'OrderRequiredDate'); } },
+                { 'targets': 11, 'createdCell': function (td) { $(td).attr('name', 'ProductID'); } },
+                { 'targets': 12, 'createdCell': function (td) { $(td).attr('name', 'ProductName'); } },
+                { 'targets': 13, 'createdCell': function (td) { $(td).attr('name', 'OrderDetailQuantity'); } },
+                { 'targets': 14, 'createdCell': function (td) { $(td).attr('name', 'OrderDetailUnitPrice'); } },
+                { 'targets': 15, 'createdCell': function (td) { $(td).attr('name', 'OrderDetailDiscount'); } },
+                { 'targets': 16, 'createdCell': function (td) { $(td).attr('name', 'OrderIsDelivered'); } },
+                { 'targets': 17, 'createdCell': function (td) { $(td).attr('name', 'OrderDetailStatus'); } }
+            ],
         });
     },
 
@@ -232,11 +476,15 @@
                     
                     <div class="card col-3 ms-4" style="width: 18rem;">
                         <input class="form-control" type="hidden" id="ProductID" name="ProductID" value=${row.ProductID}>
-                        <img src="${row.ProductImage}.jpg" class="card-img-top" alt="...">
+                        <br/>
+                        <div style="height:250px;overflow: hidden;" class="d-flex align-items-center justify-content-center">
+                            <img src="${row.ProductImage}.jpg" class="w-100 rounded mx-auto d-block"  >
+                        </div>
+                        <hr/>
                         <div class="card-body">
                             <h5 class="card-title">${row.ProductName}</h5>
-                            <p>Category</p>
-                            <p>${row.ProductPrice}</p>
+                            <p>${row.CategoryName}</p>
+                            <p>Price : ${row.ProductPrice}</p>
                             <div class="d-flex justify-content-center">
                                 <button type="button" href="#" class="btn btn-secondary addToCart">Add to Cart</button>
                             </div>

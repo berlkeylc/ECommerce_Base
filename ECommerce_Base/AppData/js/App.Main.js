@@ -9,6 +9,12 @@ var Enums = {
 var Account = {
     Login: function (model) {
         AjaxPost("/Account/Login", model, AjaxResults.LoginSucc);
+    },
+    Register: function (model) {
+        AjaxPost("/Account/Register", model, AjaxResults.RegisterSucc);
+    },
+    Logout: function (model = {}) {
+        AjaxPost("/Account/Logout", model, AjaxResults.LogoutSucc);
     }
 
 }
@@ -74,9 +80,9 @@ var SaveModals = {
         AjaxPost("/AdminUser/GetUserByUserName", model, AjaxResults.GetUserInfoCheckOutSucc);
     },
 
-    AddOrder: function (model = {}) {
-        AjaxPost("/Order/CrudOrder", model, AjaxResults.CrudOrderSucc);
-    },
+    //AddOrder: function (model = {}) {
+    //    AjaxPost("/AdminOrder/CrudOrder", model, AjaxResults.CrudOrderSucc);
+    //},
 
     AddOrderDetail: function(model = {}) {
         AjaxPost("/OrderDetail/CrudOrderDetail", model, AjaxResults.AddOrderSucc);
@@ -121,25 +127,26 @@ window.onload = function () {
         AppData.Init();
     }
 
+    file2Base64();
+    clearModalInputs();
     
-    
-    const fileInput = $("#ProductImage");
-    
-    // Listen for the change event so we can capture the file
-    fileInput.on('change', (e) => {
-        // Get a reference to the file
-        const file = e.target.files[0];
+    //const fileInput = $("#ProductImage");
 
-        // Encode the file using the FileReader API
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            console.log(reader.result);
-            $("#ProductImage").attr("value", reader.result);
-            // Logs data:<type>;base64,wL2dvYWwgbW9yZ...
-        };
-        reader.readAsDataURL(file);
+    //// Listen for the change event so we can capture the file
+    //fileInput.on('change', (e) => {
+    //    // Get a reference to the file
+    //    const file = e.target.files[0];
 
-    });
+    //    // Encode the file using the FileReader API
+    //    const reader = new FileReader();
+    //    reader.onloadend = () => {
+    //        //console.log(reader.result);
+    //        $("#ProductImage").attr("value", reader.result);
+    //        // Logs data:<type>;base64,wL2dvYWwgbW9yZ...
+    //    };
+    //    reader.readAsDataURL(file);
+
+    //});
 
     let items = document.querySelectorAll('.carousel .carousel-item')
 
@@ -157,6 +164,8 @@ window.onload = function () {
         }
     })
 
+    
+
     setTimeout(myGreeting, 1000);
     function myGreeting() {
         $(".addToCart").on("click", function () {
@@ -166,6 +175,7 @@ window.onload = function () {
             SaveModals.CrudCarts(model)
             console.log("sepete eklendi..")
         });
+        
         function incrementValue(e) {
             e.preventDefault();
             var fieldName = $(e.target).data('field');
@@ -211,7 +221,15 @@ window.onload = function () {
             model.processCode = "Decrease"
             SaveModals.CrudCarts(model)
         });
+
+        
     }
-    
+
+    $("#adminsidebar").find("ul").children().each(function (row, col) { 
+        $(col).on("click", function () {
+            console.log($(this))
+            $(this).children().addClass("active")
+        })
+    })
 
 }
