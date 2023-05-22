@@ -92,6 +92,7 @@
         //    categoryTable.append(tr);
         //});
         //$('#CategoriesTable').DataTable();
+
         $('#CategoriesTable').DataTable({
             data: result,
             columns: [

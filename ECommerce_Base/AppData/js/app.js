@@ -38,9 +38,9 @@ function clearModalInputs() {
                     if ($(input).attr("value") == "True") { $(input).removeAttr("checked") }
                     if ($(input).attr("value") == "False") { $(input).removeAttr("checked") }
                 }
-                //else if ($(input).prop('nodeName') == "OPTION") {
-                //    if ($(row).html() == $(input).html()) { $(input).prop('selected', true) }
-                //}
+                else if ($(input).prop('nodeName') == "OPTION") {
+                    if ($(input).attr("id") == "selectedOption") { $(input).prop('selected', true) }
+                }
             })
     })
 }

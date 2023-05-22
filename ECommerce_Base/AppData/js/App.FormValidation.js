@@ -396,6 +396,7 @@ var AppParsley = {
                 },
                 {
                     Name: "UserCountry",
+                    Required: true,
                     StringLength: {
                         min: 0,
                         max: 25
@@ -403,6 +404,7 @@ var AppParsley = {
                 },
                 {
                     Name: "UserCity",
+                    Required: true,
                     StringLength: {
                         min: 0,
                         max: 25
@@ -410,6 +412,7 @@ var AppParsley = {
                 },
                 {
                     Name: "UserAddress",
+                    Required: true,
                     StringLength: {
                         min: 0,
                         max: 50
@@ -417,6 +420,7 @@ var AppParsley = {
                 },
                 {
                     Name: "UserPostalCode",
+                    Required: true,
                     StringLength: {
                         min: 0,
                         max: 5
@@ -424,6 +428,7 @@ var AppParsley = {
                 },
                 {
                     Name: "UserPhone",
+                    Required: true,
                     StringLength: {
                         min: 0,
                         max: 11
@@ -611,6 +616,12 @@ var AppParsley = {
                 console.log($(AppForm.FormKeys.CheckOutSaveForm).length)
 
                 var model = AppForm.ObjectifyForm($(AppForm.FormKeys.CheckOutSaveForm));
+
+                if (model.UserID != "" && model.UserID != null && model.UserID > 0) {
+                    $(AppForm.FormKeys.UserModalSaveForm).attr("data-processCode", "Update")
+                    model.processCode = "Update"
+                    SaveModals.CrudUsers(model)
+                }
 
                 if (model.OrderID != "" && model.OrderID != null && model.OrderID > 0) {
                     $(AppForm.FormKeys.CheckOutSaveForm).attr("data-processCode", "Update")

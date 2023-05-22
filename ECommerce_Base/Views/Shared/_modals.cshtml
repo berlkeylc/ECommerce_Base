@@ -84,8 +84,8 @@
                             </div>
                             <br /> <br />
                             <div class="col-6 p-3 px-4">
-                                <label for="ProductImage" class="form-label">Select image:</label>
-                                <input type="file" class="form-control" id="ProductImage" name="ProductImage" accept="image/*">
+                                <label for="ProductImage" class="form-label">Select Image (Only JPG):</label>
+                                <input type="file" class="form-control" id="ProductImage" name="ProductImage" accept="image/jpeg">
                             </div>
                             <br /> <br />
                             <div class="col-6 p-3 px-4">
@@ -119,6 +119,7 @@
                             <div class="col-6 p-3 px-4">
                                 <label for="CategoryID" class="form-label">Category Name</label>
                                 <select name="CategoryID" class="form-control">
+                                    <option value="" selected id="selectedOption">Seçiniz</option>
                                     @foreach (var item in CacheManager.GetAllCategories())
                                     {
                                         <option value="@item.CategoryID">@item.CategoryName</option>
