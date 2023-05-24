@@ -487,7 +487,7 @@
                             <p>${row.CategoryName}</p>
                             <p>Price : ${row.ProductPrice}</p>
                             <div class="d-flex justify-content-center">
-                                <button type="button" href="#" class="btn btn-secondary addToCart">Add to Cart</button>
+                                <button type="button" class="btn btn-secondary" onclick="add2Cart(this)">Add to Cart</button>
                             </div>
 
                         </div>
@@ -505,16 +505,20 @@
             if (row.CartItemQuantity != 0) {
                 const elm = `
                 <tr data-productID = "${row.ProductID}">
-                    <th><img src="${row.ProductImage}.jpg" style="width: 50px; height:50px;"></th>
+                    <th>
+                        <div style="overflow: hidden;" class="d-flex align-items-center justify-content-center" >
+                            <img src="${row.ProductImage}.jpg" class="rounded mx-auto d-block" height="50px" >
+                        </div>
+                    </th>
                     <td>${row.ProductName}</td>
                     <td name="ProductPrice">${row.ProductPrice}</td>
                     <td name="CartItemQuantity">${row.CartItemQuantity}</td>
                     <td>${row.ProductPrice * row.CartItemQuantity}</td>
                     <td>
                         <div class="input-group w-auto justify-content-end align-items-center">
-                            <input type="button" value="-" class="button-minus border rounded-circle  icon-shape icon-sm mx-1 " data-field="quantity">
+                            <input type="button" value="-" class="button-minus border rounded-circle  icon-shape icon-sm mx-1 " data-field="quantity" onclick="decrementCart(event,this)">
                             <input type="text" step="1" max="10" value="${row.CartItemQuantity}" name="quantity" class="quantity-field border-0 text-center w-25" disabled>
-                            <input type="button" value="+" class="button-plus border rounded-circle icon-shape icon-sm " data-field="quantity">
+                            <input type="button" value="+" class="button-plus border rounded-circle icon-shape icon-sm " data-field="quantity" onclick="incrementCart(event,this)">
                         </div>
                     </td>
                 </tr>`
@@ -586,7 +590,11 @@
         $.each(result, function (index, row) {
                 const elm = `
                 <tr>
-                    <th><img src="${row.ProductImage}.jpg" style="width: 50px; height:50px;"></th>
+                    <th>
+                        <div style="overflow: hidden;" class="d-flex align-items-center justify-content-center" >
+                            <img src="${row.ProductImage}.jpg" class="rounded mx-auto d-block" height="50px" >
+                        </div>
+                    </th>
                     <td>${row.ProductName}</td>
                     <td name="ProductPrice">${row.OrderDetailQuantity}</td>
                     <td name="CartItemQuantity">${row.OrderDetailDiscount}</td>

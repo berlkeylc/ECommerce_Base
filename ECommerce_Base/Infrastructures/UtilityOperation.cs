@@ -345,11 +345,15 @@ namespace ECommerce_Base.Infrastructures
                 else if (arg.processCode == "Decrease")
                 {
                     cartItem.CartItemQuantity--;
-                    if (cartItem.CartItemQuantity < 0)
+                    if (cartItem.CartItemQuantity < 0 || cartItem.CartItemQuantity == 0)
                     {
                         cartItem.CartItemQuantity = 0;
+                        cim.CartItemDelete(cartItem);
                     }
-                    cim.CartItemUpdate(cartItem);
+                    else
+                    {
+                        cim.CartItemUpdate(cartItem);
+                    }
                 }
             }
         }
@@ -405,24 +409,41 @@ namespace ECommerce_Base.Infrastructures
         public void CrudOrderDetailUserOperation(string session)
         {
             User user = um.GetByUserName(session);
-            var order = om.GetByUserID(user.UserID).LastOrDefault();
+
             var cart = cartm.GetList().SingleOrDefault(x => x.UserID == user.UserID);
             var cartItems = cim.GetByCartID(cart.CartID);
 
-            cartItems.ForEach(cartItem => {
-                OrderDetail orderDetail = new OrderDetail();
-                //orderDetail.OrderDetailID = p.OrderDetailID;
-                //orderDetail.OrderDetailDiscount = p.OrderDetailDiscount;
-                orderDetail.OrderDetailQuantity = cartItem.CartItemQuantity;
-                orderDetail.OrderDetailUnitPrice = pm.GetById(cartItem.ProductID).ProductPrice;
-                //orderDetail.OrderDetailStatus = p.OrderDetailStatus;
-                orderDetail.OrderID = order.OrderID;
-                orderDetail.ProductID = cartItem.ProductID;
+            if(cartItems != null)
+            {
+                Order orderTemp = new Order();
+                //orderTemp.OrderID = arg.OrderID;
+                orderTemp.OrderDate = DateTime.Now;
+                orderTemp.OrderRequiredDate = DateTime.Now.AddDays(3);
+                orderTemp.OrderShippedDate = DateTime.Now;
+                //orderTemp.OrderFreight = arg.OrderFreight;
+                //orderTemp.OrderIsDelivered = arg.OrderIsDelivered;
+                //orderTemp.OrderStatus = arg.OrderStatus;
+                orderTemp.UserID = user.UserID;
+                om.OrderAddBL(orderTemp);
 
+                var order = om.GetByUserID(user.UserID).LastOrDefault();
 
-                odm.OrderDetailAddBL(orderDetail);
-                cim.CartItemDelete(cartItem);
-            });
+                cartItems.ForEach(cartItem => {
+                    OrderDetail orderDetail = new OrderDetail();
+                    //orderDetail.OrderDetailID = p.OrderDetailID;
+                    //orderDetail.OrderDetailDiscount = p.OrderDetailDiscount;
+                    orderDetail.OrderDetailQuantity = cartItem.CartItemQuantity;
+                    orderDetail.OrderDetailUnitPrice = pm.GetById(cartItem.ProductID).ProductPrice;
+                    //orderDetail.OrderDetailStatus = p.OrderDetailStatus;
+                    orderDetail.OrderID = order.OrderID;
+                    orderDetail.ProductID = cartItem.ProductID;
+
+                    odm.OrderDetailAddBL(orderDetail);
+                    cim.CartItemDelete(cartItem);
+                });
+            }
+            
+
         }
 
         public void convertProductImage(Product product)

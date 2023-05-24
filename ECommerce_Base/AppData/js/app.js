@@ -75,3 +75,66 @@ function file2Base64() {
 
     });
 }
+
+function add2Cart(elm) {
+    var model = {}
+    console.log($(elm))
+    model.ProductID = $(elm).closest('.card').find('input').attr('value')
+    model.processCode = "Increase"
+    SaveModals.CrudCarts(model)
+    console.log("sepete eklendi..")
+}
+
+function incrementCart(e,elm) {
+    incrementValue(e);
+    var model = {}
+    model.ProductID = $(elm).closest('tr').attr('data-productid')
+    model.processCode = "Increase"
+    SaveModals.CrudCarts(model)
+    //SaveModals.GetCarts();
+    console.log("sepete eklendi..")
+}
+
+function decrementCart(e,elm) {
+    decrementValue(e);
+    var model = {}
+    model.ProductID = $(elm).closest('tr').attr('data-productid')
+    model.processCode = "Decrease"
+    SaveModals.CrudCarts(model)
+    console.log("sepetten cikarildi..")
+}
+
+function incrementValue(e) {
+    e.preventDefault();
+    var fieldName = $(e.target).data('field');
+    var parent = $(e.target).closest('div');
+    var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
+
+    if (!isNaN(currentVal)) {
+        parent.find('input[name=' + fieldName + ']').val(currentVal + 1);
+        $(e.target).closest('tr').find('td[name = "CartItemQuantity"]').html(currentVal + 1)
+        $("#CartTotalPrice").html(parseInt($("#CartTotalPrice").html()) + parseInt($(e.target).closest('tr').find('td[name = "ProductPrice"]').html()))
+    } else {
+        parent.find('input[name=' + fieldName + ']').val(0);
+    }
+}
+
+function decrementValue(e) {
+    e.preventDefault();
+    var fieldName = $(e.target).data('field');
+    var parent = $(e.target).closest('div');
+    var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
+
+    if (!isNaN(currentVal) && currentVal > 0) {
+        parent.find('input[name=' + fieldName + ']').val(currentVal - 1);
+        $(e.target).closest('tr').find('td[name = "CartItemQuantity"]').html(currentVal - 1)
+        if (currentVal -1 == 0) {
+            $(e.target).closest('tr').remove()
+        }
+        $("#CartTotalPrice").html(parseInt($("#CartTotalPrice").html()) - parseInt($(e.target).closest('tr').find('td[name = "ProductPrice"]').html()))
+    } else {
+        parent.find('input[name=' + fieldName + ']').val(0);
+    }
+}
+
+

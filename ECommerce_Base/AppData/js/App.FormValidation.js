@@ -470,6 +470,7 @@ var AppParsley = {
 
                 if (typeof field.Required != 'undefined' && field.Required == true) {
                     $elm.attr('data-parsley-required', 'true');
+                    $elm.attr('data-parsley-required-message', 'Bu alanı doldurmak zorunludur.');
                 }
 
                 if (typeof field.StringLength != 'undefined') {
@@ -479,7 +480,9 @@ var AppParsley = {
                     if (typeof min == 'undefined' || min < 0) min = 0;
 
                     if (typeof max != 'undefined' && max > 0) {
-                        $elm.attr('data-parsley-minlength', min).attr('data-parsley-maxlength', max);
+                        $elm.attr('data-parsley-minlength', min).attr('data-parsley-maxlength', max)
+                            .attr('data-parsley-minlength-message', `${min} veya daha fazla karakter içermelidir.`)
+                            .attr('data-parsley-maxlength-message', `${min} veya daha az karakter içermelidir.`)
                     }
                 }
             });
@@ -630,7 +633,8 @@ var AppParsley = {
                 else {
                     model.processCode = "Create"
                 }
-                SaveModals.CrudOrders(model)
+                //SaveModals.CrudOrders(model)
+                //setTimeout(function () { SaveModals.AddOrderDetail(model) },500) 
                 SaveModals.AddOrderDetail(model)
                 return true;
             });
