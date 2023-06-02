@@ -165,6 +165,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AppData\css\AccountCss.css" />
     <Content Include="AppData\css\ECommerceStyle.css" />
     <Content Include="AppData\css\style.css" />
     <Content Include="AppData\js\App.AjaxResults.js" />

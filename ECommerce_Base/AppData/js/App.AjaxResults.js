@@ -476,7 +476,7 @@
             const elm = `
                     
                     <div class="card col-3 ms-4" style="width: 18rem;">
-                        <input class="form-control" type="hidden" id="ProductID" name="ProductID" value=${row.ProductID}>
+                        <input class="form-control" type="hidden" id="ProductID" name="ProductID" value=${row.ProductID} data-filter=${row.CategoryName}>
                         <br/>
                         <div style="height:250px;overflow: hidden;" class="d-flex align-items-center justify-content-center">
                             <img src="${row.ProductImage}.jpg" class="w-100 rounded mx-auto d-block"  >
@@ -499,6 +499,7 @@
     GetCartsSucc: function (result) {
 
         let totalPrices = 0;
+        let totalItem = 0;
         const cartsTable = $("#CartsTable").find("tbody")
         cartsTable.empty();
         $.each(result, function (index, row) {
@@ -523,10 +524,18 @@
                     </td>
                 </tr>`
                 totalPrices += row.ProductPrice * row.CartItemQuantity
+                totalItem += row.CartItemQuantity
                 cartsTable.append(elm)
             }
         });
         $("#CartTotalPrice").html(totalPrices)
+        if (totalItem > 0) {
+            $("#CartBadge").attr("hidden",false).html(totalItem)
+        }
+        if (totalItem == 0) {
+            $("#CartBadge").attr("hidden", true)
+        }
+        
     },
 
     CrudCartsSucc: function (result) {
@@ -584,27 +593,200 @@
     },
 
     GetOrderDetailSucc: function (result) {
-        
-        const orderTable = $("#OrderTable").find("tbody")
-        
-        $.each(result, function (index, row) {
-                const elm = `
-                <tr>
-                    <th>
-                        <div style="overflow: hidden;" class="d-flex align-items-center justify-content-center" >
-                            <img src="${row.ProductImage}.jpg" class="rounded mx-auto d-block" height="50px" >
-                        </div>
-                    </th>
-                    <td>${row.ProductName}</td>
-                    <td name="ProductPrice">${row.OrderDetailQuantity}</td>
-                    <td name="CartItemQuantity">${row.OrderDetailDiscount}</td>
-                    <td>${row.ProductPrice * row.OrderDetailQuantity}</td>
-                    <td>${row.OrderDate}</td>
-                    <td>${row.OrderRequiredDate}</td>
-                    <td style="background-color:${row.OrderIsDelivered ? "green" : "red"};"></td>
-                </tr>`
-                
-                orderTable.append(elm)
+
+            var table = $('#OrderTable').DataTable({
+            data: result,
+            /*scrollX: true,*/
+            columns: [
+                //{ title: "OrderID", data: 'OrderID' },
+                //{ title: "UserID", data: 'UserID' },
+               // { title: "UserFirstName", data: 'UserFirstName' },
+                //{ title: "UserLastName", data: 'UserLastName' },
+                {
+                    className: 'dt-control',
+                    orderable: false,
+                    data: 'OrderID',
+                    defaultContent: '',
+                },
+                { title: "OrderID", data: 'OrderID' },
+                { title: "OrderDate", data: 'OrderDate' },
+                { title: "OrderRequiredDate", data: 'OrderRequiredDate' },
+                //{ title: "OrderShippedDate", data: 'OrderShippedDate' },
+                { title: "OrderFreight", data: 'OrderFreight' },
+                { title: "OrderIsDelivered", data: 'OrderIsDelivered' },
+                //{ title: "OrderStatus", data: 'OrderStatus' },
+                //{
+                //    "data": null, "name": "buttonColumn",
+                //    "render": function (data, type, row) {
+                //        return '<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="deleteModalHelper(this)">Delete</button>';
+                //    }
+                //},
+                //{
+                //    "data": null, "name": "buttonColumn",
+                //    "render": function (data, type, row) {
+                //        return '<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal4" onclick="fillInputs(this)">Update</button>';
+                //    }
+                //}
+            ],
+            'columnDefs': [
+               // { 'targets': 0, 'createdCell': function (td) { $(td).attr('name', 'OrderID'); } },
+               // { 'targets': 1, 'createdCell': function (td) { $(td).attr('name', 'UserID'); } },
+               // { 'targets': 2, 'createdCell': function (td) { $(td).attr('name', 'UserFirstName'); } },
+               // { 'targets': 3, 'createdCell': function (td) { $(td).attr('name', 'UserLastName'); } },
+                { 'targets': 1, 'createdCell': function (td) { $(td).attr('name', 'OrderID'); },},
+                { 'targets': 2, 'createdCell': function (td) { $(td).attr('name', 'OrderDate'); } },
+                { 'targets': 3, 'createdCell': function (td) { $(td).attr('name', 'OrderRequiredDate'); } },
+               // { 'targets': 6, 'createdCell': function (td) { $(td).attr('name', 'OrderShippedDate'); } },
+                { 'targets': 4, 'createdCell': function (td) { $(td).attr('name', 'OrderFreight'); } },
+                { 'targets': 5, 'createdCell': function (td) { $(td).attr('name', 'OrderIsDelivered'); } },
+                //{ 'targets': 9, 'createdCell': function (td) { $(td).attr('name', 'OrderStatus'); } },
+            ],
         });
+
+        $('#OrderTable tbody').on('click', 'td.dt-control', function () {
+            var tr = $(this).closest('tr');
+            console.log(tr.next())
+            var row = table.row(tr);
+
+            if (tr.hasClass("shown")) {
+                // This row is already open - close it
+                while (tr.next().attr("name") == "ProductRow") {
+                    tr.next().remove();
+                }
+                
+                tr.removeClass('shown');
+            } else {
+                // Open this row
+                var model = {}
+                model.orderID = parseInt(row.data().OrderID)
+                SaveModals.GetOrderDetailsByOrderID(model)
+                //row.child(format(row.data())).show();
+                //$(format(row.data())).insertAfter(tr);
+                //tr.addClass('shown');
+            }
+        });
+
+        function format(d) {
+            // `d` is the original data object for the row
+            return (
+                '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+                '<tr>' +
+                '<td>Full name:</td>' +
+                '<td>' +
+                d.name +
+                '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td>Extension number:</td>' +
+                '<td>' +
+                d.extn +
+                '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td>Extra info:</td>' +
+                '<td>And any further details here (images etc)...</td>' +
+                '</tr>' +
+                '</table>'
+            );
+        }
+        
+        //const orderTable = $("#OrderTable").find("tbody")
+        
+        //$.each(result, function (index, row) {
+        //        const elm = `
+        //        <tr>
+        //            <th>
+        //                <div style="overflow: hidden;" class="d-flex align-items-center justify-content-center" >
+        //                    <img src="${row.ProductImage}.jpg" class="rounded mx-auto d-block" height="50px" >
+        //                </div>
+        //            </th>
+        //            <td>${row.ProductName}</td>
+        //            <td name="ProductPrice">${row.OrderDetailQuantity}</td>
+        //            <td name="CartItemQuantity">${row.OrderDetailDiscount}</td>
+        //            <td>${row.ProductPrice * row.OrderDetailQuantity}</td>
+        //            <td>${row.OrderDate}</td>
+        //            <td>${row.OrderRequiredDate}</td>
+        //            <td style="background-color:${row.OrderIsDelivered ? "green" : "red"};"></td>
+        //        </tr>`
+                
+        //        orderTable.append(elm)
+        //});
     },
+
+    GetOrderDetailsByOrderIDSucc: function (result) { 
+       
+        //console.log(result)
+        const newTable2 = `
+<tr>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td colspan="2">Larry the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
+</tr>`
+        //const newTable = document.createElement("table");
+        const newRow = document.createElement("tr");
+        $.each($("#OrderTable").find('td[name="OrderID"]'), function (index, elm) {
+            if (result != null || result != []) {
+                
+                result.forEach(orderDetail => {
+                    if (orderDetail.OrderID == $(elm).html()) {
+                        //newTable.innerHTML += (format(orderDetail))
+                        //newRow.appendChild(newTable)
+                        //$(newRow).insertAfter($(elm).closest('tr'));
+                        $(format(orderDetail)).insertAfter($(elm).closest('tr'));
+                        $(elm).closest('tr').addClass('shown');
+                        return
+                    }
+                    //console.log(orderDetail.OrderID)
+                })
+                
+            }
+            //console.log($(elm).html())
+            
+        })
+        
+        function format(d) {
+            // `d` is the original data object for the row
+            return (
+                `
+            <tr name="ProductRow" >
+                <td name="ProductImage">
+                    <div style = "overflow: hidden;" class="d-flex align-items-center justify-content-center" >
+                        <img src="${d.ProductImage}.jpg" class="rounded mx-auto d-block" height="50px" >
+                    </div>
+                </td>
+                <td name="ProductName" style="width: 100px">${d.ProductName}</td>
+                <td name="OrderDetailQuantity">Quantity : ${d.OrderDetailQuantity}</td>
+                <td name="OrderDetailUnitPrice">Total Price : ${parseInt(d.OrderDetailUnitPrice) * parseInt(d.OrderDetailQuantity)} </td >
+                <td name="OrderDate">Ordered Date : ${d.OrderDate} </td >
+                <td name="OrderIsDelivered">${d.OrderIsDelivered ? "Delivered" : "Not Delivered"}</td>
+            </tr>`
+            );
+        }
+    }
 }

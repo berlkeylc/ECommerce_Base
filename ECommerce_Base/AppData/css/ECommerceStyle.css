@@ -45,3 +45,9 @@ icon-shape {
     width: 2rem;
     height: 2rem;
 }
+
+.parsley-errors-list {
+    list-style-type: none;
+    padding-left: 1rem;
+    color: red;
+}

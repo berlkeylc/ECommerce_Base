@@ -22,9 +22,9 @@
                         case "OrderDetailsTable":
                             SaveModals.GetOrderDetails();
                             break;
-                        case "CartsTable":
-                            SaveModals.GetCarts();
-                            break;
+                        //case "CartsTable":
+                        //    SaveModals.GetCarts();
+                        //    break;
                     }
                 }
 
@@ -34,6 +34,7 @@
         SaveModals.GetCartCheckOut();
         SaveModals.GetUserInfoCheckOut();
         SaveModals.GetOrderDetail();
+        SaveModals.GetCarts();
     }
 
 }

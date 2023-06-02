@@ -91,6 +91,10 @@ var SaveModals = {
     GetOrderDetail: function (model = {}) {
         AjaxPost("/OrderDetail/GetOrderDetail", model, AjaxResults.GetOrderDetailSucc);
     },
+
+    GetOrderDetailsByOrderID: function (model = {}) {
+        AjaxPost("/OrderDetail/GetOrderDetailsByOrderID", model, AjaxResults.GetOrderDetailsByOrderIDSucc);
+    }, 
 }
 
 

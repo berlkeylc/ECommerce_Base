@@ -22,12 +22,12 @@ namespace ECommerce_Base
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+            //bundles.Add(new StyleBundle("~/Content/css").Include(
+            //          "~/Content/bootstrap.css",
+            //          "~/Content/site.css"));
 
-            bundles.Add(new StyleBundle("~/App_Data/css2").Include(
-                      "~/App_Data/css/style.css"));
+            //bundles.Add(new StyleBundle("~/App_Data/css2").Include(
+            //          "~/App_Data/css/style.css"));
 
             bundles.Add(new StyleBundle("~/AppData/css").Include(
                      "~/AppData/css/*.css"));

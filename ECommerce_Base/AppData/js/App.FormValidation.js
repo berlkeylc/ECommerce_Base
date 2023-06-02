@@ -665,7 +665,7 @@ var AppParsley = {
         }
         
         if ($("#logoutModal").length >= 1) {
-            $("#logoutModal").on('click', function () {
+            $("#logoutModalButton").on('click', function () {
 
                 Account.Logout();
 

@@ -406,6 +406,86 @@ namespace ECommerce_Base.Infrastructures
             
         }
 
+        public List<OrderViewModel> getOrdersByUserIDOperation(string session)
+        {
+            User user = um.GetByUserName(session);
+            var order = om.GetByUserID(user.UserID);
+
+            var result =
+             (from pl in order
+              join cl in um.GetList() on pl.UserID equals cl.UserID into t
+              from nt in t.DefaultIfEmpty()
+              select new OrderViewModel
+              {
+                  OrderID = pl.OrderID,
+                  UserFirstName = nt.UserFirstName,
+                  UserLastName = nt.UserLastName,
+                  UserID = nt.UserID,
+                  OrderDate = pl.OrderDate.ToString("yyyy-MM-dd"),
+                  OrderRequiredDate = pl.OrderRequiredDate.ToString("yyyy-MM-dd"),
+                  OrderShippedDate = pl.OrderShippedDate.ToString("yyyy-MM-dd"),
+                  OrderFreight = pl.OrderFreight,
+                  OrderIsDelivered = pl.OrderIsDelivered,
+                  OrderStatus = pl.OrderStatus,
+              }).ToList();
+
+            if (order != null)
+            {
+                return result;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public List<OrderDetailViewModel> getOrderDetailsByOrderIDOperation(string session, int orderID)
+        {
+            User user = um.GetByUserName(session);
+            var order = om.GetByUserID(user.UserID).LastOrDefault();
+
+            if (order != null)
+            {
+                var result =
+               (from od in odm.GetByOrderID(orderID)
+                join t2 in pm.GetList() on od.ProductID equals t2.ProductID into t
+                from m in t.DefaultIfEmpty()
+                join o in om.GetList() on od.OrderID equals o.OrderID into s
+                from nt in s.DefaultIfEmpty()
+                select new OrderDetailViewModel
+                {
+                    UserFirstName = nt.User.UserFirstName,
+                    UserLastName = nt.User.UserLastName,
+                    UserEmail = nt.User.UserEmail,
+                    UserName = nt.User.UserName,
+                    UserPhone = nt.User.UserPhone,
+                    UserAddress = nt.User.UserAddress,
+                    UserCity = nt.User.UserCity,
+                    UserPostalCode = nt.User.UserPostalCode,
+                    OrderDate = nt.OrderDate.ToString("yyyy-MM-dd"),
+                    OrderID = nt.OrderID,
+                    OrderRequiredDate = nt.OrderRequiredDate.ToString("yyyy-MM-dd"),
+                    OrderFreight = nt.OrderFreight,
+                    OrderIsDelivered = nt.OrderIsDelivered,
+                    ProductID = m.ProductID,
+                    ProductImage = m.ProductImage,
+                    ProductName = m.ProductName,
+                    ProductPrice = m.ProductPrice,
+                    OrderDetailQuantity = od.OrderDetailQuantity,
+                    OrderDetailDiscount = od.OrderDetailDiscount,
+                    OrderDetailUnitPrice = od.OrderDetailUnitPrice,
+                    OrderDetailStatus = od.OrderDetailStatus,
+                    OrderDetailID = od.OrderDetailID,
+                }).ToList();
+
+                return result;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public void CrudOrderDetailUserOperation(string session)
         {
             User user = um.GetByUserName(session);

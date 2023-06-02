@@ -82,6 +82,8 @@ function add2Cart(elm) {
     model.ProductID = $(elm).closest('.card').find('input').attr('value')
     model.processCode = "Increase"
     SaveModals.CrudCarts(model)
+    $("#CartBadge").html(parseInt($("#CartBadge").html())+1)
+    //SaveModals.GetCarts();
     console.log("sepete eklendi..")
 }
 
@@ -91,6 +93,7 @@ function incrementCart(e,elm) {
     model.ProductID = $(elm).closest('tr').attr('data-productid')
     model.processCode = "Increase"
     SaveModals.CrudCarts(model)
+    $("#CartBadge").html(parseInt($("#CartBadge").html()) + 1)
     //SaveModals.GetCarts();
     console.log("sepete eklendi..")
 }
@@ -101,6 +104,8 @@ function decrementCart(e,elm) {
     model.ProductID = $(elm).closest('tr').attr('data-productid')
     model.processCode = "Decrease"
     SaveModals.CrudCarts(model)
+    $("#CartBadge").html(parseInt($("#CartBadge").html()) - 1)
+    //SaveModals.GetCarts();
     console.log("sepetten cikarildi..")
 }
 
@@ -135,6 +140,17 @@ function decrementValue(e) {
     } else {
         parent.find('input[name=' + fieldName + ']').val(0);
     }
+}
+
+function filterSelection(categoryName) {
+    $.each($("#ProductsContainer").find("input"), function (row, elm) {
+        if ($(elm).attr("data-filter") == categoryName) {
+            $(elm).parent().attr("hidden", false)
+        }
+        else {
+            $(elm).parent().attr("hidden", true)
+        }
+    })
 }
 
 

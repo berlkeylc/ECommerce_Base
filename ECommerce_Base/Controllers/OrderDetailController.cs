@@ -29,10 +29,18 @@ namespace ECommerce_Base.Controllers
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
         [Authorize]
         public JsonResult GetOrderDetail()
         {
-            return Json(utilityOperation.GetOrderDetailsUserOperation(Session["UserName"].ToString()), JsonRequestBehavior.AllowGet);
+            return Json(utilityOperation.getOrdersByUserIDOperation(Session["UserName"].ToString()), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public JsonResult GetOrderDetailsByOrderID(int orderID)
+        {
+            return Json(utilityOperation.getOrderDetailsByOrderIDOperation(Session["UserName"].ToString(), orderID), JsonRequestBehavior.AllowGet);
         }
     }
 }
