@@ -112,6 +112,10 @@
     <Compile Include="Migrations\202303270837231_Cart_1.designer.cs">
       <DependentUpon>202303270837231_Cart_1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202306022021475_UserRoleMig.cs" />
+    <Compile Include="Migrations\202306022021475_UserRoleMig.designer.cs">
+      <DependentUpon>202306022021475_UserRoleMig.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -158,6 +162,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202303270837231_Cart_1.resx">
       <DependentUpon>202303270837231_Cart_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202306022021475_UserRoleMig.resx">
+      <DependentUpon>202306022021475_UserRoleMig.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

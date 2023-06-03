@@ -82,7 +82,8 @@ function add2Cart(elm) {
     model.ProductID = $(elm).closest('.card').find('input').attr('value')
     model.processCode = "Increase"
     SaveModals.CrudCarts(model)
-    $("#CartBadge").html(parseInt($("#CartBadge").html())+1)
+    $("#CartBadge").html(parseInt($("#CartBadge").html()) == 0 ? 0 : parseInt($("#CartBadge").html()) + 1)
+    $("#CartBadge").attr("hidden",false)
     //SaveModals.GetCarts();
     console.log("sepete eklendi..")
 }
@@ -94,7 +95,7 @@ function incrementCart(e,elm) {
     model.processCode = "Increase"
     SaveModals.CrudCarts(model)
     $("#CartBadge").html(parseInt($("#CartBadge").html()) + 1)
-    //SaveModals.GetCarts();
+    $("#CartBadge").removeAttr("hidden")
     console.log("sepete eklendi..")
 }
 
@@ -105,7 +106,10 @@ function decrementCart(e,elm) {
     model.processCode = "Decrease"
     SaveModals.CrudCarts(model)
     $("#CartBadge").html(parseInt($("#CartBadge").html()) - 1)
-    //SaveModals.GetCarts();
+    if (parseInt($("#CartBadge").html()) < 1) {
+        $("#CartBadge").removeAttr("hidden")
+    }
+    
     console.log("sepetten cikarildi..")
 }
 
@@ -114,10 +118,13 @@ function incrementValue(e) {
     var fieldName = $(e.target).data('field');
     var parent = $(e.target).closest('div');
     var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
+    var currentTotalPrice = parseInt($(e.target).closest('tr').find('td[name = "CartTotalPrice"]').html())
+    var productPrice = parseInt($(e.target).closest('tr').find('td[name = "ProductPrice"]').html())
 
     if (!isNaN(currentVal)) {
         parent.find('input[name=' + fieldName + ']').val(currentVal + 1);
         $(e.target).closest('tr').find('td[name = "CartItemQuantity"]').html(currentVal + 1)
+        $(e.target).closest('tr').find('td[name = "CartTotalPrice"]').html(currentTotalPrice + productPrice)
         $("#CartTotalPrice").html(parseInt($("#CartTotalPrice").html()) + parseInt($(e.target).closest('tr').find('td[name = "ProductPrice"]').html()))
     } else {
         parent.find('input[name=' + fieldName + ']').val(0);
@@ -129,9 +136,12 @@ function decrementValue(e) {
     var fieldName = $(e.target).data('field');
     var parent = $(e.target).closest('div');
     var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
+    var currentTotalPrice = parseInt($(e.target).closest('tr').find('td[name = "CartTotalPrice"]').html())
+    var productPrice = parseInt($(e.target).closest('tr').find('td[name = "ProductPrice"]').html())
 
     if (!isNaN(currentVal) && currentVal > 0) {
         parent.find('input[name=' + fieldName + ']').val(currentVal - 1);
+        $(e.target).closest('tr').find('td[name = "CartTotalPrice"]').html(currentTotalPrice - productPrice)
         $(e.target).closest('tr').find('td[name = "CartItemQuantity"]').html(currentVal - 1)
         if (currentVal -1 == 0) {
             $(e.target).closest('tr').remove()

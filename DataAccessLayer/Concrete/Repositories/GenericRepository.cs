@@ -24,10 +24,13 @@ namespace DataAccessLayer.Concrete.Repositories
 
         public void Delete(T p)
         {
-            var deletedEntity = c.Entry(p);
-            deletedEntity.State = EntityState.Deleted;
-            //_object.Remove(p);
-            c.SaveChanges();
+            if(p != null)
+            {
+                var deletedEntity = c.Entry(p);
+                deletedEntity.State = EntityState.Deleted;
+                //_object.Remove(p);
+                c.SaveChanges();
+            }
         }
 
         public T Get(Expression<Func<T, bool>> filter)
@@ -37,22 +40,25 @@ namespace DataAccessLayer.Concrete.Repositories
 
         public void Insert(T p)
         {
-            var addedEntity = c.Entry(p);
-            addedEntity.State = EntityState.Added;
-            //_object.Add(p);
-            //c.SaveChanges();
-            //var context = ((IObjectContextAdapter)c).ObjectContext;
-            //context.Refresh(RefreshMode.ClientWins, p);
-            c.SaveChanges();
-            //try
-            //{
-            //    c.SaveChanges();
-            //}
-            //catch (OptimisticConcurrencyException)
-            //{
-            //    context.Refresh(RefreshMode.ClientWins, p);
-            //    c.SaveChanges();
-            //}
+            if (p != null)
+            {
+                var addedEntity = c.Entry(p);
+                addedEntity.State = EntityState.Added;
+                //_object.Add(p);
+                //c.SaveChanges();
+                //var context = ((IObjectContextAdapter)c).ObjectContext;
+                //context.Refresh(RefreshMode.ClientWins, p);
+                c.SaveChanges();
+                //try
+                //{
+                //    c.SaveChanges();
+                //}
+                //catch (OptimisticConcurrencyException)
+                //{
+                //    context.Refresh(RefreshMode.ClientWins, p);
+                //    c.SaveChanges();
+                //}
+            }
         }
 
         public List<T> List()
@@ -67,9 +73,12 @@ namespace DataAccessLayer.Concrete.Repositories
 
         public void Update(T p)
         {
-            var updatedEntity = c.Entry(p);
-            updatedEntity.State = EntityState.Modified;
-            c.SaveChanges();
+            if(p != null)
+            {
+                var updatedEntity = c.Entry(p);
+                updatedEntity.State = EntityState.Modified;
+                c.SaveChanges();
+            }
         }
     }
 }

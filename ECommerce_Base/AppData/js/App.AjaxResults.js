@@ -8,6 +8,7 @@
                 break;
             case Enums.WebResultTypes.Message:
                 alert(result.Message);
+                document.location.href = result.Url;
                 //alert("Hata olustu");
             default:
         }
@@ -259,6 +260,7 @@
                 { title: "UserCountry", data: 'UserCountry' },
                 { title: "UserGender", data: 'UserGender' },
                 { title: "UserPhone", data: 'UserPhone' },
+                { title: "UserRole", data: 'UserRole' },
                 { title: "UserStatus", data: 'UserStatus' },
                 {
                     "data": null, "name": "buttonColumn",
@@ -286,7 +288,8 @@
                 { 'targets': 9, 'createdCell': function (td) { $(td).attr('name', 'UserCountry'); } },
                 { 'targets': 10, 'createdCell': function (td) { $(td).attr('name', 'UserGender'); } },
                 { 'targets': 11, 'createdCell': function (td) { $(td).attr('name', 'UserPhone'); } },
-                { 'targets': 12, 'createdCell': function (td) { $(td).attr('name', 'UserStatus'); } }
+                { 'targets': 12, 'createdCell': function (td) { $(td).attr('name', 'UserRole'); } },
+                { 'targets': 13, 'createdCell': function (td) { $(td).attr('name', 'UserStatus'); } }
             ],
         });
     },
@@ -514,7 +517,7 @@
                     <td>${row.ProductName}</td>
                     <td name="ProductPrice">${row.ProductPrice}</td>
                     <td name="CartItemQuantity">${row.CartItemQuantity}</td>
-                    <td>${row.ProductPrice * row.CartItemQuantity}</td>
+                    <td name="CartTotalPrice">${row.ProductPrice * row.CartItemQuantity}</td>
                     <td>
                         <div class="input-group w-auto justify-content-end align-items-center">
                             <input type="button" value="-" class="button-minus border rounded-circle  icon-shape icon-sm mx-1 " data-field="quantity" onclick="decrementCart(event,this)">
@@ -605,10 +608,9 @@
                 {
                     className: 'dt-control',
                     orderable: false,
-                    data: 'OrderID',
                     defaultContent: '',
                 },
-                { title: "OrderID", data: 'OrderID' },
+                //{ title: "OrderID", data: 'OrderID' },
                 { title: "OrderDate", data: 'OrderDate' },
                 { title: "OrderRequiredDate", data: 'OrderRequiredDate' },
                 //{ title: "OrderShippedDate", data: 'OrderShippedDate' },
@@ -627,18 +629,21 @@
                 //        return '<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal4" onclick="fillInputs(this)">Update</button>';
                 //    }
                 //}
-            ],
+                ],
+                'createdRow': function (row, data, dataIndex) {
+                    $(row).attr('data-OrderID', data.OrderID);
+                },
             'columnDefs': [
                // { 'targets': 0, 'createdCell': function (td) { $(td).attr('name', 'OrderID'); } },
                // { 'targets': 1, 'createdCell': function (td) { $(td).attr('name', 'UserID'); } },
                // { 'targets': 2, 'createdCell': function (td) { $(td).attr('name', 'UserFirstName'); } },
                // { 'targets': 3, 'createdCell': function (td) { $(td).attr('name', 'UserLastName'); } },
-                { 'targets': 1, 'createdCell': function (td) { $(td).attr('name', 'OrderID'); },},
-                { 'targets': 2, 'createdCell': function (td) { $(td).attr('name', 'OrderDate'); } },
-                { 'targets': 3, 'createdCell': function (td) { $(td).attr('name', 'OrderRequiredDate'); } },
+                //{ 'targets': 1, 'createdCell': function (td) { $(td).attr('name', 'OrderID'); }, },
+                { 'targets': 1, 'createdCell': function (td) { $(td).attr('name', 'OrderDate'); } },
+                { 'targets': 2, 'createdCell': function (td) { $(td).attr('name', 'OrderRequiredDate'); } },
                // { 'targets': 6, 'createdCell': function (td) { $(td).attr('name', 'OrderShippedDate'); } },
-                { 'targets': 4, 'createdCell': function (td) { $(td).attr('name', 'OrderFreight'); } },
-                { 'targets': 5, 'createdCell': function (td) { $(td).attr('name', 'OrderIsDelivered'); } },
+                { 'targets': 3, 'createdCell': function (td) { $(td).attr('name', 'OrderFreight'); } },
+                { 'targets': 4, 'createdCell': function (td) { $(td).attr('name', 'OrderIsDelivered'); } },
                 //{ 'targets': 9, 'createdCell': function (td) { $(td).attr('name', 'OrderStatus'); } },
             ],
         });
@@ -715,51 +720,17 @@
 
     GetOrderDetailsByOrderIDSucc: function (result) { 
        
-        //console.log(result)
-        const newTable2 = `
-<tr>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
-</tr>`
-        //const newTable = document.createElement("table");
         const newRow = document.createElement("tr");
-        $.each($("#OrderTable").find('td[name="OrderID"]'), function (index, elm) {
+        $.each($("#OrderTable").find('tr'), function (index, elm) {
             if (result != null || result != []) {
                 
                 result.forEach(orderDetail => {
-                    if (orderDetail.OrderID == $(elm).html()) {
+                    if (orderDetail.OrderID == $(elm).attr("data-orderid")) {
                         //newTable.innerHTML += (format(orderDetail))
                         //newRow.appendChild(newTable)
                         //$(newRow).insertAfter($(elm).closest('tr'));
-                        $(format(orderDetail)).insertAfter($(elm).closest('tr'));
-                        $(elm).closest('tr').addClass('shown');
+                        $(format(orderDetail)).insertAfter($(elm));
+                        $(elm).addClass('shown');
                         return
                     }
                     //console.log(orderDetail.OrderID)

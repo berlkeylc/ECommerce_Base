@@ -271,6 +271,14 @@ var AppParsley = {
                     }
                 },
                 {
+                    Name: "UserRole",
+                    Required: true,
+                    StringLength: {
+                        min: 0,
+                        max: 11
+                    }
+                },
+                {
                     Name: "UserStatus",
                     Required: true
                 },
@@ -640,8 +648,8 @@ var AppParsley = {
             });
         }
 
-        if ($("#deletemodal").length >= 1) {
-            $("#DeleteModalSaveForm").find("#deletemodal").on('click', function () {
+        if ($("#deleteModal").length >= 1) {
+            $("#DeleteModalSaveForm").find("#deleteModalButton").on('click', function () {
                
                 var model = {}
                 model.processCode = $("#DeleteModalSaveForm").attr("data-processCode")
@@ -650,14 +658,19 @@ var AppParsley = {
                 switch ($("#DeleteModalSaveForm").attr("data-table-id")) {
                     case "CategoriesTable":
                         SaveModals.CrudCategories(model)
+                        break;
                     case "ProductsTable":
                         SaveModals.CrudProducts(model)
+                        break;
                     case "UsersTable":
                         SaveModals.CrudUsers(model)
+                        break;
                     case "OrdersTable":
                         SaveModals.CrudOrders(model)
-                    case "OrderDetailsTable":
+                        break;
+                    case "OrderDetailsTabl":
                         SaveModals.CrudOrderDetails(model)
+                        break;
                 }
 
                 return true;

@@ -18,6 +18,8 @@ namespace ECommerce_Base.Controllers
         // GET: AdminCategory
 
         UtilityOperation utilityOperation = new UtilityOperation();
+
+        [Authorize (Roles = "ADMIN")]
         public ActionResult Index()
         {
             return View();

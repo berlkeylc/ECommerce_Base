@@ -47,12 +47,14 @@ namespace ECommerce_Base.Controllers
                 {
                     webResult.Type = Infrastructures.Enums.WebResultTypes.Message;
                     webResult.Message = "Yanlış Şifre.";
+                    webResult.Url = Url.Action("Login", "Account");
                 }
             }
             else
             {
                 webResult.Type = Infrastructures.Enums.WebResultTypes.Message;
                 webResult.Message = "Kullanıcı Bulunamadı.";
+                webResult.Url = Url.Action("Login", "Account");
             }
             return Json(webResult, JsonRequestBehavior.AllowGet);
         }
@@ -74,10 +76,11 @@ namespace ECommerce_Base.Controllers
                     user.UserLastName = model.UserLastName;
                     user.UserFirstName = model.UserFirstName;
                     user.UserPassword = model.Password;
+                    user.UserRole = "USER";
 
                     um.UserAddBL(user);
 
-                    webResult.Url = Url.Action("Login", "Account"); ;
+                    webResult.Url = Url.Action("Login", "Account"); 
                     webResult.Type = Infrastructures.Enums.WebResultTypes.Redirect;
                 }
                 else

@@ -45,6 +45,9 @@ namespace EntityLayer.Concrete
         [StringLength(11)]
         public string UserPhone { get; set; }
 
+        [StringLength(10)]
+        public string UserRole { get; set; }
+
         public bool UserStatus { get; set; }
 
         public ICollection<Order> Orders { get; set; }

@@ -16,6 +16,8 @@ namespace ECommerce_Base.Controllers
     public class AdminProductController : Controller
     {
         UtilityOperation utilityOperation = new UtilityOperation();
+
+        [Authorize(Roles = "ADMIN")]
         public ActionResult Index()
         {
             return View();

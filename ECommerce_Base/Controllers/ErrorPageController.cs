@@ -6,12 +6,14 @@ using System.Web.Mvc;
 
 namespace ECommerce_Base.Controllers
 {
-    public class AdminController : Controller
+    public class ErrorPageController : Controller
     {
-        // GET: Admin
-
-        [Authorize(Roles = "ADMIN")]
-        public ActionResult Index()
+        // GET: ErrorPage
+        public ActionResult Page404()
+        {
+            return View();
+        }
+        public ActionResult Page401()
         {
             return View();
         }

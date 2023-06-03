@@ -138,6 +138,7 @@ namespace ECommerce_Base.Infrastructures
                     uservalue.UserCountry = arg.UserCountry == null ? uservalue.UserCountry : arg.UserCountry;
                     uservalue.UserGender = arg.UserGender == null ? uservalue.UserGender : arg.UserGender;
                     uservalue.UserPhone = arg.UserPhone == null ? uservalue.UserPhone : arg.UserPhone;
+                    uservalue.UserRole = arg.UserRole == null ? uservalue.UserRole : arg.UserRole;
                     uservalue.UserStatus = arg.UserStatus == null ? uservalue.UserStatus : arg.UserStatus;
 
                     um.UserUpdate(uservalue);
@@ -485,15 +486,15 @@ namespace ECommerce_Base.Infrastructures
                 return null;
             }
         }
-
+        
         public void CrudOrderDetailUserOperation(string session)
         {
             User user = um.GetByUserName(session);
 
             var cart = cartm.GetList().SingleOrDefault(x => x.UserID == user.UserID);
-            var cartItems = cim.GetByCartID(cart.CartID);
+            List<CartItem> cartItems = cim.GetByCartID(cart.CartID);
 
-            if(cartItems != null)
+            if((cartItems != null) && (cartItems.Count > 0))
             {
                 Order orderTemp = new Order();
                 //orderTemp.OrderID = arg.OrderID;

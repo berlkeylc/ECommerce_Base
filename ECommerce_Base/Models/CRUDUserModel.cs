@@ -33,6 +33,8 @@ namespace ECommerce_Base.Models
 
         public string UserPhone { get; set; }
 
+        public string UserRole { get; set; }
+
         public bool UserStatus { get; set; }
 
         public ICollection<Order> Orders { get; set; }
