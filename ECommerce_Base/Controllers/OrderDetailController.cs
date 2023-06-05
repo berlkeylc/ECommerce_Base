@@ -23,9 +23,9 @@ namespace ECommerce_Base.Controllers
 
         [HttpPost]
         [Authorize]
-        public JsonResult CrudOrderDetail(CRUDOrderDetailModel p)
+        public JsonResult CrudOrderDetail(CRUDUserModel p)
         {
-            utilityOperation.CrudOrderDetailUserOperation(Session["UserName"].ToString());
+            utilityOperation.CrudOrderDetailUserOperation(Session["UserName"].ToString(),p);
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 

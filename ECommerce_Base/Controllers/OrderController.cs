@@ -40,16 +40,6 @@ namespace ECommerce_Base.Controllers
             if (p.processCode == "Delete")
             {
                 var ordervalue = cm.GetById(p.OrderID);
-                //Order prdct = new Order();
-                //prdct.OrderID = ordervalue.OrderID;
-                //prdct.CategoryID = ordervalue.CategoryID;
-                //prdct.OrderName = ordervalue.OrderName;
-                //prdct.OrderDescription = ordervalue.OrderDescription;
-                //prdct.OrderPrice = ordervalue.OrderPrice;
-                //prdct.OrderStock = ordervalue.OrderStock;
-                //prdct.OrderStatus = ordervalue.OrderStatus;
-
-
                 cm.OrderDelete(ordervalue);
             }
             else if (p.OrderID > 0 && p.processCode == "Update")

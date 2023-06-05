@@ -69,7 +69,6 @@ function file2Base64() {
         reader.onloadend = () => {
             //console.log(reader.result);
             $("#ProductImage").attr("value", reader.result);
-            // Logs data:<type>;base64,wL2dvYWwgbW9yZ...
         };
         reader.readAsDataURL(file);
 
@@ -84,8 +83,6 @@ function add2Cart(elm) {
     SaveModals.CrudCarts(model)
     $("#CartBadge").html(parseInt($("#CartBadge").html()) == 0 ? 0 : parseInt($("#CartBadge").html()) + 1)
     $("#CartBadge").attr("hidden",false)
-    //SaveModals.GetCarts();
-    console.log("sepete eklendi..")
 }
 
 function incrementCart(e,elm) {
@@ -96,7 +93,6 @@ function incrementCart(e,elm) {
     SaveModals.CrudCarts(model)
     $("#CartBadge").html(parseInt($("#CartBadge").html()) + 1)
     $("#CartBadge").removeAttr("hidden")
-    console.log("sepete eklendi..")
 }
 
 function decrementCart(e,elm) {
@@ -109,8 +105,6 @@ function decrementCart(e,elm) {
     if (parseInt($("#CartBadge").html()) < 1) {
         $("#CartBadge").removeAttr("hidden")
     }
-    
-    console.log("sepetten cikarildi..")
 }
 
 function incrementValue(e) {

@@ -546,10 +546,7 @@ var AppParsley = {
                 var reader = new FileReader();
                 logFile = $("#ProductModalSaveForm").find("input")[2].files[0]
                 reader.readAsText(logFile);
-                console.log(reader.result)
-                //reader.onload = function (event) {
-                //    console.log(reader.result)
-                //};
+                
                 var model = AppForm.ObjectifyForm($(AppForm.FormKeys.ProductModalSaveForm));
                 model.ProductImage = $(AppForm.FormKeys.ProductModalSaveForm).find("#ProductImage").attr("value")
                 if (model.ProductID != "" && model.ProductID != null && model.ProductID > 0) {
@@ -631,18 +628,13 @@ var AppParsley = {
                 if (model.UserID != "" && model.UserID != null && model.UserID > 0) {
                     $(AppForm.FormKeys.UserModalSaveForm).attr("data-processCode", "Update")
                     model.processCode = "Update"
-                    SaveModals.CrudUsers(model)
                 }
 
                 if (model.OrderID != "" && model.OrderID != null && model.OrderID > 0) {
                     $(AppForm.FormKeys.CheckOutSaveForm).attr("data-processCode", "Update")
                     model.processCode = "Update"
                 }
-                else {
-                    model.processCode = "Create"
-                }
-                //SaveModals.CrudOrders(model)
-                //setTimeout(function () { SaveModals.AddOrderDetail(model) },500) 
+
                 SaveModals.AddOrderDetail(model)
                 return true;
             });
@@ -743,59 +735,6 @@ var AppParsleySubmit = {
             //    }
 
             //})
-
-
-
-
-//#region Test amaçlı kodlar
-//var Test = {
-//    //javascript json notation
-
-
-//    /**
-//     * Test amaçlı login
-//     * @param {string} formid Form ıd bilgisini içerir.
-//     * @param {int} token Token değeri sadece numeric veri içermelidir.
-//     */
-//    Login: function(formid, token){
-
-//    },
-
-//    /**
-//     * 
-//     * @param {*} formid 
-//     * @param {*} token 
-//     * @returns {int} daima 1 değerini döner
-//     */
-//     Login2: function(formid, token){
-//        return 1;
-//    },
-
-//    Login3: function(){
-//        //return "abc" + " " + "d";
-
-//        return `${Test.Login2(1, 2)} Merhaba`;
-//    },
-
-//    Init : function(){
-//        this.Login();
-//        this.Login2();
-//        this.Login3();
-//    }
-//    //Startup
-//}
-
-///*var tesdt =function Test2 (){
-
-//}();
-
-
-
-//window.onload( function () {
-//    Test.Init();
-//})*/
-
-
 
 //var AppValidation = {
 

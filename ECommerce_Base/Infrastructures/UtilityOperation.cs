@@ -127,19 +127,19 @@ namespace ECommerce_Base.Infrastructures
                 else if (arg.UserID > 0 && arg.processCode == "Update")
                 {
                     uservalue.UserID = arg.UserID == null ? uservalue.UserID : arg.UserID;
-                    uservalue.UserEmail = arg.UserEmail == null ? uservalue.UserEmail : arg.UserEmail;
+                    uservalue.UserEmail = arg.UserEmail;
                     uservalue.UserName = arg.UserName == null ? uservalue.UserName : arg.UserName;
-                    uservalue.UserLastName = arg.UserLastName == null ? uservalue.UserLastName : arg.UserLastName;
-                    uservalue.UserFirstName = arg.UserFirstName == null ? uservalue.UserFirstName : arg.UserFirstName;
-                    uservalue.UserPassword = arg.UserPassword == null ? uservalue.UserPassword : arg.UserPassword;
-                    uservalue.UserAddress = arg.UserAddress == null ? uservalue.UserAddress : arg.UserAddress;
-                    uservalue.UserPostalCode = arg.UserPostalCode == null ? uservalue.UserPostalCode : arg.UserPostalCode;
-                    uservalue.UserCity = arg.UserCity == null ? uservalue.UserCity : arg.UserCity;
-                    uservalue.UserCountry = arg.UserCountry == null ? uservalue.UserCountry : arg.UserCountry;
-                    uservalue.UserGender = arg.UserGender == null ? uservalue.UserGender : arg.UserGender;
-                    uservalue.UserPhone = arg.UserPhone == null ? uservalue.UserPhone : arg.UserPhone;
+                    uservalue.UserLastName = arg.UserLastName;
+                    uservalue.UserFirstName = arg.UserFirstName;
+                    uservalue.UserPassword = arg.UserPassword;
+                    uservalue.UserAddress = arg.UserAddress;
+                    uservalue.UserPostalCode = arg.UserPostalCode;
+                    uservalue.UserCity = arg.UserCity;
+                    uservalue.UserCountry = arg.UserCountry;
+                    uservalue.UserGender = arg.UserGender;
+                    uservalue.UserPhone = arg.UserPhone;
                     uservalue.UserRole = arg.UserRole == null ? uservalue.UserRole : arg.UserRole;
-                    uservalue.UserStatus = arg.UserStatus == null ? uservalue.UserStatus : arg.UserStatus;
+                    uservalue.UserStatus = arg.UserStatus;
 
                     um.UserUpdate(uservalue);
                 }
@@ -150,24 +150,7 @@ namespace ECommerce_Base.Infrastructures
                 }
 
             }
-            //else
-            //{
-            //    User user = new User();
-            //    user.UserID = arg.UserID;
-            //    user.UserEmail = arg.UserEmail;
-            //    user.UserName = arg.UserName;
-            //    user.UserLastName = arg.UserLastName;
-            //    user.UserFirstName = arg.UserFirstName;
-            //    user.UserPassword = arg.UserPassword;
-            //    user.UserAddress = arg.UserAddress;
-            //    user.UserPostalCode = arg.UserPostalCode;
-            //    user.UserCity = arg.UserCity;
-            //    user.UserCountry = arg.UserCountry;
-            //    user.UserGender = arg.UserGender;
-            //    user.UserPhone = arg.UserPhone;
-            //    user.UserStatus = arg.UserStatus;
-            //    um.UserAddBL(user);
-            //}
+        
         }
 
         public List<OrderViewModel> GetOrdersOperation()
@@ -487,12 +470,14 @@ namespace ECommerce_Base.Infrastructures
             }
         }
         
-        public void CrudOrderDetailUserOperation(string session)
+        public void CrudOrderDetailUserOperation(string session, CRUDUserModel p)
         {
             User user = um.GetByUserName(session);
 
             var cart = cartm.GetList().SingleOrDefault(x => x.UserID == user.UserID);
             List<CartItem> cartItems = cim.GetByCartID(cart.CartID);
+
+            CrudUserOperation(p);
 
             if((cartItems != null) && (cartItems.Count > 0))
             {

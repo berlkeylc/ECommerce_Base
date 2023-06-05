@@ -9,7 +9,6 @@
             case Enums.WebResultTypes.Message:
                 alert(result.Message);
                 document.location.href = result.Url;
-                //alert("Hata olustu");
             default:
         }
     },
@@ -22,7 +21,6 @@
                 break;
             case Enums.WebResultTypes.Message:
                 alert(result.Message);
-            //alert("Hata olustu");
             default:
         }
     },
@@ -35,7 +33,6 @@
                 break;
             case Enums.WebResultTypes.Message:
                 alert(result.Message);
-            //alert("Hata olustu");
             default:
         }
     },
@@ -75,25 +72,6 @@
 
     GetCategoriesSucc: function (result) {
         
-        //const categoryTable = $("#CategoriesTable").find("tbody")
-        //$.each(result, function (index,row) {
-        //    const tr = `
-        //    <tr name="CategoryRow" >
-        //        <td name="CategoryID">${row.CategoryID}</td>
-        //        <td name="CategoryName">${row.CategoryName}</td>
-        //        <td name="CategoryStatus">${row.CategoryStatus}</td>
-        //        <td name="CategoryDescription">${row.CategoryDescription}</td>
-        //        <td>
-        //            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="deleteModalHelper(this)">Delete</button>
-        //        </td>
-        //        <td>
-        //            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="fillInputs(this)">Update</button>
-        //        </td>
-        //    </tr>`
-        //    categoryTable.append(tr);
-        //});
-        //$('#CategoriesTable').DataTable();
-
         $('#CategoriesTable').DataTable({
             data: result,
             columns: [
@@ -137,27 +115,6 @@
 
     GetProductsSucc: function (result) {
 
-        //const productTable = $("#ProductsTable").find("tbody")
-        //$.each(result, function (index, row) {
-        //    const tr = `
-        //    <tr name="ProductRow" >
-        //        <td name="ProductID">${row.ProductID}</td>
-        //        <td name="ProductName">${row.ProductName}</td>
-        //        <td name="ProductImage"><img src="${row.ProductImage}.jpg" width="50" height="50"></td>
-        //        <td name="CategoryID">${row.CategoryName}</td>
-        //        <td name="ProductPrice">${row.ProductPrice}</td>
-        //        <td name="ProductStock">${row.ProductStock}</td>
-        //        <td name="ProductStatus">${row.ProductStatus}</td>
-        //        <td name="ProductDescription">${row.ProductDescription}</td>
-        //        <td>
-        //            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="deleteModalHelper(this)">Delete</button>
-        //        </td>
-        //        <td>
-        //            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal2" onclick="fillInputs(this)">Update</button>
-        //        </td>
-        //    </tr>`
-        //    productTable.append(tr);
-        //});
         $('#ProductsTable').DataTable({
             data: result,
             columns: [
@@ -218,32 +175,6 @@
 
     GetUsersSucc: function (result) {
 
-        //const userTable = $("#UsersTable").find("tbody")
-        //$.each(result, function (index, row) {
-        //    const tr = `
-        //    <tr>
-        //        <td name="UserID">${row.UserID}</td>
-        //        <td name="UserName">${row.UserName}</td>
-        //        <td name="UserEmail">${row.UserEmail}</td>
-        //        <td name="UserFirstName">${row.UserFirstName}</td>
-        //        <td name="UserLastName">${row.UserLastName}</td>
-        //        <td name="UserPassword">${row.UserPassword}</td>
-        //        <td name="UserAddress">${row.UserAddress}</td>
-        //        <td name="UserPostalCode">${row.UserPostalCode}</td>
-        //        <td name="UserCity">${row.UserCity}</td>
-        //        <td name="UserCountry">${row.UserCountry}</td>
-        //        <td name="UserGender">${row.UserGender}</td>
-        //        <td name="UserPhone">${row.UserPhone}</td>
-        //        <td name="UserStatus">${row.UserStatus}</td>
-        //        <td>
-        //            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="deleteModalHelper(this)">Delete</button>
-        //        </td>
-        //        <td>
-        //            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal3" onclick="fillInputs(this)">Update</button>
-        //        </td>
-        //    </tr>`
-        //    userTable.append(tr);
-        //});
         $('#UsersTable').DataTable({
             data: result,
             scrollX: true,
@@ -306,29 +237,6 @@
 
     GetOrdersSucc: function (result) {
 
-        //const orderTable = $("#OrdersTable").find("tbody")
-        //$.each(result, function (index, row) {
-        //    const tr = `
-        //    <tr name="OrderRow" >
-        //        <td name="OrderID">${row.OrderID}</td>
-        //        <td name="UserID">${row.UserID}</td>
-        //        <td name="UserFirstName">${row.UserFirstName}</td>
-        //        <td name="UserLastName">${row.UserLastName}</td>
-        //        <td name="OrderDate">${row.OrderDate}</td>
-        //        <td name="OrderRequiredDate">${row.OrderRequiredDate}</td>
-        //        <td name="OrderShippedDate">${row.OrderShippedDate}</td>
-        //        <td name="OrderFreight">${row.OrderFreight}</td>
-        //        <td name="OrderIsDelivered">${row.OrderIsDelivered}</td>
-        //        <td name="OrderStatus">${row.OrderStatus}</td>
-        //        <td>
-        //            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="deleteModalHelper(this)">Delete</button>
-        //        </td>
-        //        <td>
-        //            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal4" onclick="fillInputs(this)">Update</button>
-        //        </td>
-        //    </tr>`
-        //    orderTable.append(tr);
-        //});
         $('#OrdersTable').DataTable({
             data: result,
             scrollX: true,
@@ -383,37 +291,6 @@
 
     GetOrderDetailsSucc: function (result) {
 
-        //const orderDetailTable = $("#OrderDetailsTable").find("tbody")
-        //$.each(result, function (index, row) {
-        //    const tr = `
-        //    <tr>
-        //        <td name="OrderDetailID">${row.OrderDetailID}</td>
-        //        <td name="OrderID">${row.OrderID}</td>
-        //        <td name="UserFirstName">${row.UserFirstName}</td>
-        //        <td name="UserLastName">${row.UserLastName}</td>
-        //        <td name="UserName">${row.UserName}</td>
-        //        <td name="UserPhone">${row.UserPhone}</td>
-        //        <td name="UserAddress">${row.UserAddress}</td>
-        //        <td name="UserCity">${row.UserCity}</td>
-        //        <td name="UserPostalCode">${row.UserPostalCode}</td>
-        //        <td name="OrderDate">${row.OrderDate}</td>
-        //        <td name="OrderRequiredDate">${row.OrderRequiredDate}</td>
-        //        <td name="ProductID">${row.ProductID}</td>
-        //        <td name="ProductName">${row.ProductName}</td>
-        //        <td name="OrderDetailQuantity">${row.OrderDetailQuantity}</td>
-        //        <td name="OrderDetailUnitPrice">${row.OrderDetailUnitPrice}</td>
-        //        <td name="OrderDetailDiscount">${row.OrderDetailDiscount}</td>
-        //        <td name="OrderIsDelivered">${row.OrderIsDelivered}</td>
-        //        <td name="OrderDetailStatus">${row.OrderDetailStatus}</td>
-        //        <td>
-        //            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="deleteModalHelper(this)">Delete</button>
-        //        </td>
-        //        <td>
-        //            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal5" onclick="fillInputs(this)">Update</button>
-        //        </td>
-        //    </tr>`
-        //    orderDetailTable.append(tr);
-        //});
         $('#OrderDetailsTable').DataTable({
             data: result,
             scrollX: true,
@@ -617,18 +494,7 @@
                 { title: "OrderFreight", data: 'OrderFreight' },
                 { title: "OrderIsDelivered", data: 'OrderIsDelivered' },
                 //{ title: "OrderStatus", data: 'OrderStatus' },
-                //{
-                //    "data": null, "name": "buttonColumn",
-                //    "render": function (data, type, row) {
-                //        return '<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="deleteModalHelper(this)">Delete</button>';
-                //    }
-                //},
-                //{
-                //    "data": null, "name": "buttonColumn",
-                //    "render": function (data, type, row) {
-                //        return '<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal4" onclick="fillInputs(this)">Update</button>';
-                //    }
-                //}
+                
                 ],
                 'createdRow': function (row, data, dataIndex) {
                     $(row).attr('data-OrderID', data.OrderID);
@@ -665,80 +531,26 @@
                 var model = {}
                 model.orderID = parseInt(row.data().OrderID)
                 SaveModals.GetOrderDetailsByOrderID(model)
-                //row.child(format(row.data())).show();
-                //$(format(row.data())).insertAfter(tr);
-                //tr.addClass('shown');
             }
         });
 
-        function format(d) {
-            // `d` is the original data object for the row
-            return (
-                '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-                '<tr>' +
-                '<td>Full name:</td>' +
-                '<td>' +
-                d.name +
-                '</td>' +
-                '</tr>' +
-                '<tr>' +
-                '<td>Extension number:</td>' +
-                '<td>' +
-                d.extn +
-                '</td>' +
-                '</tr>' +
-                '<tr>' +
-                '<td>Extra info:</td>' +
-                '<td>And any further details here (images etc)...</td>' +
-                '</tr>' +
-                '</table>'
-            );
-        }
         
-        //const orderTable = $("#OrderTable").find("tbody")
-        
-        //$.each(result, function (index, row) {
-        //        const elm = `
-        //        <tr>
-        //            <th>
-        //                <div style="overflow: hidden;" class="d-flex align-items-center justify-content-center" >
-        //                    <img src="${row.ProductImage}.jpg" class="rounded mx-auto d-block" height="50px" >
-        //                </div>
-        //            </th>
-        //            <td>${row.ProductName}</td>
-        //            <td name="ProductPrice">${row.OrderDetailQuantity}</td>
-        //            <td name="CartItemQuantity">${row.OrderDetailDiscount}</td>
-        //            <td>${row.ProductPrice * row.OrderDetailQuantity}</td>
-        //            <td>${row.OrderDate}</td>
-        //            <td>${row.OrderRequiredDate}</td>
-        //            <td style="background-color:${row.OrderIsDelivered ? "green" : "red"};"></td>
-        //        </tr>`
-                
-        //        orderTable.append(elm)
-        //});
     },
 
     GetOrderDetailsByOrderIDSucc: function (result) { 
        
-        const newRow = document.createElement("tr");
         $.each($("#OrderTable").find('tr'), function (index, elm) {
             if (result != null || result != []) {
                 
                 result.forEach(orderDetail => {
                     if (orderDetail.OrderID == $(elm).attr("data-orderid")) {
-                        //newTable.innerHTML += (format(orderDetail))
-                        //newRow.appendChild(newTable)
-                        //$(newRow).insertAfter($(elm).closest('tr'));
+                        
                         $(format(orderDetail)).insertAfter($(elm));
                         $(elm).addClass('shown');
                         return
                     }
-                    //console.log(orderDetail.OrderID)
                 })
-                
             }
-            //console.log($(elm).html())
-            
         })
         
         function format(d) {

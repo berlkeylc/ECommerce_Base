@@ -3,7 +3,7 @@
 "use strict";
 
 var Enums = {
-    WebResultTypes: { Nothing: -1, Message: 1, Html: 2, Redirect: 3, Data: 4, ProposalHtml: 5, LoginUsersSessionTimeout: 6, ResourceCode: 7 },
+    WebResultTypes: { Nothing: -1, Message: 1, Html: 2, Redirect: 3, Data: 4},
 }
 
 var Account = {
@@ -134,24 +134,6 @@ window.onload = function () {
     file2Base64();
     clearModalInputs();
     
-    //const fileInput = $("#ProductImage");
-
-    //// Listen for the change event so we can capture the file
-    //fileInput.on('change', (e) => {
-    //    // Get a reference to the file
-    //    const file = e.target.files[0];
-
-    //    // Encode the file using the FileReader API
-    //    const reader = new FileReader();
-    //    reader.onloadend = () => {
-    //        //console.log(reader.result);
-    //        $("#ProductImage").attr("value", reader.result);
-    //        // Logs data:<type>;base64,wL2dvYWwgbW9yZ...
-    //    };
-    //    reader.readAsDataURL(file);
-
-    //});
-
     let items = document.querySelectorAll('.carousel .carousel-item')
 
     items.forEach((el) => {
@@ -168,69 +150,6 @@ window.onload = function () {
         }
     })
 
-    
-
-    //setTimeout(myGreeting, 100);
-    //function myGreeting() {
-        //$(".addToCart").on("click", function () {
-        //    var model = {}
-        //    model.ProductID = $(this).closest('.card').find('input').attr('value')
-        //    model.processCode = "Increase"
-        //    SaveModals.CrudCarts(model)
-        //    console.log("sepete eklendi..")
-        //});
-        
-        //function incrementValue(e) {
-        //    e.preventDefault();
-        //    var fieldName = $(e.target).data('field');
-        //    var parent = $(e.target).closest('div');
-        //    var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
-
-        //    if (!isNaN(currentVal)) {
-        //        parent.find('input[name=' + fieldName + ']').val(currentVal + 1);
-        //        $(e.target).closest('tr').find('td[name = "CartItemQuantity"]').html(currentVal + 1)
-        //        $("#CartTotalPrice").html(parseInt($("#CartTotalPrice").html()) + parseInt($(e.target).closest('tr').find('td[name = "ProductPrice"]').html()))
-        //    } else {
-        //        parent.find('input[name=' + fieldName + ']').val(0);
-        //    }
-        //} 
-
-        //function decrementValue(e) {
-        //    e.preventDefault();
-        //    var fieldName = $(e.target).data('field');
-        //    var parent = $(e.target).closest('div');
-        //    var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
-
-        //    if (!isNaN(currentVal) && currentVal > 0) {
-        //        parent.find('input[name=' + fieldName + ']').val(currentVal - 1);
-        //        $(e.target).closest('tr').find('td[name = "CartItemQuantity"]').html(currentVal - 1)
-        //    } else {
-        //        parent.find('input[name=' + fieldName + ']').val(0);
-        //    }
-        //}
-
-        //$('.input-group').on('click', '.button-plus', function (e) {
-        //    incrementValue(e);
-        //    var model = {}
-        //    model.ProductID = $(this).closest('tr').attr('data-productid')
-        //    model.processCode = "Increase"
-        //    SaveModals.CrudCarts(model)
-        //    //SaveModals.GetCarts();
-        //    console.log("sepete eklendi..")
-        //});
-
-        //$('.input-group').on('click', '.button-minus', function (e) {
-        //    decrementValue(e);
-        //    var model = {}
-        //    model.ProductID = $(this).closest('tr').attr('data-productid')
-        //    model.processCode = "Decrease"
-        //    SaveModals.CrudCarts(model)
-        //    console.log("sepetten cikarildi..")
-        //});
-
-        
-    //}
-
     $("#adminsidebar").find("ul").children().each(function (row, col) { 
         $(col).on("click", function () {
             console.log($(this))
@@ -239,3 +158,21 @@ window.onload = function () {
     })
 
 }
+
+ //const fileInput = $("#ProductImage");
+
+    //// Listen for the change event so we can capture the file
+    //fileInput.on('change', (e) => {
+    //    // Get a reference to the file
+    //    const file = e.target.files[0];
+
+    //    // Encode the file using the FileReader API
+    //    const reader = new FileReader();
+    //    reader.onloadend = () => {
+    //        //console.log(reader.result);
+    //        $("#ProductImage").attr("value", reader.result);
+    //        // Logs data:<type>;base64,wL2dvYWwgbW9yZ...
+    //    };
+    //    reader.readAsDataURL(file);
+
+    //});
